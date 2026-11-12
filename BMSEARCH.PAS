@@ -1,14 +1,14 @@
-unit BMSearch;
+﻿unit BMSearch;
 
 
 (* -------------------------------------------------------------------
-   Boyer-Moore string searching.
+   Boyer-Moore AnsiString searching.
 
-   This is one of the fastest string search algorithms.
+   This is one of the fastest AnsiString search algorithms.
    See a description in:
 
      R. Boyer and S. Moore.
-     A fast string searching algorithm.
+     A fast AnsiString searching algorithm.
      Communications of the ACM 20, 1977, Pags 762-772
 ------------------------------------------------------------------- *)
 
@@ -25,22 +25,22 @@ type
 
 
 type
-   TTranslationTable = array[char] of char;  { translation table }
+   TTranslationTable = array[AnsiChar] of AnsiChar;  { translation table }
 
    TSearchBM = class(TObject)
    private
       FTranslate  : TTranslationTable;     { translation table }
-      FJumpTable  : array[char] of Byte;   { Jumping table }
+      FJumpTable  : array[AnsiChar] of Byte;   { Jumping table }
       FShift_1    : integer;
-      FPattern    : pchar;
+      FPattern    : PAnsiChar;
       FPatternLen : size_t;
 
    public
-      procedure Prepare( Pattern: pchar; PatternLen: size_t);
-      procedure PrepareStr( const Pattern: string);
+      procedure Prepare( Pattern: PAnsiChar; PatternLen: size_t);
+      procedure PrepareStr( const Pattern: AnsiString);
 
-      function  Search( Text: pchar; TextLen: size_t ): pchar;
-      function  Pos( const S: string ): integer;
+      function  Search( Text: PAnsiChar; TextLen: size_t ): PAnsiChar;
+      function  Pos( const S: AnsiString ): integer;
    end;
 
 
@@ -59,7 +59,7 @@ uses  SysUtils;
 
 procedure CreateTranslationTable( var T: TTranslationTable);
 var
-   c: char;
+   c: AnsiChar;
 begin
    for c := #0 to #255 do
        T[c] := c;
@@ -131,10 +131,10 @@ end;
    Preparation of the jumping table
 ------------------------------------------------------------------- *)
 
-procedure TSearchBM.Prepare( Pattern: pchar; PatternLen: size_t);
+procedure TSearchBM.Prepare( Pattern: PAnsiChar; PatternLen: size_t);
 var
    i: integer;
-   c, lastc: char;
+   c, lastc: AnsiChar;
 begin
    FPattern := Pattern;
    FPatternLen := PatternLen;
@@ -178,15 +178,15 @@ begin
 end;
 
 
-procedure TSearchBM.PrepareStr( const Pattern: string);
+procedure TSearchBM.PrepareStr( const Pattern: AnsiString);
 var
-   str: pchar;
+   str: PAnsiChar;
 begin
    if Pattern <> '' then begin
 {$ifdef Windows}
       str := @Pattern[1];
 {$else}
-      str := pchar(Pattern);
+      str := PAnsiChar(Pattern);
 {$endif}
 
       Prepare( str, Length(Pattern));
@@ -195,9 +195,9 @@ end;
 
 
 
-{ Searching Last char & scanning right to left }
+{ Searching Last AnsiChar & scanning right to left }
 
-function TSearchBM.Search( Text: pchar; TextLen: size_t ): pchar;
+function TSearchBM.Search( Text: PAnsiChar; TextLen: size_t ): PAnsiChar;
 var
    shift, m1, j: integer;
    jumps: size_t;
@@ -247,16 +247,16 @@ begin
 end;
 
 
-function TSearchBM.Pos( const S: string ): integer;
+function TSearchBM.Pos( const S: AnsiString ): integer;
 var
-   str, p: pchar;
+   str, p: PAnsiChar;
 begin
    result := 0;
    if S <> '' then begin
 {$ifdef Windows}
       str := @S[1];
 {$else}
-      str := pchar(S);
+      str := PAnsiChar(S);
 {$endif}
 
       p := Search( str, Length(S));

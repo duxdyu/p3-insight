@@ -3,7 +3,7 @@
 interface
 uses
   SysUtils, Classes, Windows, Messages, Forms,
-  GR32, GR32_Lines, VirtualTrees, Graphics, Types,
+  GR32, GR32_Lines, GR32_Misc, VirtualTrees, Graphics, Types,
   OmniXML, MyOmniXMLHelper;
   
 procedure soundBeep();
@@ -38,6 +38,14 @@ function  VTGetNodeByIndex(VT: TBaseVirtualTree; aIndex: Integer): PVirtualNode;
 //function  VTIndexOfNote(VT: TBaseVirtualTree; n: PVirtualNode): Integer;
 
 type
+  TPiTreeHelper = class helper for TBaseVirtualTree
+    function GetNodeUserData(Node: PVirtualNode): Pointer;
+    function GetNodeUserDataInt(Node: PVirtualNode): Integer;
+    function GetSelectedNode: PVirtualNode;
+    procedure SelectNode(Node: PVirtualNode);
+    property SelectedNode: PVirtualNode read GetSelectedNode;
+  end;
+
   TMyVTEditor = class(TVTEdit)
   private
     fLeftCount, fRightCount: Integer;
@@ -49,8 +57,10 @@ type
 //    procedure SetEdit(const Value: TVTEdit); override;
 //    class function GetDefaultErrHintTitle: WideString; override;
 //    function InternalAcceptNewText(const aNewText: WideString; var aErrHintTitle, aErrHintMsg: WideString): Boolean; override;
-    procedure InitEditor(); override;
+    procedure InitEditor();
   public
+    constructor Create; override;
+    property Tree: TCustomVirtualStringTree read FTree;
   end;
 
 
@@ -98,8 +108,8 @@ procedure DrawDiagonalUnderlineClr(
         aLeft, aTop, aWidth: Integer);
 
 function FileExistsWide(const aFileName: WideString): Boolean;        
-function SimpleHexToBin(const aHexStr: string): string;
-function SimpleBinToHex(const aBinStr: string): string;
+function SimpleHexToBin(const aHexStr: string): RawByteString;
+function SimpleBinToHex(const aBinStr: RawByteString): string;
 
 procedure prettyPrintSaveXMLToStream(doc: IXMLDocument; str: TStream);
 procedure prettyPrintSaveXMLToFile(doc: IXMLDocument; const FileName: WideString);
@@ -110,6 +120,49 @@ procedure configError(const fn, msg: WideString);
 implementation
 
 uses p3DataStruct;
+
+function TPiTreeHelper.GetNodeUserData(Node: PVirtualNode): Pointer;
+var Data: Pointer;
+begin
+  Result := nil;
+  if Node = nil then Exit;
+  Data := GetNodeData(Node);
+  if Data <> nil then Result := PPointer(Data)^;
+end;
+
+function TPiTreeHelper.GetNodeUserDataInt(Node: PVirtualNode): Integer;
+begin
+  Result := Integer(GetNodeUserData(Node));
+end;
+
+function TPiTreeHelper.GetSelectedNode: PVirtualNode;
+var
+  Nodes: TNodeArray;
+  Node: PVirtualNode;
+begin
+  // Historical $4BDE24 returns FSelection[0]; $4ADF78 keeps that array
+  // sorted by unsigned node address, not display order. Use the public
+  // selection snapshot rather than depending on private component layout.
+  Result := nil;
+  Nodes := GetSortedSelection(False);
+  for Node in Nodes do
+    if (Result = nil) or (NativeUInt(Node) < NativeUInt(Result)) then
+      Result := Node;
+end;
+
+procedure TPiTreeHelper.SelectNode(Node: PVirtualNode);
+begin
+  if Node <> nil then
+  begin
+    // Historical PI $4BDE3C calls DoValidateCache then SetSelected(True).
+    // SetSelected itself applies the tree's single/multi-selection policy.
+    // Do not invent focus/scroll changes or clear an existing multi-selection.
+    DoValidateCache;
+    Selected[Node] := True;
+  end
+  else
+    ClearSelection;
+end;
 
 function  cyclePoints(const aFirstPt: TFixedPoint): TArrayOfFixedPoint;
 begin
@@ -352,151 +405,58 @@ end;
 
 { TMyVTEditor }
 
+type
+  TTreeAccess = class(TBaseVirtualTree);
+
 procedure TMyVTEditor.WMKeyDown(var Message: TWMKeyDown);
 var
-  Tree: TBaseVirtualTree;
-  ShiftState: TShiftState;
-
+  Tree: TCustomVirtualStringTree;
+  AtBoundary: Boolean;
 begin
-  ShiftState := KeyDataToShiftState(Message.KeyData);
-  if ShiftState <> [] then
+  if KeyDataToShiftState(Message.KeyData) <> [] then
   begin
     inherited;
     Exit;
   end;
-
+  Tree := TMyStringEditLink(FLink).Tree;
   case Message.CharCode of
-    VK_PRIOR:
-    begin
-      Tree := fLink.Tree;
-      if Tree.CanSelectPrev() then
-        if Tree.DoEndEdit() then
-          PostMessage(Tree.Handle, UM_PAGE_UP, 0, 0);
-      Message.Result := 0;
-    end;
-
-    VK_NEXT:
-    begin
-      Tree := fLink.Tree;
-      if Tree.CanSelectNext() then
-        if Tree.DoEndEdit() then
-          PostMessage(Tree.Handle, UM_PAGE_DOWN, 0, 0);
-      Message.Result := 0;
-
-//      Tree := fLink.Tree;
-////      PostMessage(Tree.Handle, UM_CANCEL_EDIT, 0, 0);
-//      Message.Result := 0;
-    end;
-
-    VK_HOME:
-    begin
-      Tree := fLink.Tree;
-      if (SelStart = 0) and (SelLength = 0) then
+    VK_PRIOR, VK_NEXT, VK_UP, VK_DOWN:
       begin
-        if fLeftCount = 0 then
+        if Message.CharCode in [VK_PRIOR, VK_UP] then
+          AtBoundary := Tree.GetPreviousVisible(Tree.FocusedNode) = nil
+        else
+          AtBoundary := Tree.GetNextVisible(Tree.FocusedNode) = nil;
+        if not AtBoundary and TTreeAccess(Tree).DoEndEdit then
         begin
-          fLeftCount := 1;
-          inherited;
+          Tree.SetFocus;
+          PostMessage(Tree.Handle, WM_KEYDOWN, Message.CharCode, Message.KeyData);
+        end;
+        Message.Result := 0;
+      end;
+    VK_HOME, VK_LEFT, VK_END, VK_RIGHT:
+      begin
+        if Message.CharCode in [VK_HOME, VK_LEFT] then
+        begin
+          AtBoundary := (SelStart = 0) and (SelLength = 0);
+          if AtBoundary then Inc(fLeftCount) else fLeftCount := 0;
+          AtBoundary := AtBoundary and (fLeftCount >= 2);
         end
         else
         begin
-          fLeftCount := 0;
-          PostMessage(Tree.Handle, UM_CANCEL_EDIT, 0, 0);
-          Message.Result := 0;
+          AtBoundary := (SelStart = Length(Text)) and (SelLength = 0);
+          if AtBoundary then Inc(fRightCount) else fRightCount := 0;
+          AtBoundary := AtBoundary and (fRightCount >= 2);
         end;
-      end
-      else
-      begin
-        fLeftCount := 0;
-        inherited;
-      end;
-    end;
-
-    VK_END:
-    begin
-      Tree := fLink.Tree;
-      if (SelStart = (Length(Text))) and (SelLength = 0) then
-      begin
-        if fRightCount = 0 then
+        if AtBoundary then
         begin
-          fRightCount := 1;
-          inherited;
+          fLeftCount := 0;
+          fRightCount := 0;
+          TTreeAccess(Tree).DoCancelEdit;
+          Tree.SetFocus;
+          Message.Result := 0;
         end
-        else
-        begin
-          fRightCount := 0;
-          PostMessage(Tree.Handle, UM_CANCEL_EDIT, 0, 0);
-          Message.Result := 0;
-        end;
-      end
-      else
-      begin
-        fRightCount := 0;
-        inherited;
+        else inherited;
       end;
-    end;
-
-    VK_LEFT:
-    begin
-      Tree := fLink.Tree;
-      if (SelStart = 0) and (SelLength = 0) then
-      begin
-        if fLeftCount = 0 then
-          fLeftCount := 1
-        else
-        begin
-          fLeftCount := 0;
-          PostMessage(Tree.Handle, UM_CANCEL_EDIT, 0, 0);
-        end;
-        Message.Result := 0;
-      end
-      else
-      begin
-        fLeftCount := 0;
-        inherited;
-      end;
-    end;
-
-    VK_RIGHT:
-    begin
-      Tree := fLink.Tree;
-      
-      if (SelStart = (Length(Text))) and (SelLength = 0) then
-      begin
-        if fRightCount = 0 then
-          fRightCount := 1
-        else
-        begin
-          fRightCount := 0;
-          PostMessage(Tree.Handle, UM_CANCEL_EDIT, 0, 0);
-        end;
-        Message.Result := 0;
-      end
-      else
-      begin
-        fRightCount := 0;
-        inherited;
-      end;
-    end;
-
-    VK_UP:
-      begin
-        Tree := fLink.Tree;
-        if Tree.CanSelectPrev() then
-          if Tree.DoEndEdit() then
-            Tree.PostSelectAndSetFocusMsg(False, True);
-        Message.Result := 0;
-      end;
-
-    VK_DOWN:
-      begin
-        Tree := FLink.Tree;
-        if Tree.CanSelectNext() then
-          if Tree.DoEndEdit() then
-            Tree.PostSelectAndSetFocusMsg(True, True);
-        Message.Result := 0;
-      end;
-
   else
     fLeftCount := 0;
     fRightCount := 0;
@@ -508,13 +468,19 @@ end;
 
 procedure TMyStringEditLink.InitEditor;
 begin
-  FEdit := TMyVTEditor.Create(Self);
-  with FEdit do
+  Edit := TMyVTEditor.Create(Self);
+  with Edit do
   begin
     Visible := False;
     BorderStyle := bsSingle;
     AutoSize := False;
   end;
+end;
+
+constructor TMyStringEditLink.Create;
+begin
+  inherited;
+  InitEditor;
 end;
 
 procedure VTGetSelectedNodes(vt: TBaseVirtualTree; result: TList);
@@ -563,12 +529,12 @@ begin
 
   SetTextColor(DC, color);
   bm := SetBkMode(DC, TRANSPARENT);
-  InflateRect(rect, -4, -2);
+  System.Types.InflateRect(rect, -4, -2);
 
-  DrawTextW(DC, pwidechar(b), 1, rect, DT_SINGLELINE or DT_VCENTER or DT_LEFT, False);
+  DrawTextW(DC, pwidechar(b), 1, rect, DT_SINGLELINE or DT_VCENTER or DT_LEFT);
   SetTextColor(DC, textColor);
 
-  DrawTextW(DC, pwidechar(s), length(s), rect, DT_SINGLELINE or DT_VCENTER or DT_RIGHT, false);
+  DrawTextW(DC, pwidechar(s), length(s), rect, DT_SINGLELINE or DT_VCENTER or DT_RIGHT);
 
   SetBkMode(DC, bm);
 end;
@@ -593,9 +559,9 @@ begin
   end;
 
   r := aPaintInfo.CellRect;
-  InflateRect(r, -4, -2);
+  System.Types.InflateRect(r, -4, -2);
   SetTextColor(aPaintInfo.Canvas.Handle, aTxtColor);
-  DrawTextW(aPaintInfo.Canvas.Handle, pWideChar(aText), length(aText), r, DT_SINGLELINE or DT_VCENTER or align, False);
+  DrawTextW(aPaintInfo.Canvas.Handle, pWideChar(aText), length(aText), r, DT_SINGLELINE or DT_VCENTER or align);
 
 //  vt.GetTextInfo();
 end;
@@ -622,9 +588,9 @@ begin
   end;
 
   r := cellRect;
-  InflateRect(r, -4, -2);
+  System.Types.InflateRect(r, -4, -2);
   SetTextColor(Canvas.Handle, aTxtColor);
-  DrawTextW(Canvas.Handle, pWideChar(aText), length(aText), r, DT_SINGLELINE or DT_VCENTER or align, False);
+  DrawTextW(Canvas.Handle, pWideChar(aText), length(aText), r, DT_SINGLELINE or DT_VCENTER or align);
 end;
 
 //function TMyStringEditLink.InternalAcceptNewText(const aNewText: WideString;
@@ -724,31 +690,28 @@ begin
   Result := (Code <> -1) and (FILE_ATTRIBUTE_DIRECTORY and Code = 0);
 end;
 
-function SimpleHexToBin(const aHexStr: string): string;
+function SimpleHexToBin(const aHexStr: string): RawByteString;
 var
-  L: Integer;
+  L, I, Value: Integer;
 begin
   L := Length(aHexStr);
-  if L > 0 then
+  if Odd(L) then raise EConvertError.Create('Hex byte string has odd length');
+  SetLength(Result, L div 2);
+  for I := 1 to Length(Result) do
   begin
-    L := L div 2;
-    SetLength(Result, L);
-    HexToBin(PChar(aHexStr), PChar(Result), L);
-  end
-  else Result := '';
+    if not TryStrToInt('$' + Copy(aHexStr, I * 2 - 1, 2), Value) then
+      raise EConvertError.Create('Invalid hex byte string');
+    Result[I] := AnsiChar(Value);
+  end;
 end;
 
-function SimpleBinToHex(const aBinStr: string): string;
+function SimpleBinToHex(const aBinStr: RawByteString): string;
 var
-  L: Integer;
+  I: Integer;
 begin
-  L := Length(aBinStr);
-  if L > 0 then
-  begin
-    SetLength(Result, L * 2);
-    BinToHex(PChar(aBinStr), PChar(Result), L);
-  end
-  else Result := '';
+  Result := '';
+  for I := 1 to Length(aBinStr) do
+    Result := Result + IntToHex(Byte(aBinStr[I]), 2);
 end;
 
 procedure prettyPrintSaveXMLToStream(doc: IXMLDocument; str: TStream);

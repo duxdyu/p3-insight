@@ -1,0 +1,17 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{55231F62-8D90-4009-99B9-D767DA540617}</ProjectGuid>
+    <MainSource>XMLHelperTests.dpr</MainSource><ProjectVersion>20.3</ProjectVersion>
+    <Base>True</Base><Config Condition="'$(Config)'==''">Release</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <AppType>Console</AppType><FrameworkType>VCL</FrameworkType>
+    <DCC_ExeOutput>../../build/tests</DCC_ExeOutput><DCC_DcuOutput>../../build/dcu/XMLHelperTests</DCC_DcuOutput>
+    <DCC_Define>P3INSIGHT;RELEASE</DCC_Define>
+    <DCC_UnitSearchPath>../..;../../vendor/xml;$(BDS)/lib/win32/release</DCC_UnitSearchPath>
+    <DCC_IncludePath>../../vendor/xml</DCC_IncludePath><DCC_ResourcePath>../../vendor/xml</DCC_ResourcePath>
+    <DCC_Namespace>Winapi;System.Win;Vcl;Vcl.Imaging;Vcl.Samples;System;Xml;Data;System.Generics</DCC_Namespace>
+    <DCC_MapFile>3</DCC_MapFile><DCC_DebugInformation>1</DCC_DebugInformation>
+  </PropertyGroup>
+  <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>
+  <Import Project="$(BDS)/Bin/CodeGear.Delphi.Targets" />
+</Project>

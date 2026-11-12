@@ -1,4 +1,4 @@
-unit p3hack;
+ï»¿unit p3hack;
 
 interface
 uses
@@ -8,7 +8,7 @@ uses
 
 const
   P3WndClassName = 'Afx:400000:3:0:1900011:0';
-  P3WndText = '´ó º½ º£ ¼Ò 3';
+  P3WndText = 'å¤§ èˆª æµ· å®¶ 3';
 
 var
   P3Module: THandle;
@@ -29,7 +29,7 @@ function attachP3(): Boolean;
 implementation
 
 uses AxGameHackToolBox, p3insight_utils, P3InsightMain, p3DataStruct,
-  myDetours;
+  myDetours, GameWindowHook, PITrace, PISettings;
 
 
 var
@@ -70,7 +70,10 @@ type
 
 procedure p3HackInit();
 begin
-  P3Module := GetModuleHandle('p3.exe');
+  // The modern distribution names its host Patrician3.exe, not p3.exe.
+  // Bind to the executable that actually loaded this DLL.
+  P3Module := GetModuleHandle(nil);
+  if P3Module = 0 then RaiseLastOSError;
   P3ModuleBase := pointer(P3Module);
   P3Image := TJclPeImage.Create();
   P3Image.AttachLoadedModule(P3Module);
@@ -184,19 +187,28 @@ asm
 end;
 
 procedure patchP3();
+const
+  ExitPrologue: array[0..5] of Byte = ($53,$55,$56,$8B,$F1,$57);
+  DatePrologue: array[0..8] of Byte = ($56,$8B,$71,$14,$B8,$61,$F3,$19,$67);
+var ExitTarget, DateTarget: Pointer;
 begin
   if not Conf.AllowModify then
     exit;
     
+  ExitTarget := Pointer(NativeUInt(P3Module) + P3CODEPTR__EXIT_PROC);
+  DateTarget := Pointer(NativeUInt(P3Module) + P3CODEPTR__UPDATE_DATE_PROC);
+  if not CompareMem(ExitTarget, @ExitPrologue[0], SizeOf(ExitPrologue)) or
+     not CompareMem(DateTarget, @DatePrologue[0], SizeOf(DatePrologue)) then
+    raise Exception.Create('PI game hook prologues do not match the selected game executable');
   doMyDetours(
-    P3Image.RawToVa(P3CODEPTR__EXIT_PROC),
+    ExitTarget,
     @p3Hook_ExitGame,
     6);
 
 //  dbgStr('lHookProc->');
 //  p3Hook_DateUpdated();
   doMyDetours(
-    P3Image.RawToVa(P3CODEPTR__UPDATE_DATE_PROC),
+    DateTarget,
     @p3Hook_DateUpdated,
     9);
 //  dbgStr('<-lHookProc');
@@ -215,6 +227,7 @@ var
   procedure dbgOldValue();
   var
     s: string;
+    Bytes: RawByteString;
     i: Integer;
   begin
     if not modItem.BinaryForm then
@@ -230,9 +243,9 @@ var
       dbgStr(pchar(s));
     end;
     
-    SetLength(s, modItem.Sz);
-    Move(p^, s[1], modItem.Sz);
-    s := SimpleBinToHex(s);
+    SetLength(Bytes, modItem.Sz);
+    Move(p^, Bytes[1], modItem.Sz);
+    s := SimpleBinToHex(Bytes);
     s := 'addr: ' + pToHex(p) + ' oldValue=$' + s;
     dbgStr(s);
   end;
@@ -423,6 +436,7 @@ var
 
   procedure doHotKey();
   begin
+    TracePI('F1 action disallow='+BoolToStr(disallowF1,True)+' gameActive='+BoolToStr(isGameActive(),True));
     if disallowF1 then
     begin
       disallowF1 := False;
@@ -471,6 +485,8 @@ var
 
 begin
   Result := 0;
+  if ((uMsg=WM_KEYUP) or (uMsg=WM_KEYDOWN)) and (wP=VK_F1) then
+    TracePI('F1 message='+IntToHex(uMsg,4)+' lp='+IntToHex(lp,8));
 //  if uMsg = WM_KEYDOWN then
 //  begin
 //    ss := KeyDataToShiftState(lp);
@@ -600,7 +616,7 @@ begin
   end;
 
 
-  Result := CallWindowProc(oldWndProc, wnd, uMsg, wP, lp);
+  Result := CallGameWindowProc(oldWndProc, wnd, uMsg, wP, lp);
 end;
 
 
@@ -610,7 +626,9 @@ var
 begin
   Result := False;
 
-  P3WndHandle := FindWindow(P3WndClassName, P3WndText);
+  // A title selects a window only inside the current injected host PID.
+  P3WndHandle := FindPIWindow(GetCurrentProcessId,
+    ReadPISettings(PIModuleDirectory(HInstance)).WindowTitle);
   if P3WndHandle = 0 then
   begin
 //    OutputDebugString('Game not started or not found.');
@@ -647,7 +665,7 @@ begin
 
   p := @newWndProc;
 
-  oldWndProc := Pointer(SetWindowLong(P3WndHandle, GWL_WNDPROC, Integer(p)));
+  oldWndProc := InstallGameWindowProc(P3WndHandle, p);
   if oldWndProc = nil then
   begin
     OutputDebugString('Attach failed');

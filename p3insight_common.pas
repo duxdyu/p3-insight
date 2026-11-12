@@ -1,9 +1,9 @@
-unit p3insight_common;
+ï»¿unit p3insight_common;
 
 interface
 uses
   SysUtils, Classes, OmniXML, MyOmniXMLHelper, Contnrs, Windows, p3DataStruct,
-  JvWavePlayer, WideStrings;
+  JvWavePlayer, WideStrings, PISettings;
 
 const
   MAX_AREA_COUNT = 5;
@@ -24,8 +24,8 @@ type
     Verify: Boolean;
     OrgValue: Integer;
     Value: Integer;
-    OrgBinValue: string;
-    BinValue: string;
+    OrgBinValue: RawByteString;
+    BinValue: RawByteString;
     BinaryForm, IsCode: Boolean;
     VA: Boolean;
   end;
@@ -437,7 +437,7 @@ var
 
 
 //not include the '-'
-procedure extractShipAreaPrefix(ship: PP3R2Ship; out prefix, name, suffix: WideString);
+procedure extractShipAreaPrefix(ship: PP3R2Ship; out prefix, name, suffix: UnicodeString);
 function encodeShipName(const prefix, name, suffix: WideString): WideString;
 //procedure setShipAreaPrefix(ship: PP3R2Ship; const area: WideString);
 
@@ -454,7 +454,7 @@ begin
   else if s = '' then
     Result := CO__NONE
   else
-    raise Exception.Create('ÎŞĞ§µÄÑ¡Ïî£º' + s);
+    raise Exception.Create('æ— æ•ˆçš„é€‰é¡¹ï¼š' + s);
 end;
 
 function  trCityOptionToStr(option: TTRCityOption): string;
@@ -464,7 +464,7 @@ begin
     CO__FIX:    Result := 'fix';
     CO__NO_STOP:  Result := 'no-stop';
   else
-    raise Exception.Create('Î´´¦ÀíµÄÑ¡Ïî£¬Ord=' + IntToStr(Ord(option)));
+    raise Exception.Create('æœªå¤„ç†çš„é€‰é¡¹ï¼ŒOrd=' + IntToStr(Ord(option)));
   end;
 end;
 
@@ -481,7 +481,7 @@ begin
   else if s = '' then
     Result := RT__UNSPECIFIED
   else
-    raise Exception.Create('ÎŞĞ§µÄµÄ²Ù×÷ÀàĞÍ£º' + S);
+    raise Exception.Create('æ— æ•ˆçš„çš„æ“ä½œç±»å‹ï¼š' + S);
 end;
 
 function  tradeRouteOpTypeToStr(opType: TTradeRouteOpType): string;
@@ -493,7 +493,7 @@ begin
     RT__PUT_INTO:     Result := 'i';
     RT__GET_OUT:      Result := 'o';
   else
-    raise Exception.Create('Î´´¦ÀíµÄÑ¡Ïî£¬Ord=' + IntToStr(Ord(opType)));
+    raise Exception.Create('æœªå¤„ç†çš„é€‰é¡¹ï¼ŒOrd=' + IntToStr(Ord(opType)));
   end;
 end;
 
@@ -582,7 +582,7 @@ var
 
   procedure errConfFile();
   begin
-    raise Exception.Create('ÅäÖÃÎÄ¼ş´íÎó');
+    raise Exception.Create('é…ç½®æ–‡ä»¶é”™è¯¯');
   end;
 
   procedure loadModItems();
@@ -738,7 +738,7 @@ var
     S := TMyXMLUtils.GetAttrValueDefEmpty(e_general, 'warning-sound');
     if S <> '' then
     begin
-      WarningSoundFN := SoundPath + S;
+      WarningSoundFN := PIRelativeResource(SoundPath, S);
       if not FileExistsWide(WarningSoundFN) then
         WarningSoundFN := '';
     end;
@@ -1338,7 +1338,7 @@ begin
     end;
 
 //    if AreaDef.areaCityList.getCount() <> MAX_CITY_COUNT then
-//      raise Exception.Create('ÎŞĞ§µÄ³ÇÕòÁĞ±í£¬ÊıÁ¿²»×ã');
+//      raise Exception.Create('æ— æ•ˆçš„åŸé•‡åˆ—è¡¨ï¼Œæ•°é‡ä¸è¶³');
 
     for I := MIN_INTERNAL_CITY_CODE to MAX_INTERNAL_CITY_CODE do
     begin
@@ -1643,7 +1643,7 @@ begin
 
       if not TryStrToInt(e_p.GetAttribute('p'), v)
       or (v <= 0) then
-        raise Exception.Create('ÎŞĞ§µÄ¼Û¸ñÁĞ±í¶¨Òå');
+        raise Exception.Create('æ— æ•ˆçš„ä»·æ ¼åˆ—è¡¨å®šä¹‰');
 
       priceList.add(v);
 
@@ -1651,7 +1651,7 @@ begin
     end;
 
     if (cnt <> MAX_GOODS) then
-      raise Exception.Create('ÎŞĞ§µÄ¼Û¸ñÁĞ±í¶¨Òå');
+      raise Exception.Create('æ— æ•ˆçš„ä»·æ ¼åˆ—è¡¨å®šä¹‰');
 
     add(priceList);
 
@@ -1968,7 +1968,7 @@ begin
 end;
 
 //not include the '-'
-procedure extractShipAreaPrefix(ship: PP3R2Ship; out prefix, name, suffix: WideString);
+procedure extractShipAreaPrefix(ship: PP3R2Ship; out prefix, name, suffix: UnicodeString);
 var
   p: integer;
   n, s: WideString;
@@ -2177,7 +2177,7 @@ var
     begin
       name := TMyXMLUtils.GetAttrValueNotEmpty(e_cate, 'name');
       if Categories.IndexOf(name) >= 0 then
-        confErr('ÖØ¸´µÄ·ÖÀàÃû³Æ');
+        confErr('é‡å¤çš„åˆ†ç±»åç§°');
         
       Categories.Add(name);
 
@@ -2208,12 +2208,12 @@ var
       begin
         gid := TMyXMLUtils.GetAttrValueAsLongInt(e_op, 'goods-id') + 1;
         if (gid < 0) or (gid > MAX_GOODS_ID) then
-          confErr('ÎŞĞ§µÄ»õÎïID: ' + IntToStr(gid));
+          confErr('æ— æ•ˆçš„è´§ç‰©ID: ' + IntToStr(gid));
 
         trOp := strToTradeRouteOpType(TMyXMLUtils.GetAttrValueDefEmpty(e_op, 'type'));
         price := TMyXMLUtils.GetAttrValueAsLongIntDef(e_op, 'price', 0);
         if price < 0 then
-          confErr('ÎŞĞ§µÄ¼Û¸ñ£º' + IntToStr(price));
+          confErr('æ— æ•ˆçš„ä»·æ ¼ï¼š' + IntToStr(price));
 
         s := TMyXMLUtils.GetAttrValue(e_op, 'qty', False);
         if s = 'max' then
@@ -2223,7 +2223,7 @@ var
           if not TryStrToInt(s, qty)
           or (qty < 0)
           or (qty > TRADE_ROUTE__MAX_QTY) then
-            confErr('ÎŞĞ§µÄÊıÁ¿£º' + s);
+            confErr('æ— æ•ˆçš„æ•°é‡ï¼š' + s);
         end;
 
         Op := TCustomTROp.Create();
@@ -2238,7 +2238,7 @@ var
     begin
       code := TMyXMLUtils.GetAttrValueAsByte(e_city, 'internal-code');
       if code > MAX_INTERNAL_CITY_CODE then
-        confErr('ÎŞĞ§µÄ³ÇÕò´úÂë£º' + byteToHexStr(code));
+        confErr('æ— æ•ˆçš„åŸé•‡ä»£ç ï¼š' + byteToHexStr(code));
 
       option := strToTRCityOption(TMyXMLUtils.GetAttrValueDefEmpty(e_city, 'option'));
 
@@ -2320,7 +2320,7 @@ begin
   idx := 1;
 
 l1:
-  Result := 'Î´ÃüÃûÀà±ğ' + IntToStr(idx);
+  Result := 'æœªå‘½åç±»åˆ«' + IntToStr(idx);
   if Categories.IndexOf(Result) >= 0 then
   begin
     Inc(idx);
@@ -2340,7 +2340,7 @@ begin
   idx := 1;
 
 l1:
-  name := 'Î´ÃüÃûº½Ïß' + IntToStr(idx);
+  name := 'æœªå‘½åèˆªçº¿' + IntToStr(idx);
 
   if findByName(name) <> nil then
   begin
@@ -2483,11 +2483,10 @@ begin
 end;
 
 initialization
-  AppPath := ExtractFilePath(ParamStr(0));
-  StuffPath := AppPath + 'p3insight-stuff\';
+  AppPath := PIModuleDirectory(HInstance);
+  StuffPath := PIDataDirectory(AppPath);
   ImgPath := StuffPath + 'images\';
-  SoundPath := StuffPath + 'sound\';
+  SoundPath := StuffPath + 'sounds\';
   Conf := TP3InsightConf.Create();
 
 end.
-

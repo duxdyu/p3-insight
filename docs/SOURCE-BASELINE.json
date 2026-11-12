@@ -1,0 +1,333 @@
+{
+  "baseline": "MED-PI-source-20261112, PI/launcher/shared subset only",
+  "upstream_repo_base": "44b6efc",
+  "inputs": {
+    "tests/pi/ABILayoutTests.dpr": {
+      "input": "src/pi/ABILayoutTests.dpr",
+      "input_sha256": "f4224e2dd4fdaa90c2d10783bf49b2d776de3284e03cc85d87395acb29e26f5f",
+      "repository_sha256": "ff7e08ea5aa8b19812ef8714bdbc0cfa6b4ffef5324ad8d882eb00330747ede2",
+      "adapted": true
+    },
+    "tests/pi/ABILayoutTests.res": {
+      "input": "src/pi/ABILayoutTests.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "AxGameHackToolBox.pas": {
+      "input": "src/pi/AxGameHackToolBox.pas",
+      "input_sha256": "ba6bcfca20356d55b425f172c50012d82c70c955c01c16da377057ba8eee6f6b",
+      "repository_sha256": "ba6bcfca20356d55b425f172c50012d82c70c955c01c16da377057ba8eee6f6b",
+      "adapted": false
+    },
+    "BMSEARCH.PAS": {
+      "input": "src/pi/BMSEARCH.PAS",
+      "input_sha256": "985653636105a87f176e8de2bdc5e159359c879b76a7c73cb7ac0af362636795",
+      "repository_sha256": "985653636105a87f176e8de2bdc5e159359c879b76a7c73cb7ac0af362636795",
+      "adapted": false
+    },
+    "GameText.pas": {
+      "input": "src/pi/GameText.pas",
+      "input_sha256": "3a59aca2e71efc5ec0d5c9528e70b6686456e9ec40ecc2a39d2728afcc329d88",
+      "repository_sha256": "3a59aca2e71efc5ec0d5c9528e70b6686456e9ec40ecc2a39d2728afcc329d88",
+      "adapted": false
+    },
+    "GameWindowHook.pas": {
+      "input": "src/pi/GameWindowHook.pas",
+      "input_sha256": "637f41ed2f2505d5edf9095cc8cdf0d4bc1541cb8328bfd70dadb2b3954a1dcb",
+      "repository_sha256": "637f41ed2f2505d5edf9095cc8cdf0d4bc1541cb8328bfd70dadb2b3954a1dcb",
+      "adapted": false
+    },
+    "myDetours.pas": {
+      "input": "src/pi/myDetours.pas",
+      "input_sha256": "2020f0acee7dfd10e52e29ee0ee31866b13c74d2cf509854d6c896ed7db07bb6",
+      "repository_sha256": "2020f0acee7dfd10e52e29ee0ee31866b13c74d2cf509854d6c896ed7db07bb6",
+      "adapted": false
+    },
+    "MyGameTools.pas": {
+      "input": "src/pi/MyGameTools.pas",
+      "input_sha256": "7221679dcdb6b4c6b44aa703cee8bc971abe55cccc4c872d620d5b0a33db7e22",
+      "repository_sha256": "7221679dcdb6b4c6b44aa703cee8bc971abe55cccc4c872d620d5b0a33db7e22",
+      "adapted": false
+    },
+    "MyOmniXMLHelper.pas": {
+      "input": "src/pi/MyOmniXMLHelper.pas",
+      "input_sha256": "152ac62669c8ec4967203f4c3b5ba747880ab8f1ab986e082aae48369af024bc",
+      "repository_sha256": "152ac62669c8ec4967203f4c3b5ba747880ab8f1ab986e082aae48369af024bc",
+      "adapted": false
+    },
+    "p3DataStruct.pas": {
+      "input": "src/pi/p3DataStruct.pas",
+      "input_sha256": "e329e476c0d4d26c606a80887196e0bb23ab3dd560673e7f79aee1bddd9de519",
+      "repository_sha256": "954ae0566a786fa06bf8942fe6fe5efa5545660bd28e76f34a55255f7599dff7",
+      "adapted": true
+    },
+    "p3hack.pas": {
+      "input": "src/pi/p3hack.pas",
+      "input_sha256": "85bfa2caff9f23d1a449370c00ef5b2b9706a401f858cc32aadd01ee796f0c48",
+      "repository_sha256": "85bfa2caff9f23d1a449370c00ef5b2b9706a401f858cc32aadd01ee796f0c48",
+      "adapted": false
+    },
+    "p3insight.dpr": {
+      "input": "src/pi/p3insight.dpr",
+      "input_sha256": "490ef200ea11d6c9a9a031cb51ec28f9d460657c1d4e162e836ed0142db291c4",
+      "repository_sha256": "14377478085c954b08024d49eb65f02a78bf7f65825ea703dfcecd966cede043",
+      "adapted": true
+    },
+    "p3insight.res": {
+      "input": "src/pi/p3insight.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "P3InsightMain.dfm": {
+      "input": "src/pi/P3InsightMain.dfm",
+      "input_sha256": "6d27c57c506922e13b9a9b6cef04ea72122310d667967a15d3eaa054dc52b78a",
+      "repository_sha256": "6d27c57c506922e13b9a9b6cef04ea72122310d667967a15d3eaa054dc52b78a",
+      "adapted": false
+    },
+    "P3InsightMain.pas": {
+      "input": "src/pi/P3InsightMain.pas",
+      "input_sha256": "386ab518d912429d5b06dd5f6ab4d40760f19875986a3e550429715408669cb4",
+      "repository_sha256": "43c436da5511466af8f20bb8fbe731dd003ca775c35b69d9934612c46c5ea2e9",
+      "adapted": true
+    },
+    "P3InsightUICityView.pas": {
+      "input": "src/pi/P3InsightUICityView.pas",
+      "input_sha256": "2fb13cd5ba52319a9520b90f7be54d3db8bd5ce199bd2ed53a9786298b7f049d",
+      "repository_sha256": "2fb13cd5ba52319a9520b90f7be54d3db8bd5ce199bd2ed53a9786298b7f049d",
+      "adapted": false
+    },
+    "P3InsightUICommon.pas": {
+      "input": "src/pi/P3InsightUICommon.pas",
+      "input_sha256": "e0cf22c1823a913c11262c27840c10ff0f554a0b5dbc54a66026b74ca047918a",
+      "repository_sha256": "e0cf22c1823a913c11262c27840c10ff0f554a0b5dbc54a66026b74ca047918a",
+      "adapted": false
+    },
+    "p3insight_common.pas": {
+      "input": "src/pi/p3insight_common.pas",
+      "input_sha256": "620d078d5a051d685a40c9de6f9397e28f286d435e759fdd97bc76409047bf79",
+      "repository_sha256": "620d078d5a051d685a40c9de6f9397e28f286d435e759fdd97bc76409047bf79",
+      "adapted": false
+    },
+    "p3insight_test.dfm": {
+      "input": "src/pi/p3insight_test.dfm",
+      "input_sha256": "264138b9204e2d59782954ec316e8156d568cf7957fe7568f96f6aabf43f8690",
+      "repository_sha256": "264138b9204e2d59782954ec316e8156d568cf7957fe7568f96f6aabf43f8690",
+      "adapted": false
+    },
+    "p3insight_test.pas": {
+      "input": "src/pi/p3insight_test.pas",
+      "input_sha256": "f7a3ae004b94192f212c3ac4bbfb9a443c5beb65811f8d908f60d750568503ad",
+      "repository_sha256": "f7a3ae004b94192f212c3ac4bbfb9a443c5beb65811f8d908f60d750568503ad",
+      "adapted": false
+    },
+    "p3insight_utils.pas": {
+      "input": "src/pi/p3insight_utils.pas",
+      "input_sha256": "2d65ebbad70c473998f755001071fa18fe51d88305c899447957931e44fb205b",
+      "repository_sha256": "2d65ebbad70c473998f755001071fa18fe51d88305c899447957931e44fb205b",
+      "adapted": false
+    },
+    "p3Maps.pas": {
+      "input": "src/pi/p3Maps.pas",
+      "input_sha256": "9bbc4f924b8281526bc45c1c6e722bbbce35b38d84b26c998f73edd4e6d2411e",
+      "repository_sha256": "9bbc4f924b8281526bc45c1c6e722bbbce35b38d84b26c998f73edd4e6d2411e",
+      "adapted": false
+    },
+    "p3Types.pas": {
+      "input": "src/pi/p3Types.pas",
+      "input_sha256": "8c6a62a7033c67a836aec007757002f7800820fc256fea45b54d7b85a67ec43d",
+      "repository_sha256": "8c6a62a7033c67a836aec007757002f7800820fc256fea45b54d7b85a67ec43d",
+      "adapted": false
+    },
+    "tests/pi/PIFormResourceTests.pas": {
+      "input": "src/pi/PIFormResourceTests.pas",
+      "input_sha256": "37fdac8336e616c2cef237879a0cae492f2a6fdc040d38dd47f77d9bee8c64ba",
+      "repository_sha256": "37fdac8336e616c2cef237879a0cae492f2a6fdc040d38dd47f77d9bee8c64ba",
+      "adapted": false
+    },
+    "tests/pi/PIHistoricalCoreTests.pas": {
+      "input": "src/pi/PIHistoricalCoreTests.pas",
+      "input_sha256": "90047583e8f8711b16591cfcae1427205821969cfe91a89e29d99bc805f94b48",
+      "repository_sha256": "90047583e8f8711b16591cfcae1427205821969cfe91a89e29d99bc805f94b48",
+      "adapted": false
+    },
+    "PIProductionEdit.pas": {
+      "input": "src/pi/PIProductionEdit.pas",
+      "input_sha256": "100a8b2df690f8e4ddbafebe8489bbb3b32602f19ade474ee1ad86d613b473d8",
+      "repository_sha256": "100a8b2df690f8e4ddbafebe8489bbb3b32602f19ade474ee1ad86d613b473d8",
+      "adapted": false
+    },
+    "PISettings.pas": {
+      "input": "src/pi/PISettings.pas",
+      "input_sha256": "bce1d8408f3108dede3e02df620eb6c2c1dedca43c861f132cc22a0409a3444e",
+      "repository_sha256": "bce1d8408f3108dede3e02df620eb6c2c1dedca43c861f132cc22a0409a3444e",
+      "adapted": false
+    },
+    "tests/pi/PISettingsTests.pas": {
+      "input": "src/pi/PISettingsTests.pas",
+      "input_sha256": "3e4f1026432e8bc64973fe6275faa7bea0ca1b79e89cd8a6aeb04e4741bcc439",
+      "repository_sha256": "3e4f1026432e8bc64973fe6275faa7bea0ca1b79e89cd8a6aeb04e4741bcc439",
+      "adapted": false
+    },
+    "PITrace.pas": {
+      "input": "src/pi/PITrace.pas",
+      "input_sha256": "75349d9a145e8c7b0d6483ed9386e04e5e006eccc0ef9aa8f0436a0fb43f5972",
+      "repository_sha256": "75349d9a145e8c7b0d6483ed9386e04e5e006eccc0ef9aa8f0436a0fb43f5972",
+      "adapted": false
+    },
+    "PIWindowCompat.pas": {
+      "input": "src/pi/PIWindowCompat.pas",
+      "input_sha256": "92e76f941ca2aeb82c5012f6a34021fac378bc82e609f5825f2a448d9187b1d3",
+      "repository_sha256": "92e76f941ca2aeb82c5012f6a34021fac378bc82e609f5825f2a448d9187b1d3",
+      "adapted": false
+    },
+    "tests/pi/PIWindowCompatTests.pas": {
+      "input": "src/pi/PIWindowCompatTests.pas",
+      "input_sha256": "c3fb1ba0b5b63d69035aaf18a90c8cccaae5f9840374f8e4c40faaec127922bc",
+      "repository_sha256": "c3fb1ba0b5b63d69035aaf18a90c8cccaae5f9840374f8e4c40faaec127922bc",
+      "adapted": false
+    },
+    "tests/pi/XMLHelperTests.dpr": {
+      "input": "src/pi/XMLHelperTests.dpr",
+      "input_sha256": "be417dcf5a26eeb4cba73d268c69bb27044e1f2933fedd7087d7fdb7be2f4538",
+      "repository_sha256": "be417dcf5a26eeb4cba73d268c69bb27044e1f2933fedd7087d7fdb7be2f4538",
+      "adapted": false
+    },
+    "tests/pi/XMLHelperTests.res": {
+      "input": "src/pi/XMLHelperTests.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "launcher/PIABIBytes.inc": {
+      "input": "src/launcher/PIABIBytes.inc",
+      "input_sha256": "506dc4efa2ff5f45b535b0442a1f3b0279c2846121e75ef4ddb1434161cd6a90",
+      "repository_sha256": "506dc4efa2ff5f45b535b0442a1f3b0279c2846121e75ef4ddb1434161cd6a90",
+      "adapted": false
+    },
+    "launcher/PIAppIcon.ico": {
+      "input": "src/launcher/PIAppIcon.ico",
+      "input_sha256": "7dade3805069860354ffc192a75beb96f25635f55b98287a78f9124fbb35ad18",
+      "repository_sha256": "7dade3805069860354ffc192a75beb96f25635f55b98287a78f9124fbb35ad18",
+      "adapted": false
+    },
+    "launcher/PIAppIcon.rc": {
+      "input": "src/launcher/PIAppIcon.rc",
+      "input_sha256": "fa38752181b3339b8e88124ee7c34860d9045c9b0d583e15b18dadac3b1b8bbb",
+      "repository_sha256": "fa38752181b3339b8e88124ee7c34860d9045c9b0d583e15b18dadac3b1b8bbb",
+      "adapted": false
+    },
+    "launcher/PIAppIcon.res": {
+      "input": "src/launcher/PIAppIcon.res",
+      "input_sha256": "67e85d34575dfd595fc9430e4eb129dcbb35e84a32cd18aad5e3e29d8fa53b17",
+      "repository_sha256": "67e85d34575dfd595fc9430e4eb129dcbb35e84a32cd18aad5e3e29d8fa53b17",
+      "adapted": false
+    },
+    "launcher/PIGameProfile.pas": {
+      "input": "src/launcher/PIGameProfile.pas",
+      "input_sha256": "2175a233c4790a751e86704079ee9d2b2644e4ec8e3f39179ea1be191c1e0456",
+      "repository_sha256": "2175a233c4790a751e86704079ee9d2b2644e4ec8e3f39179ea1be191c1e0456",
+      "adapted": false
+    },
+    "launcher/PIGameReadiness.pas": {
+      "input": "src/launcher/PIGameReadiness.pas",
+      "input_sha256": "e81e69e2f3a406fd051c31e8971c8798110ad20d24dd8ead3c8119018462868d",
+      "repository_sha256": "e81e69e2f3a406fd051c31e8971c8798110ad20d24dd8ead3c8119018462868d",
+      "adapted": false
+    },
+    "launcher/PIProductionLauncher.dpr": {
+      "input": "src/launcher/PIProductionLauncher.dpr",
+      "input_sha256": "a12ba1ea6ba92b31b876a564176355807a8a34188c83394590072866e1e49f50",
+      "repository_sha256": "242f28772c69b973decd8082e6250192700a4d24304985d368eadfafddd89caf",
+      "adapted": true
+    },
+    "launcher/PIProductionLauncher.res": {
+      "input": "src/launcher/PIProductionLauncher.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "launcher/PIReadinessLauncher.res": {
+      "input": "src/launcher/PIReadinessLauncher.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "launcher/XPTick.pas": {
+      "input": "src/launcher/XPTick.pas",
+      "input_sha256": "5d391e89adbda838b768fcc6bc1f3fff7060ce3c84a3b3ee9e619ca3eab88339",
+      "repository_sha256": "5d391e89adbda838b768fcc6bc1f3fff7060ce3c84a3b3ee9e619ca3eab88339",
+      "adapted": false
+    },
+    "tests/launcher/ProfileProbe.dpr": {
+      "input": "src/launcher-tests/ProfileProbe.dpr",
+      "input_sha256": "16755b39cac5792b7fe9feb57647ba925cc09be54c93e3ebea7117e1b0fcb692",
+      "repository_sha256": "16755b39cac5792b7fe9feb57647ba925cc09be54c93e3ebea7117e1b0fcb692",
+      "adapted": false
+    },
+    "tests/launcher/ProfileProbe.res": {
+      "input": "src/launcher-tests/ProfileProbe.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "tests/launcher/ReadinessTests.dpr": {
+      "input": "src/launcher-tests/ReadinessTests.dpr",
+      "input_sha256": "09e7b369a82ece953cfa2962722f6fdea0a888e70c2d0671fe58428a06697997",
+      "repository_sha256": "09e7b369a82ece953cfa2962722f6fdea0a888e70c2d0671fe58428a06697997",
+      "adapted": false
+    },
+    "tests/launcher/ReadinessTests.res": {
+      "input": "src/launcher-tests/ReadinessTests.res",
+      "input_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "repository_sha256": "79c6038fb6bafca6ddfb4aba58abedcf8fbb75ae4e98c734397a66884c568678",
+      "adapted": false
+    },
+    "shared/P3ProductionRules.pas": {
+      "input": "src/shared/P3ProductionRules.pas",
+      "input_sha256": "8cb907c8fef3b1c0663e10187c07555ebbcaa0a9c1ce2fe438d3e90b0db47753",
+      "repository_sha256": "8cb907c8fef3b1c0663e10187c07555ebbcaa0a9c1ce2fe438d3e90b0db47753",
+      "adapted": false
+    },
+    "dependencies/vendor-lock.json": {
+      "input": "dependencies/vendor-lock.json",
+      "input_sha256": "f1110b98854828d978c9cf18486f9a4987cf864b6eab7fba2f4d53634c2a3d85",
+      "repository_sha256": "f1110b98854828d978c9cf18486f9a4987cf864b6eab7fba2f4d53634c2a3d85",
+      "adapted": false
+    },
+    "dependencies/upstream-sources.json": {
+      "input": "dependencies/upstream-sources.json",
+      "input_sha256": "6c414042c95ab3dd7a301e2c8b03bd33afe745665f350f26c1c46d6c07e2843f",
+      "repository_sha256": "cabca35cbdde2af1b78d744988116abcba33c5cf8e12313aff6e2f56ce80053d",
+      "adapted": true
+    },
+    "examples/PI.ini": {
+      "input": "examples/PI.ini",
+      "input_sha256": "e536054e4fed12fae8976776ef1efadc5d591d0e32bfd390536077b1b2e0cd33",
+      "repository_sha256": "e536054e4fed12fae8976776ef1efadc5d591d0e32bfd390536077b1b2e0cd33",
+      "adapted": false
+    },
+    "scripts/build_ide.py": {
+      "input": "src/build_ide.py",
+      "input_sha256": "3c8006aa7f642edf420052b365765aaaa12bed349daa7ffc77a1f36791a7c801",
+      "repository_sha256": "3e37183d5db0dc71aacb52fe5948884f6c61c96db240dd3027a5c004aaec6b87",
+      "adapted": true
+    },
+    "scripts/prepare_dependencies.py": {
+      "input": "prepare_dependencies.py",
+      "input_sha256": "9722a0b9af74ad9b31d4388d09aed6481610fd187796fe980d7916bc4e7f6aa6",
+      "repository_sha256": "184f15b35dfd9da09c7459269c32590f2e9f9c7d2b232242f112a99643337627",
+      "adapted": true
+    }
+  },
+  "original_readme_sha256": "aa9296f9122bc6bf2131d02b4d7b952d2b36aec4e0f9941880f75c623fbe8246",
+  "original_license_sha256": "47d64582af5cfe52f0e526e08903015f84e2c86f1b67c0550272d73d5ab048a7",
+  "adaptation": "Repository-root layout, build/dependency scripts, resource paths; two trailing whitespace removals. No business logic changed from the prepared baseline. Tests now reside in tests/pi and tests/launcher; scripts reside in scripts. Product group and test group are separate.",
+  "dependency_preparation_update": {
+    "date": "2026-11-13",
+    "description": "Public upstream download, exact compatibility recipes, offline cache and verified local SDK generation.",
+    "compatibility_sha256": "7b7600644e2f1bdee3bc439c56e0a108ee098b263acabb24a833eb5bfa7bb2df",
+    "preparer_sha256": "184f15b35dfd9da09c7459269c32590f2e9f9c7d2b232242f112a99643337627"
+  }
+}

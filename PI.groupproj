@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup><ProjectGuid>{F38F49D1-00A1-5B81-BACB-47F43961DC0C}</ProjectGuid></PropertyGroup>
+  <ItemGroup>
+    <Projects Include="p3insight.dproj"><Dependencies /></Projects>
+    <Projects Include="launcher\PIProductionLauncher.dproj"><Dependencies /></Projects>
+  </ItemGroup>
+  <ProjectExtensions><Borland.Personality>Default.Personality.12</Borland.Personality><Borland.ProjectType>GroupProjectType</Borland.ProjectType></ProjectExtensions>
+  <Target Name="p3insight"><MSBuild Projects="p3insight.dproj" /></Target>
+  <Target Name="PIProductionLauncher"><MSBuild Projects="launcher\PIProductionLauncher.dproj" /></Target>
+  <Target Name="Build"><CallTarget Targets="p3insight;PIProductionLauncher" /></Target>
+</Project>

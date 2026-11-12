@@ -1,4 +1,4 @@
-object frmTest: TfrmTest
+﻿object frmTest: TfrmTest
   Left = 0
   Top = 0
   Caption = 'frmTest'

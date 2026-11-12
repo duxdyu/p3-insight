@@ -1,4 +1,4 @@
-unit P3InsightUICommon;
+﻿unit P3InsightUICommon;
 
 interface
 uses

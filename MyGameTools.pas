@@ -1,4 +1,4 @@
-unit MyGameTools;
+﻿unit MyGameTools;
 
 interface
 uses
@@ -23,6 +23,8 @@ function SetForegroundWindow98(const Wnd: THandle; aProcIDPtr: PCardinal): Boole
 
 
 implementation
+
+uses GameText;
 
 function  GetTargetWnd(const aExe, aWndClass, aWndText: WideString): THandle;
 var
@@ -162,11 +164,13 @@ end;
 procedure SendMultibytesToAnsiWnd(const aWnd: THandle; const aTextToSend: string);
 var
   I, L: Integer;
+  Bytes: TGameString;
 begin
-  L := Length(aTextToSend);
+  Bytes := EncodeGameText(aTextToSend);
+  L := Length(Bytes);
 
   for I := 1 to L do
-    SendMessage(aWnd, WM_CHAR, Ord(aTextToSend[I]), 0);
+    SendMessageA(aWnd, WM_CHAR, Ord(Bytes[I]), 0);
 end;
 
 

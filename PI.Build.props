@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PIRoot Condition="'$(PIRoot)'==''">.</PIRoot>
+    <PIVendorPaths>$(PIRoot)/vendor/vt/Source;$(PIRoot)/vendor/gr/Source;$(PIRoot)/vendor/lines;$(PIRoot)/vendor/xml;$(PIRoot)/vendor/jcl/source/common;$(PIRoot)/vendor/jcl/source/windows;$(PIRoot)/vendor/jcl/source/vcl;$(PIRoot)/vendor/jcl/source/include;$(PIRoot)/vendor/jcl/source/include/jedi;$(PIRoot)/vendor/jvcl/run;$(PIRoot)/vendor/jvcl/common;$(PIRoot)/vendor/jvcl/resources;$(PIRoot)/vendor/bm/Source;$(PIRoot)/vendor/bm/Source/XPMenu</PIVendorPaths>
+    <DCC_Define>P3INSIGHT;RELEASE</DCC_Define>
+    <DCC_UnitSearchPath>$(PIRoot);$(PIRoot)/shared;$(PIVendorPaths);$(BDS)/lib/win32/release</DCC_UnitSearchPath>
+    <DCC_IncludePath>$(PIVendorPaths)</DCC_IncludePath>
+    <DCC_ResourcePath>$(PIVendorPaths)</DCC_ResourcePath>
+    <DCC_Namespace>Winapi;System.Win;Vcl;Vcl.Imaging;Vcl.Samples;System;Xml;Data;System.Generics</DCC_Namespace>
+    <DCC_MapFile>3</DCC_MapFile><DCC_DebugInformation>1</DCC_DebugInformation>
+  </PropertyGroup>
+</Project>

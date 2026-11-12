@@ -1,0 +1,132 @@
+[
+  {
+    "id": "virtual-treeview-5.5.3",
+    "path": "components/legacy/virtual-treeview/VirtualTreeViewV5.5.3.zip",
+    "url": "https://github.com/JAM-Software/Virtual-TreeView/releases/download/V5.5.3/VirtualTreeViewV5.5.3.zip",
+    "source": "https://github.com/JAM-Software/Virtual-TreeView",
+    "kind": "zip",
+    "required_units": [
+      "VirtualTrees.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "c0faf740c268644da835191071221c85fa69034039f85cc49b6eb5314f0a4970",
+    "destination": "vt",
+    "archive_prefix": "",
+    "cache_name": "virtual-treeview-5.5.3.zip"
+  },
+  {
+    "id": "jcl-2.8-9330",
+    "path": "components/common/jcl/jcl-2.8-9330.zip",
+    "url": "https://codeload.github.com/project-jedi/jcl/zip/1e0df25bbe8e41e9f4704635d35777d235f98a97",
+    "source": "https://github.com/project-jedi/jcl/tree/JCL-2.8-Build9330",
+    "revision": "1e0df25bbe8e41e9f4704635d35777d235f98a97",
+    "kind": "zip",
+    "required_units": [
+      "JclPeImage.pas",
+      "JclWideStrings.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "e4c618204424b9cc89e322b16f7b072065168a12b0021e365c7a9651bc91ad39",
+    "destination": "jcl",
+    "archive_prefix": "jcl-1e0df25bbe8e41e9f4704635d35777d235f98a97/jcl/",
+    "cache_name": "jcl-2.8-9330.zip"
+  },
+  {
+    "id": "jedi-include-for-jcl-2.8",
+    "path": "components/common/jedi-include/jedi-b33dc0f7.zip",
+    "url": "https://codeload.github.com/project-jedi/jedi/zip/b33dc0f7b4c3d776d31a391bc34bb2e283e08033",
+    "source": "https://github.com/project-jedi/jedi",
+    "revision": "b33dc0f7b4c3d776d31a391bc34bb2e283e08033",
+    "kind": "zip",
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "ac90e5490abfc439fc286e9337fcc9280fe3c89a2a07cedef1fd9b7b5297ac8e",
+    "destination": "jcl/source/include/jedi",
+    "archive_prefix": "jedi-b33dc0f7b4c3d776d31a391bc34bb2e283e08033/",
+    "cache_name": "jedi-include-for-jcl-2.8.zip"
+  },
+  {
+    "id": "jvcl-3.50",
+    "path": "components/common/jvcl/jvcl-3.50.zip",
+    "url": "https://codeload.github.com/project-jedi/jvcl/zip/a8796c9b5948389cbd0acff548c0f7cae689bc9f",
+    "source": "https://github.com/project-jedi/jvcl/tree/JVCL3_50",
+    "revision": "a8796c9b5948389cbd0acff548c0f7cae689bc9f",
+    "kind": "zip",
+    "required_units": [
+      "JvWavePlayer.pas",
+      "JvTabBar.pas",
+      "JvPageList.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "b8c9ceb4d1e52fa01b22ab383d9da021d20caf227fceeb19ca629ea3015f2551",
+    "destination": "jvcl",
+    "archive_prefix": "jvcl-a8796c9b5948389cbd0acff548c0f7cae689bc9f/jvcl/",
+    "cache_name": "jvcl-3.50.zip"
+  },
+  {
+    "id": "gr32-lines-3.92",
+    "path": "components/legacy/graphics32-extensions/gr32lines-3.92.zip",
+    "url": "https://www.angusj.com/delphi/gr32_lines.zip",
+    "source": "https://www.angusj.com/delphi/gr32_lines.php",
+    "kind": "zip",
+    "required_units": [
+      "GR32_Lines.pas",
+      "GR32_Text.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "e52e7d3059e051ec2e09853f9d5018f39ad4f119512a6e55bf109db3b3b79e63",
+    "destination": "lines",
+    "archive_prefix": "",
+    "cache_name": "gr32-lines-3.92.zip"
+  },
+  {
+    "id": "graphics32-1.9.1-fixes",
+    "path": "components/legacy/graphics32/graphics32-1.9.1-fixes.zip",
+    "url": "https://codeload.github.com/graphics32/graphics32/zip/b154583e2859280fed665e6399f9a72ff8feadb4",
+    "source": "https://github.com/graphics32/graphics32/tree/Graphics32_1.9.1_Fixes",
+    "revision": "b154583e2859280fed665e6399f9a72ff8feadb4",
+    "kind": "zip",
+    "required_units": [
+      "GR32.pas",
+      "GR32_Image.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "910fa58dcc0a0e04235fc73b4d002fed62e807d8a7d192440b9d2ff3f032b1be",
+    "destination": "gr",
+    "archive_prefix": "graphics32-b154583e2859280fed665e6399f9a72ff8feadb4/",
+    "cache_name": "graphics32-1.9.1-fixes.zip"
+  },
+  {
+    "id": "barmenus-delphi10.2-port",
+    "path": "components/modern-reference/barmenus/BarMenus-10.2-port.zip",
+    "url": "https://codeload.github.com/lynxnake/BarMenus/zip/5ca9d1fef5267ee2c779b612e2fd2499a4be76dd",
+    "source": "https://github.com/lynxnake/BarMenus",
+    "revision": "5ca9d1fef5267ee2c779b612e2fd2499a4be76dd",
+    "kind": "zip",
+    "required_units": [
+      "BarMenus.pas",
+      "BcDrawModule.pas",
+      "BcXPMenuDrawModule.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "51cd5ca0374d9a25a143a8656b5e4eaba384b4c73962e77594f002302ce1b8f0",
+    "destination": "bm",
+    "archive_prefix": "BarMenus-5ca9d1fef5267ee2c779b612e2fd2499a4be76dd/",
+    "cache_name": "barmenus-delphi10.2-port.zip"
+  },
+  {
+    "id": "omnixml-243ba566",
+    "path": "components/common/omnixml/omnixml-243ba566.zip",
+    "url": "https://codeload.github.com/mremec/omnixml/zip/243ba5664b55ae74e886c4d7fc35e473b31d479c",
+    "source": "https://github.com/mremec/omnixml",
+    "revision": "243ba5664b55ae74e886c4d7fc35e473b31d479c",
+    "kind": "zip",
+    "required_units": [
+      "OmniXML.pas"
+    ],
+    "note": "Pinned upstream archive; selected files plus compatibility.json reproduce vendor-lock.json.",
+    "sha256": "0d6af6b7cee2fd454c49fd5980dc108f4cdbc2e8749d5ee5ee7320a1109a0e3c",
+    "destination": "xml",
+    "archive_prefix": "omnixml-243ba5664b55ae74e886c4d7fc35e473b31d479c/",
+    "cache_name": "omnixml-243ba566.zip"
+  }
+]

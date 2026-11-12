@@ -1,0 +1,14 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{E92072A3-DB8E-4FB4-8F97-DF08DB7E0AB6}</ProjectGuid>
+    <MainSource>ABILayoutTests.dpr</MainSource><ProjectVersion>20.3</ProjectVersion>
+    <Base>True</Base><Config Condition="'$(Config)'==''">Release</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <AppType>Console</AppType><FrameworkType>VCL</FrameworkType>
+    <PIRoot>../..</PIRoot>
+    <DCC_ExeOutput>../../build/tests</DCC_ExeOutput><DCC_DcuOutput>../../build/dcu/ABILayoutTests</DCC_DcuOutput>
+  </PropertyGroup>
+  <Import Project="../../PI.Build.props" />
+  <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>
+  <Import Project="$(BDS)/Bin/CodeGear.Delphi.Targets" />
+</Project>

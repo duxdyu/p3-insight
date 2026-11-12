@@ -1,4 +1,4 @@
-unit p3Types;
+О╩©unit p3Types;
 
 interface
 uses
@@ -26,14 +26,14 @@ type
 
 
 const
-  Txt_All = '(х╚╡©)';
-  Txt_None = '(нч)';
-  Txt_Tick = '║л';
-  Txt_CycleClear = '║П';
-  Txt_CycleSolid = '║Я';
-  Txt_SquareClear = '║У';
-  Txt_SquareSolid = '║Ж';
-  Txt_Infinite = '║ч';
+  Txt_All = '(Е┘╗И┐╗)';
+  Txt_None = '(Ф≈═)';
+  Txt_Tick = 'Б┬ ';
+  Txt_CycleClear = 'Б≈▀';
+  Txt_CycleSolid = 'Б≈▐';
+  Txt_SquareClear = 'Б√║';
+  Txt_SquareSolid = 'Б√═';
+  Txt_Infinite = 'Б┬·';
   
 
 implementation

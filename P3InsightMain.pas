@@ -1,9 +1,9 @@
-unit P3InsightMain;
+Ôªøunit P3InsightMain;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, PITrace, PIWindowCompat,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, ActiveX, p3insight_common, VirtualTrees, Buttons,
   ImgList, jpeg, Contnrs, p3DataStruct, JvTabBar, JvPageList, JvExControls,
   Menus, GR32_Image, JvXPCore, JvXPContainer, GR32, PngImage, GR32_Filters,
@@ -35,8 +35,8 @@ type
   );
 
   {
-    ‘ˆº”1∏ˆViewer ±£¨“™–ﬁ∏ƒ£∫
-    1£¨TViewerList.create
+    Â¢ûÂä†1‰∏™ViewerÊó∂ÔºåË¶Å‰øÆÊîπÔºö
+    1ÔºåTViewerList.create
     2, TViewerList.add
     3, TfrmP3Insight.Create
     4, TfrmP3Insight.PageControlMainChange()
@@ -51,8 +51,8 @@ type
   protected
     procedure DefaultGridShortenString(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
-      const S: WideString; TextSpace: Integer; RightToLeft: Boolean;
-      var Result: WideString; var Done: Boolean);
+      const S: UnicodeString; TextSpace: Integer;
+      var Result: UnicodeString; var Done: Boolean);
     procedure initGrid(aVT: TVirtualStringTree);
     procedure cancelEdit(aVT: TBaseVirtualTree);
     procedure internalPrepare();  virtual; abstract;
@@ -141,7 +141,7 @@ type
 
   TSelectTradeRouteCategoryItem = class
   public
-    Category: WideString;
+    Category: UnicodeString;
     Others: Boolean;
   end;
 
@@ -494,14 +494,14 @@ type
     procedure btnTradeRouteSelectCancelClick(Sender: TObject);
     procedure TradeRouteSelectGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure TradeRouteSelectGridNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
     procedure SelectTradeRouteCategoriesGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure SelectTradeRouteCategoriesGridNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
     procedure SelectTradeRouteCategoriesGridFocusChanged(
       Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex);
     procedure btnLoadSelectedTradeRouteClick(Sender: TObject);
@@ -554,7 +554,7 @@ type
     procedure CreateParams(var aParams: TCreateParams); override;
     procedure WndProc(var Message: TMessage); override;
   public
-    { Viewerµƒ ‘⁄init() ∫Ø ˝≤ªƒ‹∑√Œ ’‚–© ˝æ›£° }
+    { ViewerÁöÑ Âú®init() ÂáΩÊï∞‰∏çËÉΩËÆøÈóÆËøô‰∫õÊï∞ÊçÆÔºÅ }
     initialized: Boolean;
     currPlayer: Byte;
     currPlayerHomeCity: Byte;
@@ -603,7 +603,7 @@ type
     procedure activePrimaryViewerChanged();
     function  getCurrPlayerShipList(): TList;
 
-    procedure showMsg(const aMsgType: TMsgType; const aMsg: WideString);
+    procedure showMsg(const aMsgType: TMsgType; const aMsg: UnicodeString);
     procedure updateSB_recCount(cnt: integer);
     procedure recCountChanged();
 
@@ -656,7 +656,7 @@ type
   private
     procedure TraderListGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
 
     procedure TraderListGridBeforeItemErase(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; ItemRect: TRect;
@@ -716,7 +716,7 @@ type
 //      aPaintInfo: TVTPaintInfo; var aDefaultDraw: Boolean);
     procedure CityDetailGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
 
     procedure CityDetailGridDblClick(Sender: TObject);
     procedure CityDetail_BOGridKeyPress(Sender: TObject; var Key: Char);
@@ -734,7 +734,7 @@ type
       var Ghosted: Boolean; var ImageIndex: Integer);
     procedure CityDetail_BOGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure CityDetail_BOGridPaintCell(aSender: TBaseVirtualTree;
       aPaintInfo: TVTPaintInfo; var aDefaultDraw: Boolean);
     procedure CityDetail_BOGridBeforeItemErase(Sender: TBaseVirtualTree;
@@ -748,7 +748,7 @@ type
     procedure CityDetail_BOGridCreateEditor(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
     procedure CityDetail_BOGridNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
       
 
     procedure CityDetail_BOGridDblClick(Sender: TObject);
@@ -786,7 +786,7 @@ type
 
     procedure CityDetail_Dockyard_BuildingShipGridGetText(
       Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-      TextType: TVSTTextType; var CellText: WideString);
+      TextType: TVSTTextType; var CellText: UnicodeString);
 
     procedure btnCityDetail_Dockyard_BookingClick(Sender: TObject);
 
@@ -797,11 +797,11 @@ type
     procedure updateDockyardTab();
     procedure CityDetail_BO_WeaponStoreGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
 
     procedure CityDetail_BuildingGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure btnCityDetail_Building_RefreshClick(Sender: TObject);
 
     procedure updateGeneralBOInfo();
@@ -862,7 +862,7 @@ type
     COLTAG__SHIP_PTR = 100; 
   private
     procedure ShipListGridGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
+      Column: TColumnIndex; TextType: TVSTTextType; var CellText: UnicodeString);
     procedure ShipListGridGetImageIndex(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
       var Ghosted: Boolean; var ImageIndex: Integer);
@@ -1043,7 +1043,7 @@ type
       Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
       var Ghosted: Boolean; var ImageIndex: Integer);
     procedure CityListGridGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
+      Column: TColumnIndex; TextType: TVSTTextType; var CellText: UnicodeString);
     procedure CityListGridBeforeItemErase(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; ItemRect: TRect;
       var ItemColor: TColor; var EraseAction: TItemEraseAction);
@@ -1173,22 +1173,22 @@ type
 
     fTempList_UsedForPriceList: TList;
 
-    fFilter_ShipName, fFilter_Area: WideString;
+    fFilter_ShipName, fFilter_Area: UnicodeString;
 
     procedure cbMap_drawCityNameClick(Sender: TObject);
     procedure onGoodsButtonClick(sender: TObject);
     procedure MapShipGroupSelectGridDblClick(Sender: TObject);
     procedure MapShipGroupSelectGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure sbMap_ShowGoods_ClearClick(Sender: TObject);
     procedure Map_TradeRouteCityGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
 
     procedure Map_TradeRouteGoodsGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure Map_TradeRouteGoodsGridGetImageIndex(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
       var Ghosted: Boolean; var ImageIndex: Integer);
@@ -1210,13 +1210,11 @@ type
     procedure Map_TradeRouteGoodsGridCreateEditor(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
     procedure Map_TradeRouteGoodsGridNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
     procedure Map_TradeRouteGoodsGridFocusChanged(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex);
     procedure Map_TradeRouteGoodsGridKeyPress(Sender: TObject; var Key: Char);
-    procedure Map_TradeRouteGoodsGridHeaderDblClick(Sender: TVTHeader;
-      Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
-      Y: Integer);
+    procedure Map_TradeRouteGoodsGridHeaderDblClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
 
     procedure Map_TradeRouteGoodsGridAfterCellPaint(Sender: TBaseVirtualTree;
       TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
@@ -1285,19 +1283,19 @@ type
   private
     procedure Config_AreaGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure Config_AreaGridChange(Sender: TBaseVirtualTree;
       Node: PVirtualNode);
     procedure Config_AreaCityGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure Config_AreaCityGridChecked(Sender: TBaseVirtualTree;
       Node: PVirtualNode);
     procedure Config_AreaCityGridChecking(Sender: TBaseVirtualTree;
       Node: PVirtualNode; var NewState: TCheckState; var Allowed: Boolean);
     procedure AreaSupplyGridGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: UnicodeString);
     procedure AreaSupplyGridGetImageIndex(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
       var Ghosted: Boolean; var ImageIndex: Integer);
@@ -1435,7 +1433,7 @@ begin
 
   if tr = nil then
   begin
-    showMsg(MT__ERROR, '«Î—°‘Ò√≥“◊∫Ωœﬂ°£');
+    showMsg(MT__ERROR, 'ËØ∑ÈÄâÊã©Ë¥∏ÊòìËà™Á∫ø„ÄÇ');
     exit;
   end;
 
@@ -1451,7 +1449,7 @@ begin
     and not tradeRouteSelectOverwritePrompted then
     begin
       soundBeep();
-      btnLoadSelectedTradeRoute.Caption := '∏≤∏«£ø';
+      btnLoadSelectedTradeRoute.Caption := 'Ë¶ÜÁõñÔºü';
       btnLoadSelectedTradeRoute.Font.Color := clRed;
       tradeRouteSelectOverwritePrompted := True;
       exit;
@@ -1576,7 +1574,8 @@ begin
   r.Top := 1;
   r.Right := Width - 1;
   r.Bottom := Height - 1;
-  ClipCursor(@r);
+  if PIUsesGameWindow(P3WndHandle) then PIReleaseMouse
+  else ClipCursor(@r);
 
   tradeRouteSelectClient := nil;
   tradeRouteSelectOverwritePrompted := False;
@@ -1614,13 +1613,16 @@ end;
 procedure TfrmP3Insight.CreateParams(var aParams: TCreateParams);
 begin
   inherited;
-  aParams.ExStyle := aParams.ExStyle or WS_EX_TOPMOST;
+  if PIUsesGameWindow(P3WndHandle) then
+    aParams.ExStyle := aParams.ExStyle and not WS_EX_TOPMOST
+  else aParams.ExStyle := aParams.ExStyle or WS_EX_TOPMOST;
   aParams.Style := aParams.Style or WS_POPUP;
   aParams.WndParent := P3WndHandle;
 end;
 
 destructor TfrmP3Insight.Destroy;
 begin
+  if HandleAllocated then PIDetachWindow(Handle);
   GameStateListenerList.remove(Self);
   if fViewList <> nil then
   begin
@@ -1661,7 +1663,8 @@ begin
   onDlgDeactivate();
     
   InsightDlgVisible := False;
-  ClipCursor(nil);
+  if PIUsesGameWindow(P3WndHandle) then PIReleaseMouse
+  else ClipCursor(nil);
   ShowCursor(False);
   Action := caHide;
 //  DoSendKey := True;
@@ -1675,26 +1678,24 @@ end;
 
 procedure TfrmP3Insight.FormShow(Sender: TObject);
 var
-  Monitor: TMonitor;
-  mW, mH: Integer;
   r: TRect;
 begin
   InsightDlgVisible := True;
-  Monitor := Screen.MonitorFromWindow(P3WndHandle);
-
-  mW := Monitor.Width;
-  mH := Monitor.Height;
-
-  Left := 0;
-  Top := 0;
-  Width := mW;
-  Height := mH;
+  if PIUsesGameWindow(P3WndHandle) then
+  begin
+    WindowState := wsNormal;
+    PIShowInGameWindow(P3WndHandle, Handle);
+    ShowCursor(True);
+    BringToFront;
+    SetFocus;
+    Exit;
+  end;
+  if not PIExclusiveGameBounds(P3WndHandle,r) then
+    raise Exception.Create('Cannot resolve the visible game monitor');
+  SetBounds(r.Left,r.Top,r.Right-r.Left,r.Bottom-r.Top);
 
   ShowCursor(True);
-  r.Left := 1;
-  r.Top := 1;
-  r.Right := mW - 1;
-  r.Bottom := mH - 1;
+  System.Types.InflateRect(r,-1,-1);
   ClipCursor(@r);
   BringToFront();
   SetFocus();
@@ -1774,7 +1775,7 @@ var
   I: integer;
   list: TList;
   tr: TCustomTradeRoute;
-  cate: WideString;
+  cate: UnicodeString;
 begin
   TradeRouteSelectGrid.CancelEditNode();
   
@@ -2076,7 +2077,7 @@ begin
   n := SelectTradeRouteCategoriesGrid.SelectedNode;
   if n = nil then
   begin
-    showMsg(MT__ERROR, '«Î—°‘Ò–Ë“™…æ≥˝µƒ¿‡±');
+    showMsg(MT__ERROR, 'ËØ∑ÈÄâÊã©ÈúÄË¶ÅÂà†Èô§ÁöÑÁ±ªÂà´');
     exit;
   end;
 
@@ -2097,7 +2098,7 @@ var
   tr: TCustomTradeRoute;
   n: PVirtualNode;
   cate: TSelectTradeRouteCategoryItem;
-  category: WideString;
+  category: UnicodeString;
 begin
   n := SelectTradeRouteCategoriesGrid.SelectedNode;
   if n <> nil then
@@ -2132,7 +2133,7 @@ var
 begin
   if TradeRouteSelectGrid.SelectedCount = 0 then
   begin
-    showMsg(MT__ERROR, '«Î—°‘Ò–Ë“™…æ≥˝µƒ∫Ωœﬂ');
+    showMsg(MT__ERROR, 'ËØ∑ÈÄâÊã©ÈúÄË¶ÅÂà†Èô§ÁöÑËà™Á∫ø');
     exit;
   end;
 
@@ -2218,7 +2219,7 @@ end;
 
 procedure TfrmP3Insight.SelectTradeRouteCategoriesGridGetText(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-  TextType: TVSTTextType; var CellText: WideString);
+  TextType: TVSTTextType; var CellText: UnicodeString);
 var
   item: TSelectTradeRouteCategoryItem;
 begin
@@ -2231,7 +2232,7 @@ begin
       item := TSelectTradeRouteCategoryItem(Sender.GetNodeUserData(Node));
 
       if item.Others then
-        CellText := '[∆‰À˚]'
+        CellText := '[ÂÖ∂‰ªñ]'
       else
         CellText := item.Category;
     end;
@@ -2240,7 +2241,7 @@ end;
 
 procedure TfrmP3Insight.SelectTradeRouteCategoriesGridNewText(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-  NewText: WideString);
+  NewText: UnicodeString);
 var
   item: TSelectTradeRouteCategoryItem;
 begin
@@ -2294,7 +2295,7 @@ begin
 end;
 
 procedure TfrmP3Insight.showMsg(const aMsgType: TMsgType;
-  const aMsg: WideString);
+  const aMsg: UnicodeString);
 begin
   fMsgType := aMsgType;
   StatusBar.Panels[2].Text := aMsg;
@@ -2314,7 +2315,7 @@ var
   callerRect: TRect;
   n: PVirtualNode;
   tr: TCustomTradeRoute;
-  category: WideString;
+  category: UnicodeString;
   cate: TSelectTradeRouteCategoryItem;
 begin
   if tradeRouteSelectClient = nil then
@@ -2340,13 +2341,13 @@ begin
 
   if tradeRouteSelectClient.isLoad() then
   begin
-    pnlLoadTradeRouteHeading.Caption := 'º”‘ÿ√≥“◊∫Ωœﬂ';
-    btnLoadSelectedTradeRoute.Caption := 'º”‘ÿ';
+    pnlLoadTradeRouteHeading.Caption := 'Âä†ËΩΩË¥∏ÊòìËà™Á∫ø';
+    btnLoadSelectedTradeRoute.Caption := 'Âä†ËΩΩ';
   end
   else
   begin
-    pnlLoadTradeRouteHeading.Caption := '±£¥Ê√≥“◊∫Ωœﬂ';
-    btnLoadSelectedTradeRoute.Caption := '±£¥Ê';
+    pnlLoadTradeRouteHeading.Caption := '‰øùÂ≠òË¥∏ÊòìËà™Á∫ø';
+    btnLoadSelectedTradeRoute.Caption := '‰øùÂ≠ò';
   end;
 
   tradeRouteSelectOverwritePrompted := False;
@@ -2391,8 +2392,9 @@ begin
   pnlLoadTradeRoute.Visible := True;
 
   panelRect := pnlLoadTradeRoute.BoundsRect;
-  InflateRect(panelRect, -1, -1);
-  ClipCursor(@panelRect);
+  System.Types.InflateRect(panelRect, -1, -1);
+  if PIUsesGameWindow(P3WndHandle) then PIReleaseMouse
+  else ClipCursor(@panelRect);
   mouseClipped := True;
 
 //  if not tradeRouteSelectClient.isLoad() then
@@ -2423,7 +2425,7 @@ begin
     exit;
 
   r := Rect;
-  InflateRect(r, -4, -1);
+  System.Types.InflateRect(r, -4, -1);
   DrawText(
           StatusBar.Canvas.Handle,
           pchar(Panel.Text),
@@ -2450,7 +2452,7 @@ begin
       if tradeRouteSelectOverwritePrompted then
       begin
         btnLoadSelectedTradeRoute.Font.Color := clBlack;
-        btnLoadSelectedTradeRoute.Caption := '±£¥Ê';
+        btnLoadSelectedTradeRoute.Caption := '‰øùÂ≠ò';
         tradeRouteSelectOverwritePrompted := False;
       end;
     end;
@@ -2473,7 +2475,7 @@ end;
 
 procedure TfrmP3Insight.TradeRouteSelectGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   tr: TCustomTradeRoute;
 begin
@@ -2497,7 +2499,7 @@ begin
 end;
 
 procedure TfrmP3Insight.TradeRouteSelectGridNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
 var
   tr, other: TCustomTradeRoute;
 begin
@@ -2515,7 +2517,7 @@ begin
       other := Conf.CustomTRList.findOther(tr, NewText);
       if other <> nil then
       begin
-        showMsg(MT__ERROR, '“—æ≠¥Ê‘⁄∫ΩœÚ√¸√˚Œ™£∫' + NewText);
+        showMsg(MT__ERROR, 'Â∑≤ÁªèÂ≠òÂú®Ëà™ÂêëÂëΩÂêç‰∏∫Ôºö' + NewText);
         exit;
       end;
 
@@ -2538,7 +2540,8 @@ end;
 
 procedure TfrmP3Insight.WndProc(var Message: TMessage);
 begin
-  if (Message.Msg = WM_ACTIVATE) and (Message.WParam = WA_INACTIVE) then
+  if (Message.Msg = WM_ACTIVATE) and (LOWORD(Message.WParam) = WA_INACTIVE) and
+     not PIUsesGameWindow(P3WndHandle) then
   begin
 //    OutputDebugString('deactivate');
     cancelEdits();
@@ -2554,12 +2557,26 @@ end;
 
 procedure showP3InsightDlg();
 begin
+  TracePI('showP3InsightDlg begin');
+  try
 //  OutputDebugString('doShowP3InsightDlg->');
   if frmP3Insight = nil then
+  begin
+    TracePI('Creating main form');
     frmP3Insight := TfrmP3Insight.Create(nil);
+    TracePI('Main form created');
+  end;
 
   if not frmP3Insight.Visible then
     frmP3Insight.ShowModal();
+  TracePI('showP3InsightDlg return');
+  except
+    on E: Exception do
+    begin
+      TracePI('Window exception '+E.ClassName+': '+E.Message+' rva='+IntToHex(NativeUInt(ExceptAddr)-NativeUInt(HInstance),8));
+      raise;
+    end;
+  end;
 //  OutputDebugString('<-doShowP3InsightDlg');
 end;
 
@@ -2588,8 +2605,8 @@ end;
 
 procedure TViewer.DefaultGridShortenString(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
-  const S: WideString; TextSpace: Integer; RightToLeft: Boolean;
-  var Result: WideString; var Done: Boolean);
+  const S: UnicodeString; TextSpace: Integer;
+  var Result: UnicodeString; var Done: Boolean);
 begin
   Result := S;
   Done := True;
@@ -2618,7 +2635,7 @@ begin
   aVT.Colors.UnfocusedSelectionColor := selectionColor;
   aVT.Colors.UnfocusedSelectionBorderColor := selectionColor;
 
-  aVT.Colors.HighlightTextColor := clBlack;
+  aVT.Colors.SelectionTextColor := clBlack;
   aVT.OnShortenString := DefaultGridShortenString;
 end;
 
@@ -2722,7 +2739,7 @@ end;
 procedure TCityDetaiViewer.btnCityDetail_Dockyard_BookingClick(Sender: TObject);
 var
   i, cnt, success: integer;
-  msg: WideString;
+  msg: UnicodeString;
 begin
   success := 0;
   cnt := frm.seCityDetail_Dockyard_BookingQty.AsInteger;
@@ -2741,12 +2758,12 @@ begin
   if success < cnt then
   begin
     soundBeep();
-    msg := WideFormat('ŒÔ◊ ≤ª◊„£¨÷ª∂©‘Ï¡À%dÀ“¥¨÷ª', [success]);
+    msg := WideFormat('Áâ©ËµÑ‰∏çË∂≥ÔºåÂè™ËÆ¢ÈÄ†‰∫Ü%dËâòËàπÂè™', [success]);
     frm.showMsg(MT__ERROR, msg);
   end
   else
   begin
-    msg := '≥…π¶∂©‘Ï¡À÷∏∂® ˝¡øµƒ¥¨÷ª°£';
+    msg := 'ÊàêÂäüËÆ¢ÈÄ†‰∫ÜÊåáÂÆöÊï∞ÈáèÁöÑËàπÂè™„ÄÇ';
     frm.showMsg(MT__INFO, msg);
   end;
 
@@ -2969,7 +2986,7 @@ var
   idx, ilidx, t, l, p, surplus: Integer;
   r: TRect;
   s: string;
-  txt: WideString;
+  txt: UnicodeString;
   clr: TColor;
   f: double;
 begin
@@ -2991,7 +3008,7 @@ begin
     frm.ilMeasureUnit.Draw(TargetCanvas, l, t, ilidx);
     if (Node = Sender.FocusedNode) and (Column = Sender.FocusedColumn) then
     begin
-//      InflateRect(CellRect, -1, -1);
+//      System.Types.InflateRect(CellRect, -1, -1);
       TargetCanvas.DrawFocusRect(CellRect);
     end;
   end
@@ -3002,7 +3019,7 @@ begin
     begin
       if (Node = Sender.FocusedNode) and (Column = Sender.FocusedColumn) then
       begin
-//        InflateRect(CellRect, -1, -1);
+//        System.Types.InflateRect(CellRect, -1, -1);
         TargetCanvas.DrawFocusRect(CellRect);
       end;
       exit;
@@ -3023,7 +3040,7 @@ begin
               clBlack);
     if (Node = Sender.FocusedNode) and (Column = Sender.FocusedColumn) then
     begin
-//      InflateRect(CellRect, -1, -1);
+//      System.Types.InflateRect(CellRect, -1, -1);
       TargetCanvas.DrawFocusRect(CellRect);
     end;
   end
@@ -3036,7 +3053,7 @@ begin
     begin
       if (Node = Sender.FocusedNode) and (Column = Sender.FocusedColumn) then
       begin
-//        InflateRect(CellRect, -1, -1);
+//        System.Types.InflateRect(CellRect, -1, -1);
         TargetCanvas.DrawFocusRect(CellRect);
       end;
       exit;
@@ -3054,7 +3071,7 @@ begin
     defaultDrawCell(frm.CityDetailGrid, Column, TargetCanvas, CellRect, clr, s);
     if (Node = Sender.FocusedNode) and (Column = Sender.FocusedColumn) then
     begin
-//      InflateRect(CellRect, -1, -1);
+//      System.Types.InflateRect(CellRect, -1, -1);
       TargetCanvas.DrawFocusRect(CellRect);
     end;
   end;
@@ -3077,7 +3094,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetailGridDblClick(Sender: TObject);
 var
-  idx, gid, q: integer;
+  gid: integer;
   n: PVirtualNode;
   g: TVirtualStringTree;
   cp: PCityStruct;
@@ -3102,37 +3119,7 @@ begin
   if gid = GOODSID__SPICE then
     exit;
 
-  if gid = GOODSID__WHALE_OIL then
-  begin
-    q := cp.WhaleOilProdRate;
-    if q < $3E8 then
-      cp.WhaleOilProdRate := $400
-    else if q < $600 then
-      cp.WhaleOilProdRate := $600
-    else if q < $800 then
-      cp.WhaleOilProdRate := $800
-    else if q < $1000 then
-      cp.WhaleOilProdRate := $1000
-    else
-      cp.WhaleOilProdRate := $300;
-  end
-  else
-  begin
-    idx := GoodsIDToProdRateIndex(gid);
-    q := cp.OriginalProd[idx].Rate;
-    if q < $384 then
-      q := $400
-    else if q < $600 then
-      q := $600
-    else if q < $800 then
-      q := $800
-    else if q < $1000 then
-      q := $1000
-    else
-      q := $300;
-
-    cp.OriginalProd[idx].Rate := q;
-  end;
+  EditCityLocalProduction(cp,gid);
 
   frm.updateUI();  
 end;
@@ -3153,7 +3140,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetailGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   idx: Integer;
 
@@ -3181,20 +3168,15 @@ var
   procedure gt_hightLowProductionRate();
   var
     r: Word;
-    lvl1Cp: integer;
+    lvl: integer;
   begin
     r := GetCityOriginalProdRate(frm.currCityPtr, idx);
-    if r = 0 then
+    lvl := getCityOriginalProdLvl(frm.currCityPtr, idx);
+    if lvl = PROD_LVL__NO_PROD then
       CellText := ''
     else
     begin
-
-      if idx = GOODSID__WHALE_OIL then
-        lvl1Cp := $3E8
-      else
-        lvl1Cp := $384;
-
-      if r < lvl1Cp then
+      if lvl = PROD_LVL__LOW_PROD then
         CellText := '*'
       else if r < $600 then
         CellText := '**'
@@ -3546,25 +3528,25 @@ begin
       3: //bo store qty
         gt_BOStoreQty();
 
-      4: //∏ﬂµÕ≤˙
+      4: //È´ò‰Ωé‰∫ß
         gt_hightLowProductionRate();
 
-      5: //πÊƒ£
+      5: //ËßÑÊ®°
         gt_ProductionScale();
 
-      6: //≤˙¡ø
+      6: //‰∫ßÈáè
         gt_ProductionOutput();
 
-      7: // –√Ò–Ë«Û
+      7: //Â∏ÇÊ∞ëÈúÄÊ±Ç
         gt_ResidentReq();
 
-      8: //≥«’Úœ˚∑—
+      8: //ÂüéÈïáÊ∂àË¥π
         gt_cityProductAndConsume();
 
-      9: //‘≠¡œ–Ë«Û
+      9: //ÂéüÊñôÈúÄÊ±Ç
         gt_MaterialReq();
 
-      10: // £”‡»±ø⁄
+      10: //Ââ©‰ΩôÁº∫Âè£
         gt_surplus();
 
       11: //sale-price
@@ -3592,7 +3574,7 @@ end;
 //  idx, ilidx, t, l, p: Integer;
 //  r: TRect;
 //  s: string;
-//  txt: WideString;
+//  txt: UnicodeString;
 //begin
 //  aDefaultDraw := True;
 ////
@@ -3773,7 +3755,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetail_BOGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   idx: integer;
   
@@ -3798,8 +3780,8 @@ var
     end;
       
     case frm.currBO^.getTradeOpType(idx) of
-      OT__Buy: CellText := '¬Ú»Î';
-      OT__Sell: CellText := '¬Ù≥ˆ';
+      OT__Buy: CellText := '‰π∞ÂÖ•';
+      OT__Sell: CellText := 'ÂçñÂá∫';
     end;
   end;
 
@@ -3823,7 +3805,7 @@ var
 //        if op = OT__Buy then
 //        begin
 //          if store >= q then
-//            s := '®h'
+//            s := '‚ï§'
 //          else
 //            s := '';
 //        end
@@ -3964,7 +3946,7 @@ var
       exit;
 
     if frm.currBO.isTradeShipLoadRestricted(idx) then
-      CellText := '°Ã';
+      CellText := '‚àö';
   end;
 
   procedure gt_CitySPrice();
@@ -4008,16 +3990,16 @@ begin
     BOTAG__BO_STORE: //bo store
       gt_BOStoreQty();
 
-    BOTAG__TRADE_OP: //√≥“◊…Ë∂®
+    BOTAG__TRADE_OP: //Ë¥∏ÊòìËÆæÂÆö
       gt_TradeOpType();
 
-    BOTAG__TRADE_QTY: //√≥“◊ ˝¡ø
+    BOTAG__TRADE_QTY: //Ë¥∏ÊòìÊï∞Èáè
       gt_TradeQty();
 
-    BOTAG__TRADE_PRICE: //√≥“◊º€∏Ò
+    BOTAG__TRADE_PRICE: //Ë¥∏Êòì‰ª∑Ê†º
       gt_TradePrice();
 
-    BOTAG__SHIP_LOAD_RESTRICT: //¥¨÷ª◊∞‘ÿœﬁ÷∆
+    BOTAG__SHIP_LOAD_RESTRICT: //ËàπÂè™Ë£ÖËΩΩÈôêÂà∂
       gt_ShipLoadRestrict();
 
     BOTAG__CITY_STORE:
@@ -4029,10 +4011,10 @@ begin
     BOTAG__CITY_PPRICE:
       gt_CityPPrice();
 
-    BOTAG__PROD_SCALE: //…˙≤˙πÊƒ£
+    BOTAG__PROD_SCALE: //Áîü‰∫ßËßÑÊ®°
       gt_ProductionScale();
 
-    BOTAG__PROD_QTY: //≤˙¡ø
+    BOTAG__PROD_QTY: //‰∫ßÈáè
       gt_ProductionOutput();
   end;
 end;
@@ -4104,7 +4086,7 @@ begin
 end;
 
 procedure TCityDetaiViewer.CityDetail_BOGridNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
 var
   gid, q, p, tag, factor: integer;
   allowed: boolean;
@@ -4225,7 +4207,7 @@ begin
         begin
           if tag = BOTAG__CITY_SPRICE then
           begin
-            InflateRect(r, -4, 0);
+            System.Types.InflateRect(r, -4, 0);
             DrawSquigglyUnderlineEx(dc, frm.bluePen, r.Left, r.Bottom-2, r.Right-r.Left);
           end;
         end
@@ -4233,7 +4215,7 @@ begin
         begin
           if tag = BOTAG__CITY_PPRICE then
           begin
-            InflateRect(r, -4, 0);
+            System.Types.InflateRect(r, -4, 0);
             DrawSquigglyUnderlineEx(dc, frm.bluePen, r.Left, r.Bottom-2, r.Right-r.Left);
           end;
         end;
@@ -4250,7 +4232,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetail_BO_WeaponStoreGetText(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-  TextType: TVSTTextType; var CellText: WideString);
+  TextType: TVSTTextType; var CellText: UnicodeString);
 var
   rec, idx, q: integer;
   g: TVirtualStringTree;
@@ -4290,7 +4272,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetail_BuildingGridGetText(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-  TextType: TVSTTextType; var CellText: WideString);
+  TextType: TVSTTextType; var CellText: UnicodeString);
 var
   idx: word;
   cb: PCityBuilding;
@@ -4330,7 +4312,7 @@ end;
 
 procedure TCityDetaiViewer.CityDetail_Dockyard_BuildingShipGridGetText(
   Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
-  TextType: TVSTTextType; var CellText: WideString);
+  TextType: TVSTTextType; var CellText: UnicodeString);
 var
   ship: PP3R2Ship;
 
@@ -4424,6 +4406,13 @@ procedure TCityDetaiViewer.init;
     setTag(4, BOTAG__TRADE_QTY);
     setTag(5, BOTAG__SHIP_LOAD_RESTRICT);
     setTag(6, BOTAG__TRADE_PRICE);
+    // Explicit legacy DFM options omit column focus in the current vendor.
+    // Restore only the two existing editable business columns; the original
+    // OnEditing/OnCreateEditor player and office guards remain authoritative.
+    frm.CityDetail_BOGrid.Header.Columns[4].Options :=
+      frm.CityDetail_BOGrid.Header.Columns[4].Options + [coAllowFocus,coEditable];
+    frm.CityDetail_BOGrid.Header.Columns[6].Options :=
+      frm.CityDetail_BOGrid.Header.Columns[6].Options + [coAllowFocus,coEditable];
     setTag(7, BOTAG__CITY_STORE);
     setTag(8, BOTAG__CITY_SPRICE);
     setTag(9, BOTAG__CITY_PPRICE);
@@ -4934,7 +4923,7 @@ begin
     else
     begin
       cap := getCaptionInfo(bo.ManagerID);
-      frm.lblCityDetail_BO_Manager.Caption := IntToStr(cap.getBOManagerTradingExpLvl()) + 'º∂';
+      frm.lblCityDetail_BO_Manager.Caption := IntToStr(cap.getBOManagerTradingExpLvl()) + 'Á∫ß';
     end;
 
     req := bo.StoreHouseMaxCap;
@@ -5046,7 +5035,7 @@ end;
 
 procedure TTraderListViewer.TraderListGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   pid: Byte;
   tinfo: PTraderInfo;
@@ -6001,13 +5990,13 @@ var
   i, q: integer;
   ShipNameToolong: Boolean;
   mi: TMenuItem;
-  newName: WideString;
+  newName: UnicodeString;
   allShipList, processedShips: TList;
 
-  function findShipByName(const shipName: WideString): PP3R2Ship;
+  function findShipByName(const shipName: UnicodeString): PP3R2Ship;
   var
     i: integer;
-    sn: WideString;
+    sn: UnicodeString;
   begin
     for I := 0 to allShipList.Count - 1 do
     begin
@@ -6026,8 +6015,8 @@ var
   label
     l1;
   var
-    snPrefix, snName, snSuffix: WideString;
-    newName2, encodedName: WideString;
+    snPrefix, snName, snSuffix: UnicodeString;
+    newName2, encodedName: UnicodeString;
     idx: integer;
   begin
     if processedShips.IndexOf(ship) >= 0 then
@@ -6106,13 +6095,13 @@ var
   i, q: integer;
   ShipNameToolong: Boolean;
   mi: TMenuItem;
-  newPrefix: WideString;
+  newPrefix: UnicodeString;
   processedShips: TList;
 
   procedure process(ship: PP3R2Ship);
   var
-    snPrefix, snName, snSuffix: WideString;
-    newName: WideString;
+    snPrefix, snName, snSuffix: UnicodeString;
+    newName: UnicodeString;
   begin
     if processedShips.IndexOf(ship) >= 0 then
       Exit;
@@ -6224,7 +6213,7 @@ var
   i: integer;
   area: TAreaDefImpl;
 
-  procedure createMI(prefix, name: WideString);
+  procedure createMI(prefix, name: UnicodeString);
   var
     mi: TMenuItem;
   begin
@@ -6304,7 +6293,7 @@ var
   g: TVirtualStringTree;
 
   procedure addCol(
-          const cap: WideString;
+          const cap: UnicodeString;
           const tag: integer;
           const width: integer;
           const imgIndex: integer;
@@ -6331,26 +6320,26 @@ begin
     g.Header.Columns.Clear();
 
     addCol('Ptr', COLTAG__SHIP_PTR, 100, -1, taLeftJustify);
-    addCol('√˚≥∆', COLTAG__NAME, 160, -1, taLeftJustify);
-    addCol('¿‡–Õ', COLTAG__SHIP_TYPE, 55, -1, taLeftJustify);
-    addCol('À˘‘⁄', COLTAG__CURR_CITY, 100, -1, taLeftJustify);
+    addCol('ÂêçÁß∞', COLTAG__NAME, 160, -1, taLeftJustify);
+    addCol('Á±ªÂûã', COLTAG__SHIP_TYPE, 55, -1, taLeftJustify);
+    addCol('ÊâÄÂú®', COLTAG__CURR_CITY, 100, -1, taLeftJustify);
 
 
     case frm.tabbarShipList_ViewType.SelectedTab.Tag of
       1:
       begin
-        addCol('ƒÕæ√', COLTAG__SHIP_POINTS, 130, IL20__HEART, taRightJustify);
-        addCol('»›¡ø', COLTAG__CAPACITY, 120, IL20__TONG, taRightJustify);
-        addCol('¥¨≥§', COLTAG__CAPTAIN, 64, IL20__STAR, taCenter);
-        addCol('ÀÆ ÷', COLTAG__SEAMAN, 64, IL20__SEAMAN, taRightJustify);
-        addCol('∂ÃΩ£', COLTAG__SWORD, 50, -1, taRightJustify);
-        addCol('ª¡¶', COLTAG__POWER, 50, -1, taRightJustify);
-        addCol('∫Ω––◊¥Ã¨', COLTAG__SAIL_STATE, 200, -1, taLeftJustify);    
+        addCol('ËÄê‰πÖ', COLTAG__SHIP_POINTS, 130, IL20__HEART, taRightJustify);
+        addCol('ÂÆπÈáè', COLTAG__CAPACITY, 120, IL20__TONG, taRightJustify);
+        addCol('ËàπÈïø', COLTAG__CAPTAIN, 64, IL20__STAR, taCenter);
+        addCol('Ê∞¥Êâã', COLTAG__SEAMAN, 64, IL20__SEAMAN, taRightJustify);
+        addCol('Áü≠Ââë', COLTAG__SWORD, 50, -1, taRightJustify);
+        addCol('ÁÅ´Âäõ', COLTAG__POWER, 50, -1, taRightJustify);
+        addCol('Ëà™Ë°åÁä∂ÊÄÅ', COLTAG__SAIL_STATE, 200, -1, taLeftJustify);
       end;
 
       2:
       begin
-        addCol('»›¡ø', COLTAG__CAPACITY, 140, IL20__TONG, taRightJustify);
+        addCol('ÂÆπÈáè', COLTAG__CAPACITY, 140, IL20__TONG, taRightJustify);
         for gid := MIN_GOODS_ID to MAX_GOODS_ID do
         begin
           addCol(
@@ -6364,7 +6353,7 @@ begin
 
       3:
       begin
-        addCol('»›¡ø', COLTAG__CAPACITY, 140, IL20__TONG, taRightJustify);
+        addCol('ÂÆπÈáè', COLTAG__CAPACITY, 140, IL20__TONG, taRightJustify);
         for gid in [GOODSID__WOOL, GOODSID__CLOTH, GOODSID__TOOLS, GOODSID__HEMP, GOODSID__ASPHALT] do
         begin
           addCol(
@@ -6380,7 +6369,7 @@ begin
         addCol(getCityWeaponName(CITY_WEAPON_3), COLTAG__CITY_WEAPON_3, 40, -1, taRightJustify);
         addCol(getCityWeaponName(CITY_WEAPON_4), COLTAG__CITY_WEAPON_4, 40, -1, taRightJustify);
 
-        addCol('∂ÃΩ£', COLTAG__SWORD, 50, -1, taRightJustify);
+        addCol('Áü≠Ââë', COLTAG__SWORD, 50, -1, taRightJustify);
       end;
     end;
   finally
@@ -6442,7 +6431,7 @@ end;
 //  ship: PP3R2Ship;
 //  tag: integer;
 //  dc: HDC;
-//  S: WideString;
+//  S: UnicodeString;
 //  bkColor: TColor;
 //  br: HBRUSH;
 //begin
@@ -6467,8 +6456,8 @@ end;
 //        end;
 //        FillRect(dc, CellRect, br);
 //        SetTextColor(dc, clGray);
-//        InflateRect(CellRect, -frm.ShipListGrid.Header.Columns[column].Margin, 0);
-//        DrawTextW(dc, pwidechar(s), length(s), CellRect, DT_SINGLELINE or DT_LEFT or DT_VCENTER, False);
+//        System.Types.InflateRect(CellRect, -frm.ShipListGrid.Header.Columns[column].Margin, 0);
+//        DrawTextW(dc, pwidechar(s), length(s), CellRect, DT_SINGLELINE or DT_LEFT or DT_VCENTER);
 //
 //        if (Sender.FocusedNode = Node) and (Sender.FocusedColumn = Column) then
 //          DrawFocusRect(dc, CellRect);
@@ -6560,7 +6549,7 @@ end;
 
 procedure TShipListViewer.ShipListGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   nd: PShipListNode;
   ship: PP3R2Ship;
@@ -6610,7 +6599,7 @@ begin
     COLTAG__SHIP_TYPE:
     begin
       if (sgcache <> nil) and (sgcache.ShipList.Count > 1) then
-        CellText := 'Ω¢∂”'
+        CellText := 'Ëà∞Èòü'
       else
         CellText := getShipTypeText(ship.ShipType);
     end;
@@ -6629,12 +6618,12 @@ begin
       if ship^.State = SHIP_STATE__BUILDING then
       begin
         if (ship^.CurrPoint = 0) or (ship^.MaxPoint = 0) then
-          CellText := '(º∆ªÆΩ®‘Ï÷–)'
+          CellText := '(ËÆ°ÂàíÂª∫ÈÄ†‰∏≠)'
         else
         begin
           d1 := ship^.CurrPoint;
           d2 := ship^.MaxPoint;
-          CellText := '(Ω®‘Ï÷–)' + FormatFloat('0', d1 * 100 / d2) + '%';
+          CellText := '(Âª∫ÈÄ†‰∏≠)' + FormatFloat('0', d1 * 100 / d2) + '%';
         end;
       end
       else
@@ -6738,24 +6727,24 @@ begin
         CellText := IntToStr(ship^.Power);
     end;
 
-    COLTAG__SAIL_STATE: //∫Ω––◊¥Ã¨
+    COLTAG__SAIL_STATE: //Ëà™Ë°åÁä∂ÊÄÅ
     begin
       if ship^.State <> SHIP_STATE__BUILDING then
       begin
         if ship.State = SHIP_STATE__SINKING then
-          CellText := 'œ¬≥¡÷–'
+          CellText := '‰∏ãÊ≤â‰∏≠'
         else if ship.State = SHIP_STATE__BATTLE then
-          CellText := '∫£’Ω'
+          CellText := 'Êµ∑Êàò'
         else if ship.State = SHIP_STATE__ANCHOR then
-          CellText := 'Õ£≤¥-' + getCityName2(ship.Curr)
+          CellText := 'ÂÅúÊ≥ä-' + getCityName2(ship.Curr)
         else if ship.State = SHIP_STATE__LEAVE then
-          CellText := '¿Î∏€-(' + getCityName2(ship^.From) + '->' + getCityName2(ship^.Dest) + ')'
+          CellText := 'Á¶ªÊ∏Ø-(' + getCityName2(ship^.From) + '->' + getCityName2(ship^.Dest) + ')'
         else if ship.State = SHIP_STATE__ENTER then
-          CellText := 'øø∏€-' + getCityName2(ship^.From)
+          CellText := 'Èù†Ê∏Ø-' + getCityName2(ship^.From)
         else if ship.State = SHIP_STATE__BUSINESS then
-          CellText := 'Ωª“◊÷–-' + getCityName2(ship.Curr)
+          CellText := '‰∫§Êòì‰∏≠-' + getCityName2(ship.Curr)
         else if (ship^.Curr = ship^.From) and (ship^.From = ship^.Dest) then
-          CellText := 'Õ£≤¥-' + getCityName2(ship^.Curr)
+          CellText := 'ÂÅúÊ≥ä-' + getCityName2(ship^.Curr)
         else
         begin
 //          dbgStr('currTS=' + longwordToHexStr(getCurrTS()));
@@ -6764,7 +6753,7 @@ begin
           begin
             if ship^.State = SHIP_STATE__FIX then
             begin
-              CellText := 'Õ£≤¥-' + getCityName2(ship^.Curr);
+              CellText := 'ÂÅúÊ≥ä-' + getCityName2(ship^.Curr);
               exit;
             end;
             
@@ -6776,7 +6765,7 @@ begin
             getTimeDiffInDays(ship^.ReachDestTS, days, hours);
           end;
           
-          CellText := '∫Ω––->' + getCityName2(ship^.Dest) + ' (' + intervalToStr(days, hours) + ')';
+          CellText := 'Ëà™Ë°å->' + getCityName2(ship^.Dest) + ' (' + intervalToStr(days, hours) + ')';
         end;
       end;
     end;
@@ -6901,14 +6890,14 @@ procedure TCityListViewer.CityListGridAfterCellPaint(Sender: TBaseVirtualTree;
 var
   tag, gid: integer;
   g: TVirtualStringTree;
-  S: WideString;
+  S: UnicodeString;
   r: TRect;
 
   procedure clearRect();
   begin
-//    InflateRect(CellRect, 1, 1);
+//    System.Types.InflateRect(CellRect, 1, 1);
     TargetCanvas.FillRect(CellRect);
-//    InflateRect(CellRect, -1, -1);
+//    System.Types.InflateRect(CellRect, -1, -1);
   end;
 
   procedure doDrawFocusRect();
@@ -6917,7 +6906,7 @@ var
     begin
 //      TargetCanvas.Brush.Color := clBlack;
 //      TargetCanvas.Pen.Color := clBlack;
-//      InflateRect(CellRect, -1, -1);
+//      System.Types.InflateRect(CellRect, -1, -1);
       TargetCanvas.Font.Color := clBlack;
       TargetCanvas.DrawFocusRect(CellRect);
 //      DrawFocusRect(TargetCanvas.Handle, CellRect);
@@ -6981,7 +6970,7 @@ var
     setupTxtStyle(warning);
     Dec(r.Right, 4);
     dc := TargetCanvas.Handle;
-    DrawTextW(dc, PWideChar(S), Length(S), r, DT_SINGLELINE or DT_RIGHT or DT_VCENTER, False);
+    DrawTextW(dc, PWideChar(S), Length(S), r, DT_SINGLELINE or DT_RIGHT or DT_VCENTER);
     if warning then
     begin
       r := CellRect;
@@ -7104,7 +7093,7 @@ end;
 
 procedure TCityListViewer.CityListGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   city, tag: Integer;
   cityPtr: PCityStruct;
@@ -7390,7 +7379,7 @@ var
     begin
       daysToComplete := bc.getSchoolDaysToComplete();
       if daysToComplete > 0 then
-        CellText := '(' + IntToStr(daysToComplete) + 'ÃÏÕÍπ§)'
+        CellText := '(' + IntToStr(daysToComplete) + 'Â§©ÂÆåÂ∑•)'
       else
         CellText := Txt_Tick;
     end
@@ -7408,7 +7397,7 @@ var
     begin
       daysToComplete := bc.getMintageDaysToComplete();
       if daysToComplete > 0 then
-        CellText := '(' + IntToStr(daysToComplete) + 'ÃÏÕÍπ§)'
+        CellText := '(' + IntToStr(daysToComplete) + 'Â§©ÂÆåÂ∑•)'
       else
         CellText := Txt_Tick;
     end
@@ -8498,7 +8487,7 @@ end;
 procedure TCityListViewer.rebuildColumns;
 
   procedure addCol(
-          const aHeading: WideString;
+          const aHeading: UnicodeString;
           const aWidth: Integer;
           const aAlign: TAlignment;
           const aTag: Integer;
@@ -8519,7 +8508,7 @@ procedure TCityListViewer.rebuildColumns;
   end;
 
 var
-  txt_rich, txt_common, txt_poor: WideString;
+  txt_rich, txt_common, txt_poor: UnicodeString;
 
   procedure prepareGradeText();
   begin
@@ -8531,9 +8520,9 @@ var
 var
   gid, tag: integer;
   infobk, firstCol, accept: Boolean;
-  S: WideString;
+  S: UnicodeString;
 
-  function  colName(const S: WideString): WideString;
+  function  colName(const S: UnicodeString): UnicodeString;
   begin
     if firstCol then
     begin
@@ -8614,8 +8603,8 @@ begin
   //  addCol('Idx', 40, taRightJustify, TAG__CITY_ID);
   //  addCol('Ptr', 100, taLeftJustify, TAG__CITY_PTR);
 
-    addCol('≥«’Ú√˚≥∆', 140, taLeftJustify, TAG__CITY_NAME);
-    addCol('◊‹»Àø⁄', 55, taRightJustify, TAG__POP_TOTAL);
+    addCol('ÂüéÈïáÂêçÁß∞', 140, taLeftJustify, TAG__CITY_NAME);
+    addCol('ÊÄª‰∫∫Âè£', 55, taRightJustify, TAG__POP_TOTAL);
 
 //    dbgStr('rebuildColumns2');
 
@@ -8628,21 +8617,21 @@ begin
         addCol(txt_common, 50, taRightJustify, TAG__POP_COMMON);
         addCol(txt_poor, 50, taRightJustify, TAG__POP_POOR);
       
-        addCol(txt_rich + '¬˙“‚∂»', 78, taRightJustify, TAG__SATISFY_RICH);
-        addCol(txt_common + '¬˙“‚∂»', 78, taRightJustify, TAG__SATISFY_COMMON);
-        addCol(txt_poor + '¬˙“‚∂»', 78, taRightJustify, TAG__SATISFY_POOR);
-      //  addCol('≤ªøÏ¿÷Ω◊º∂', 90, taRightJustify, TAG__UNHAPPY_GRADE);
+        addCol(txt_rich + 'Êª°ÊÑèÂ∫¶', 78, taRightJustify, TAG__SATISFY_RICH);
+        addCol(txt_common + 'Êª°ÊÑèÂ∫¶', 78, taRightJustify, TAG__SATISFY_COMMON);
+        addCol(txt_poor + 'Êª°ÊÑèÂ∫¶', 78, taRightJustify, TAG__SATISFY_POOR);
+      //  addCol('‰∏çÂø´‰πêÈò∂Á∫ß', 90, taRightJustify, TAG__UNHAPPY_GRADE);
 
         addCol(getHouseName(GRADE__RICH), 70, taRightJustify, TAG__ADV_HOUSE);
         addCol(getHouseName(GRADE__COMMON), 70, taRightJustify, TAG__COMMON_HOUSE);
         addCol(getHouseName(GRADE__POOR), 70, taRightJustify, TAG__POOR_HOUSE);
 
-        addCol('Ωø‚', 80, taRightJustify, TAG__TREASURY);
+        addCol('ÈáëÂ∫ì', 80, taRightJustify, TAG__TREASURY);
 
-        addCol('¥˝“µ¥¨≥§', 80, taRightJustify, TAG__FREE_CAPTAIN);
+        addCol('ÂæÖ‰∏öËàπÈïø', 80, taRightJustify, TAG__FREE_CAPTAIN);
       end;
 
-      2: //ŒÔ◊ 
+      2: //Áâ©ËµÑ
       begin
         infobk := True;
 
@@ -8657,20 +8646,20 @@ begin
 
           if frm.cbCityList_Goods_ShowStore.Checked then
           begin
-            addCol(colName('ø‚¥Ê'), 90, taRightJustify, tag, infobk, IL20__GOODS_1 + gid - 1);
+            addCol(colName('Â∫ìÂ≠ò'), 90, taRightJustify, tag, infobk, IL20__GOODS_1 + gid - 1);
           end;
 
           if frm.cbCityList_Goods_ShowConsume.Checked then
-            addCol(colName('–Ë«Û'), 60, taRightJustify, tag + 1, infobk);
+            addCol(colName('ÈúÄÊ±Ç'), 60, taRightJustify, tag + 1, infobk);
 
           if frm.cbCityList_Goods_ShowProd.Checked then
-            addCol(colName('≤˙≥ˆ'), 60, taRightJustify, tag + 2, infobk);
+            addCol(colName('‰∫ßÂá∫'), 60, taRightJustify, tag + 2, infobk);
 
           if frm.cbCityList_Goods_ShowBPrice.Checked then
-            addCol(colName('¬Ú»Î'), 60, taRightJustify, tag + 3, infobk);
+            addCol(colName('‰π∞ÂÖ•'), 60, taRightJustify, tag + 3, infobk);
 
           if frm.cbCityList_Goods_ShowSPrice.Checked then
-            addCol(colName('¬Ù≥ˆ'), 60, taRightJustify, tag + 4, infobk);
+            addCol(colName('ÂçñÂá∫'), 60, taRightJustify, tag + 4, infobk);
 
           infobk := not infobk;
         end;
@@ -8695,40 +8684,40 @@ begin
 //        dbgStr('rebuildColumns4');
       end;
 
-      3: //Ω®÷˛
+      3: //Âª∫Á≠ë
       begin
         infobk := False;
         addCol(getHouseName(GRADE__RICH), 70, taRightJustify, TAG__ADV_HOUSE);
         addCol(getHouseName(GRADE__COMMON), 70, taRightJustify, TAG__COMMON_HOUSE);
         addCol(getHouseName(GRADE__POOR), 70, taRightJustify, TAG__POOR_HOUSE);
 
-        addCol('ÀÆæÆ', 70, taRightJustify, TAG__FACILITY_WELL, infobk);
-        addCol('“Ω‘∫', 70, taRightJustify, TAG__FACILITY_HOSPITAL, infobk);
-        addCol('¿Ò∞›Ã√', 70, taRightJustify, TAG__FACILITY_CHAPEL, infobk);
-//        addCol('ΩÃÃ√µ»º∂1£ø', 80, taRightJustify, TAG__FACILITY_CHURCH_1, infobk);
-//        addCol('ΩÃÃ√µ»º∂2£ø', 80, taRightJustify, TAG__FACILITY_CHURCH_2, infobk);
-        addCol('ΩÃÃ√–Ë«Û£ø', 80, taRightJustify, TAG__FACILITY_CHURCH_UG_REQ, infobk);
-        addCol('µ¿¬∑', 80, taRightJustify, TAG__FACILITY_ROAD, infobk);
-        addCol('—ß–£', 42, taRightJustify, TAG__FACILITY_SCHOOL, infobk);
-        addCol('÷˝±“', 42, taRightJustify, TAG__FACILITY_MINTAGE, infobk);
-        addCol('≥««Ω', 80, taRightJustify, TAG__FACILITY_WALL, infobk);
+        addCol('Ê∞¥‰∫ï', 70, taRightJustify, TAG__FACILITY_WELL, infobk);
+        addCol('ÂåªÈô¢', 70, taRightJustify, TAG__FACILITY_HOSPITAL, infobk);
+        addCol('Á§ºÊãúÂ†Ç', 70, taRightJustify, TAG__FACILITY_CHAPEL, infobk);
+//        addCol('ÊïôÂ†ÇÁ≠âÁ∫ß1Ôºü', 80, taRightJustify, TAG__FACILITY_CHURCH_1, infobk);
+//        addCol('ÊïôÂ†ÇÁ≠âÁ∫ß2Ôºü', 80, taRightJustify, TAG__FACILITY_CHURCH_2, infobk);
+        addCol('ÊïôÂ†ÇÈúÄÊ±ÇÔºü', 80, taRightJustify, TAG__FACILITY_CHURCH_UG_REQ, infobk);
+        addCol('ÈÅìË∑Ø', 80, taRightJustify, TAG__FACILITY_ROAD, infobk);
+        addCol('Â≠¶Ê†°', 42, taRightJustify, TAG__FACILITY_SCHOOL, infobk);
+        addCol('Èì∏Â∏Å', 42, taRightJustify, TAG__FACILITY_MINTAGE, infobk);
+        addCol('ÂüéÂ¢ô', 80, taRightJustify, TAG__FACILITY_WALL, infobk);
       end;
 
-      4: //æ¸ ¬
+      4: //ÂÜõ‰∫ã
       begin
         infobk := False;
 
-        addCol(' ø±¯◊‹ ˝', 90, taRightJustify, TAG__SOLDIER_TOTAL, infobk);
+        addCol('Â£´ÂÖµÊÄªÊï∞', 90, taRightJustify, TAG__SOLDIER_TOTAL, infobk);
         addCol(getSoldierTypeName(SOLDIER_TYPE_0), 50, taRightJustify, TAG__SOLDIER_0, infobk);
         addCol(getSoldierTypeName(SOLDIER_TYPE_1), 50, taRightJustify, TAG__SOLDIER_1, infobk);
         addCol(getSoldierTypeName(SOLDIER_TYPE_2), 50, taRightJustify, TAG__SOLDIER_2, infobk);
         addCol(getSoldierTypeName(SOLDIER_TYPE_3), 50, taRightJustify, TAG__SOLDIER_3, infobk);
 
         infobk := True;
-        addCol('≥««Ω', 80, taRightJustify, TAG__FACILITY_WALL, infobk);
-        addCol('≥««Ω≈⁄', 135, taRightJustify, TAG__FACILITY_CITYGATE_ARTILLERY, infobk);
-        addCol('≈◊…‰', 80, taRightJustify, TAG__FACILITY_PAOSHE, infobk);
-        addCol('∫£∞∂≈⁄', 100, taRightJustify, TAG__FACILITY_SEACOAST_ARTILLERY, infobk);
+        addCol('ÂüéÂ¢ô', 80, taRightJustify, TAG__FACILITY_WALL, infobk);
+        addCol('ÂüéÂ¢ôÁÇÆ', 135, taRightJustify, TAG__FACILITY_CITYGATE_ARTILLERY, infobk);
+        addCol('ÊäõÂ∞Ñ', 80, taRightJustify, TAG__FACILITY_PAOSHE, infobk);
+        addCol('Êµ∑Â≤∏ÁÇÆ', 100, taRightJustify, TAG__FACILITY_SEACOAST_ARTILLERY, infobk);
 
         infobk := False;
         for gid := CITY_WEAPON_1 to CITY_WEAPON_4 do
@@ -9278,8 +9267,8 @@ begin
 //    mi := findCityMI(cityCode);
 //    if mi = nil then
 //    begin
-//      dbgStr('÷¡…Ÿ”–“ª∏ˆ∫Ωœﬂ≥«’Ú√ª”–ÃÌº”µΩ∫Ωœﬂ÷–');
-//      frm.showMsg(MT__ERROR, '÷¡…Ÿ”–“ª∏ˆ∫Ωœﬂ≥«’Ú√ª”–ÃÌº”µΩ∫Ωœﬂ÷–');
+//      dbgStr('Ëá≥Â∞ëÊúâ‰∏Ä‰∏™Ëà™Á∫øÂüéÈïáÊ≤°ÊúâÊ∑ªÂä†Âà∞Ëà™Á∫ø‰∏≠');
+//      frm.showMsg(MT__ERROR, 'Ëá≥Â∞ëÊúâ‰∏Ä‰∏™Ëà™Á∫øÂüéÈïáÊ≤°ÊúâÊ∑ªÂä†Âà∞Ëà™Á∫ø‰∏≠');
 //      Continue;
 //    end;
 //
@@ -9288,7 +9277,7 @@ begin
 
     if n = nil then
     begin
-      frm.showMsg(MT__ERROR, '¥ÌŒÛ£¨ø…ƒ‹ «∫Ωœﬂ÷–µƒ≥«’ÚÃ´∂‡');
+      frm.showMsg(MT__ERROR, 'ÈîôËØØÔºåÂèØËÉΩÊòØËà™Á∫ø‰∏≠ÁöÑÂüéÈïáÂ§™Â§ö');
       Continue;
     end;
 
@@ -9483,7 +9472,7 @@ end;
 
 procedure TMapViewer.MapShipGroupSelectGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   ship: PP3R2Ship;
 begin
@@ -9668,7 +9657,7 @@ end;
 
 procedure TMapViewer.Map_TradeRouteCityGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   r: PTradeRoute;
 begin
@@ -9689,9 +9678,9 @@ begin
     2:
     begin
       if (r^.Flags and TRADE_ROUTE_FLAG__NO_STOP) = TRADE_ROUTE_FLAG__NO_STOP then
-        CellText := '≤ªøø∏€'
+        CellText := '‰∏çÈù†Ê∏Ø'
       else if (r^.Flags and TRADE_ROUTE_FLAG__FIX) = TRADE_ROUTE_FLAG__FIX then
-        CellText := 'Œ¨–ﬁ'
+        CellText := 'Áª¥‰øÆ'
       else
         CellText := '';
 
@@ -9841,7 +9830,7 @@ end;
 
 procedure TMapViewer.Map_TradeRouteGoodsGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   gid, q, p: integer;
 begin
@@ -9864,7 +9853,7 @@ begin
         exit;
 
       if fSelectedTradeRoute.IsUnlimitedQty(gid) then
-        CellText := '◊Ó¥Û'
+        CellText := 'ÊúÄÂ§ß'
       else
       begin
         q := fSelectedTradeRoute.getMaxQty(gid);
@@ -9899,11 +9888,9 @@ begin
   end;
 end;
 
-procedure TMapViewer.Map_TradeRouteGoodsGridHeaderDblClick(Sender: TVTHeader;
-  Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
-  Y: Integer);
+procedure TMapViewer.Map_TradeRouteGoodsGridHeaderDblClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
 begin
-  if (Column <> 1) or (Button <> mbLeft)
+  if (HitInfo.Column <> 1) or (HitInfo.Button <> mbLeft)
   or (fSelectedShip = nil)
   or (fSelectedTradeRoute = nil) then
     exit;  
@@ -9972,7 +9959,7 @@ begin
 end;
 
 procedure TMapViewer.Map_TradeRouteGoodsGridNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; NewText: UnicodeString);
 var
   i, price, qty: integer;
   gid: integer;
@@ -10409,10 +10396,10 @@ var
     mi := TMenuItem.Create(miParent);
     mi.Caption := '-';
     case pdt of
-      PDT__B: mi.Hint := '¬Ú»Îº€';
-      PDT__S: mi.Hint := '¬Ù≥ˆº€';
+      PDT__B: mi.Hint := '‰π∞ÂÖ•‰ª∑';
+      PDT__S: mi.Hint := 'ÂçñÂá∫‰ª∑';
     else
-      mi.Hint := '∆‰À˚';
+      mi.Hint := 'ÂÖ∂‰ªñ';
     end;
     miParent.Add(mi);
 
@@ -10510,7 +10497,7 @@ var
   sgList, shipList: TList;
   sgInfo: PShipGroupInfo;
   ship: PP3R2Ship;
-  sn, area: WideString;
+  sn, area: UnicodeString;
   n: PVirtualNode;
 begin
   pid := getCurrPlayerID();
@@ -11152,7 +11139,7 @@ end;
 
 procedure TAreaViewer.AreaSupplyGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   q, gid, period: integer;
   nArea: PVirtualNode;
@@ -11327,7 +11314,7 @@ end;
 
 procedure TAreaViewer.Config_AreaCityGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   internalCode: integer;
   city: TAreaCityImpl;
@@ -11437,7 +11424,7 @@ end;
 
 procedure TAreaViewer.Config_AreaGridGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: UnicodeString);
 var
   area: TAreaImpl;
 
@@ -11469,7 +11456,7 @@ begin
   if data = Self then
   begin
     case Column of
-      0: CellText := '(»´≤ø)';
+      0: CellText := '(ÂÖ®ÈÉ®)';
       1: CellText := IntToStr(getCityCount());
     end;
     Exit;
@@ -11482,7 +11469,7 @@ begin
       if area <> nil then
         CellText := area.getName()
       else
-        CellText := '(∆‰À˚)';
+        CellText := '(ÂÖ∂‰ªñ)';
 
     1:
     begin

@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-13",
+  "method": "Fresh HTTPS downloads into an empty output directory, extraction, public compatibility recipes and full lock verification.",
+  "archives": [
+    {
+      "id": "virtual-treeview-5.5.3",
+      "url": "https://github.com/JAM-Software/Virtual-TreeView/releases/download/V5.5.3/VirtualTreeViewV5.5.3.zip",
+      "sha256": "c0faf740c268644da835191071221c85fa69034039f85cc49b6eb5314f0a4970",
+      "bytes": 3416300
+    },
+    {
+      "id": "jcl-2.8-9330",
+      "url": "https://codeload.github.com/project-jedi/jcl/zip/1e0df25bbe8e41e9f4704635d35777d235f98a97",
+      "sha256": "e4c618204424b9cc89e322b16f7b072065168a12b0021e365c7a9651bc91ad39",
+      "bytes": 11253173
+    },
+    {
+      "id": "jedi-include-for-jcl-2.8",
+      "url": "https://codeload.github.com/project-jedi/jedi/zip/b33dc0f7b4c3d776d31a391bc34bb2e283e08033",
+      "sha256": "ac90e5490abfc439fc286e9337fcc9280fe3c89a2a07cedef1fd9b7b5297ac8e",
+      "bytes": 16610
+    },
+    {
+      "id": "jvcl-3.50",
+      "url": "https://codeload.github.com/project-jedi/jvcl/zip/a8796c9b5948389cbd0acff548c0f7cae689bc9f",
+      "sha256": "b8c9ceb4d1e52fa01b22ab383d9da021d20caf227fceeb19ca629ea3015f2551",
+      "bytes": 57146595
+    },
+    {
+      "id": "gr32-lines-3.92",
+      "url": "https://www.angusj.com/delphi/gr32_lines.zip",
+      "sha256": "e52e7d3059e051ec2e09853f9d5018f39ad4f119512a6e55bf109db3b3b79e63",
+      "bytes": 1311079
+    },
+    {
+      "id": "graphics32-1.9.1-fixes",
+      "url": "https://codeload.github.com/graphics32/graphics32/zip/b154583e2859280fed665e6399f9a72ff8feadb4",
+      "sha256": "910fa58dcc0a0e04235fc73b4d002fed62e807d8a7d192440b9d2ff3f032b1be",
+      "bytes": 2682927
+    },
+    {
+      "id": "barmenus-delphi10.2-port",
+      "url": "https://codeload.github.com/lynxnake/BarMenus/zip/5ca9d1fef5267ee2c779b612e2fd2499a4be76dd",
+      "sha256": "51cd5ca0374d9a25a143a8656b5e4eaba384b4c73962e77594f002302ce1b8f0",
+      "bytes": 292726
+    },
+    {
+      "id": "omnixml-243ba566",
+      "url": "https://codeload.github.com/mremec/omnixml/zip/243ba5664b55ae74e886c4d7fc35e473b31d479c",
+      "sha256": "0d6af6b7cee2fd454c49fd5980dc108f4cdbc2e8749d5ee5ee7320a1109a0e3c",
+      "bytes": 345614
+    }
+  ],
+  "vendor_files": 14004,
+  "vendor_all_hashes_match": true,
+  "matches_previously_compiled_dependencies": true,
+  "sdk_overlay_matches_existing": true,
+  "sdk_overlay_sha256": "b3b4848f9ee4ce8bede27399f4b07b608a835e8f85729c9f180bccbbbc7a9e68",
+  "boundary_tests": {
+    "passed": 8,
+    "total": 8
+  },
+  "compiler_started": false,
+  "game_started": false,
+  "host_settings_changed": false,
+  "limitations": "This verifies publicly obtainable build inputs, not a new compiler run or runtime game validation."
+}

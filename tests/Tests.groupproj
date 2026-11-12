@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup><ProjectGuid>{ED6C9680-0829-5677-9AC3-BE358888597A}</ProjectGuid></PropertyGroup>
+  <ItemGroup>
+    <Projects Include="pi\XMLHelperTests.dproj"><Dependencies /></Projects>
+    <Projects Include="pi\ABILayoutTests.dproj"><Dependencies /></Projects>
+    <Projects Include="launcher\ReadinessTests.dproj"><Dependencies /></Projects>
+    <Projects Include="launcher\ProfileProbe.dproj"><Dependencies /></Projects>
+  </ItemGroup>
+  <ProjectExtensions><Borland.Personality>Default.Personality.12</Borland.Personality><Borland.ProjectType>GroupProjectType</Borland.ProjectType></ProjectExtensions>
+  <Target Name="XMLHelperTests"><MSBuild Projects="pi\XMLHelperTests.dproj" /></Target>
+  <Target Name="ABILayoutTests"><MSBuild Projects="pi\ABILayoutTests.dproj" /></Target>
+  <Target Name="ReadinessTests"><MSBuild Projects="launcher\ReadinessTests.dproj" /></Target>
+  <Target Name="ProfileProbe"><MSBuild Projects="launcher\ProfileProbe.dproj" /></Target>
+  <Target Name="Build"><CallTarget Targets="XMLHelperTests;ABILayoutTests;ReadinessTests;ProfileProbe" /></Target>
+</Project>

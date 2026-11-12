@@ -67,3 +67,15 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+
+# Current PI build and machine-local dependencies
+/build/
+/vendor/
+/sdk-overlay/
+/build-history/
+*-build-result.json
+*.err
+__pycache__/
+.idea/
+.xcodemap/
+.vs/

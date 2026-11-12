@@ -1,4 +1,4 @@
-object frmP3Insight: TfrmP3Insight
+﻿object frmP3Insight: TfrmP3Insight
   Left = 0
   Top = 0
   BorderStyle = bsNone
@@ -719,11 +719,12 @@ object frmP3Insight: TfrmP3Insight
       Top = 1
       Width = 974
       Height = 629
-      ActivePage = tabCityList
+      ActivePage = tabCityDetail
       Align = alClient
       Style = tsButtons
       TabOrder = 0
       OnChange = PageControlMainChange
+      ExplicitTop = -2
       object tabCityList: TTabSheet
         Caption = #22478#38215#21015#34920
         ImageIndex = 3
@@ -932,10 +933,6 @@ object frmP3Insight: TfrmP3Insight
           TabOrder = 0
           object tabCityDetail_CityInfo: TTabSheet
             Caption = #22478#38215#20379#27714
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object CityDetailGrid: TVirtualStringTree
               Left = 0
               Top = 0
@@ -2096,10 +2093,6 @@ object frmP3Insight: TfrmP3Insight
               object TabSheet1: TTabSheet
                 Caption = #27494#22120#20648#22791
                 ImageIndex = 1
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object Label18: TLabel
                   Left = 8
                   Top = 8
@@ -2150,10 +2143,6 @@ object frmP3Insight: TfrmP3Insight
             Font.Style = []
             ImageIndex = 1
             ParentFont = False
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object Label8: TLabel
               Left = 14
               Top = 16
@@ -2420,7 +2409,7 @@ object frmP3Insight: TfrmP3Insight
                 Width = 145
                 Height = 21
                 Style = csDropDownList
-                ItemHeight = 0
+                ItemHeight = 13
                 TabOrder = 1
               end
               object seCityDetail_Dockyard_BookingQty: TJvSpinEdit
@@ -2438,10 +2427,6 @@ object frmP3Insight: TfrmP3Insight
           object tabCityDetail_Building: TTabSheet
             Caption = #24314#31569
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object CityDetail_BuildingGrid: TVirtualStringTree
               Left = 0
               Top = 0
@@ -3058,10 +3043,6 @@ object frmP3Insight: TfrmP3Insight
             object tabMapCtrl_ShipGroup: TTabSheet
               Caption = #33337#38431
               ImageIndex = 2
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object MapShipGroupSelectGrid: TVirtualStringTree
                 Left = 0
                 Top = 58
@@ -3134,7 +3115,7 @@ object frmP3Insight: TfrmP3Insight
                   Width = 153
                   Height = 21
                   Style = csDropDownList
-                  ItemHeight = 0
+                  ItemHeight = 13
                   TabOrder = 1
                 end
               end
@@ -3229,10 +3210,6 @@ object frmP3Insight: TfrmP3Insight
             object tabMapCtrl_ViewOpt: TTabSheet
               Caption = #26174#31034#36873#39033
               ImageIndex = 1
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object cbMap_drawCityName: TCheckBox
                 Left = 12
                 Top = 7

@@ -1,4 +1,4 @@
-unit p3Maps;
+Ôªøunit p3Maps;
 
 interface
 uses
@@ -30,7 +30,7 @@ type
   );
 
   TMapGoodsDemand = record
-    ProdLvl: integer; //0 - ≤ª «Ãÿ≤˙£¨1 - µÕ≤˙£¨2 - ∏ﬂ≤˙
+    ProdLvl: integer; //0 - ‰∏çÊòØÁâπ‰∫ßÔºå1 - ‰Ωé‰∫ßÔºå2 - È´ò‰∫ß
     product, remains, consume: double;
     citySPrice, cityPPrice: Integer;
 
@@ -410,7 +410,7 @@ end;
 
 procedure TCachedMapInfo.createFonts;
 const
-  DefaultFontName = '∫⁄ÃÂ';
+  DefaultFontName = 'Èªë‰Ωì';
 begin
   fCityNameFont := createFont(DefaultFontName, 10, clWhite, True);
 end;
@@ -555,7 +555,7 @@ var
 
 
     destR := srcR;
-    OffsetRect(destR, tempDrawInfo.tempLeft{ + tempDrawInfo.x}, t{ + tempDrawInfo.y});
+    System.Types.OffsetRect(destR, tempDrawInfo.tempLeft{ + tempDrawInfo.x}, t{ + tempDrawInfo.y});
 
 //    dbgRect('DrawgoodsIconto', destR);
 
@@ -591,7 +591,7 @@ var
   var
     s: string;
   begin
-    s := 'º€∏Ò: ';
+    s := '‰ª∑Ê†º: ';
     if sprice <> 0 then
       s := s + IntToStr(sprice)
     else
@@ -644,9 +644,9 @@ begin
 
     goodsDemand := cityInfo.getGoodsDemand(goodsID);
     drawPrice(goodsDemand^.citySPrice, goodsDemand^.cityPPrice, clBlack);
-    drawValue('≤˙≥ˆ', goodsDemand^.product, clGreen);
-    drawValue(' £”‡', goodsDemand^.remains, clBlue);
-    drawValue('–Ë«Û', goodsDemand^.consume, clRed);
+    drawValue('‰∫ßÂá∫', goodsDemand^.product, clGreen);
+    drawValue('Ââ©‰Ωô', goodsDemand^.remains, clBlue);
+    drawValue('ÈúÄÊ±Ç', goodsDemand^.consume, clRed);
 
     Inc(tempDrawInfo.top, 5);
   end;
@@ -711,7 +711,7 @@ procedure TCachedMapInfo.drawToTarget;
           Inc(deltaY, fNumBmpEdgeLen + 4);
       end;
 
-      OffsetRect(r, fCityPosInMap[I].X, deltaY);
+      System.Types.OffsetRect(r, fCityPosInMap[I].X, deltaY);
 
 //      dbgStr('-drawto-');
       BlockTransfer(fCityInfoTempBmp2, srcR.Left, srcR.Top, srcR, target, r, dmOpaque);
@@ -899,7 +899,7 @@ begin
       for J := 1 to fTradeRouteDrawInfo.CityRoutePointIndices[city].count do
       begin
         r := @fTradeRouteDrawInfo.CityRoutePointIndices[city].idxIconRects[J];
-        if PtInRect(r^, pt) then
+        if System.Types.PtInRect(r^, pt) then
         begin
           fTradeRouteDrawInfo.SelectedRouteIndex := fTradeRouteDrawInfo.CityRoutePointIndices[city].indices[J];
           update();

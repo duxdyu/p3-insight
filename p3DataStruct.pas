@@ -1,4 +1,4 @@
-unit p3DataStruct;
+ï»¿unit p3DataStruct;
 
 interface
 uses
@@ -59,7 +59,7 @@ type
   TBytes14 = array[1..14] of Byte;
   TP3R2Ship = packed record
     Owner: Byte;
-    Heading: Byte; //º½Ïò£¬01Îª×ó£¬05ÎªÉÏ£¬09ÎªÓÒ£¬0EÎªÏÂ
+    Heading: Byte; //èˆªå‘ï¼Œ01ä¸ºå·¦ï¼Œ05ä¸ºä¸Šï¼Œ09ä¸ºå³ï¼Œ0Eä¸ºä¸‹
     Stub0: array[1..2] of Byte;
     NextShipIndex: Word;
     UnknownIndex: Word;
@@ -75,9 +75,9 @@ type
     MaxPoint: LongWord;
     CurrPoint: LongWord;
 
-    Stub0_2: array[1..2] of Byte; //ÒÉÎªºáÏò½Ç¶È
+    Stub0_2: array[1..2] of Byte; //ç–‘ä¸ºæ¨ªå‘è§’åº¦
     PosX: Word;
-    Stub0_3: array[1..2] of Byte; //ÒÉÎª×İÏò½Ç¶È
+    Stub0_3: array[1..2] of Byte; //ç–‘ä¸ºçºµå‘è§’åº¦
     PosY: Word;
 
     //above 36
@@ -134,13 +134,13 @@ type
     Stub5_4: byte;
 
     //312=$138
-    UnknownWord: Word;        //Õâ¸öÖµºÍ$40×÷±È½Ï£¬ÊÇºÎÒâ£¿
+    UnknownWord: Word;        //è¿™ä¸ªå€¼å’Œ$40ä½œæ¯”è¾ƒï¼Œæ˜¯ä½•æ„ï¼Ÿ
 
     Stub6: array[1..2] of Byte;
     Carnons: array[1..24] of Byte;
-    Sword: Word;                 //¶Ì½£
+    Sword: Word;                 //çŸ­å‰‘
     Stub7: array[1..10] of Byte;
-    ShipName: array[1..MAX_SHIP_NAME_LENGTH+1] of Char; //#0 terminated
+    ShipName: array[1..MAX_SHIP_NAME_LENGTH+1] of AnsiChar; //#0 terminated, game ABI
     Stub8: TBytes14;
   public const  //ShipType
 //    ST__ShiNaiKa  = 0;
@@ -216,18 +216,18 @@ const
   CANNON__DAN_PAO_WEI_TOU_SHI = $00;
   CANNON__DAN_PAO_WEI_NU_PAO = $02;
 
-  SHIP_STATE__ANCHOR = $00;  //¸ÛÄÚ(²»¶¯)
-  SHIP_STATE__BUSINESS = $01;  //¸ÛÄÚ(Ã³Ò×)
-  SHIP_STATE__LEAVE = $02;  //Àë¸Û£¬³ö³Ç
-  SHIP_STATE__ENTER = $03;  //¿¿¸Û£¬¿¿°¶(Î´µ½°¶)
+  SHIP_STATE__ANCHOR = $00;  //æ¸¯å†…(ä¸åŠ¨)
+  SHIP_STATE__BUSINESS = $01;  //æ¸¯å†…(è´¸æ˜“)
+  SHIP_STATE__LEAVE = $02;  //ç¦»æ¸¯ï¼Œå‡ºåŸ
+  SHIP_STATE__ENTER = $03;  //é æ¸¯ï¼Œé å²¸(æœªåˆ°å²¸)
 
-  SHIP_STATE__FIX = $06; //Î¬ĞŞ
-  SHIP_STATE__DEFENSE = $08; //³ÇÊĞ»¤ÎÀ
+  SHIP_STATE__FIX = $06; //ç»´ä¿®
+  SHIP_STATE__DEFENSE = $08; //åŸå¸‚æŠ¤å«
 
   SHIP_STATE__BUILDING = $0E;
 
   SHIP_STATE__ON_SEA = $0F;
-  SHIP_STATE__SINKING = $11; //ÏÂ³ÁÖĞ
+  SHIP_STATE__SINKING = $11; //ä¸‹æ²‰ä¸­
   SHIP_STATE__PIRATE = $12;
   SHIP_STATE__REMOTE_TRADING = $13;
   SHIP_STATE__BATTLE = $14;
@@ -321,14 +321,14 @@ procedure p3setShipName_R2(ship: PP3R2Ship; const aName: string);
 
 
 const
-  CITY_FLAG__INNER_PORT = $01;        //ÄÚºÓ
-  CITY_FLAG__WINTER = $02;            //¶¬¼¾
-  CITY_FLAG__SIEGE = $10;             //Î§¹¥
-  CITY_FLAG__TRADE_STATION = $20;     //Ã³Ò×Õ¾
-  CITY_FLAG__LEAGUE = $40;            //Í¬ÃË            //¿ÉÒÔµ±ÊĞ³¤
-  CITY_FLAG__BRANCH = $80;            //ººÈø·Ö²¿        //¹«»á£¬Ôì´¬
+  CITY_FLAG__INNER_PORT = $01;        //å†…æ²³
+  CITY_FLAG__WINTER = $02;            //å†¬å­£
+  CITY_FLAG__SIEGE = $10;             //å›´æ”»
+  CITY_FLAG__TRADE_STATION = $20;     //è´¸æ˜“ç«™
+  CITY_FLAG__LEAGUE = $40;            //åŒç›Ÿ            //å¯ä»¥å½“å¸‚é•¿
+  CITY_FLAG__BRANCH = $80;            //æ±‰è¨åˆ†éƒ¨        //å…¬ä¼šï¼Œé€ èˆ¹
 
-  //Í¬ÃË³ÇÕòÎª$E0
+  //åŒç›ŸåŸé•‡ä¸º$E0
 
 type
 //  TCityCodeEntry = class
@@ -364,7 +364,7 @@ type
     CityWeapon: array[CITY_WEAPON_1..CITY_WEAPON_4] of LongWord;
     //above 100
 
-    GoodsConsumes: array[1..MAX_GOODS] of LongWord; //180 (80) //³ÇÕòÉú²úÏûºÄ
+    GoodsConsumes: array[1..MAX_GOODS] of LongWord; //180 (80) //åŸé•‡ç”Ÿäº§æ¶ˆè€—
     Stub0_3: array[1..16] of Byte;                  //196
     GoodsProduct: array[1..MAX_GOODS] of LongWord; //276  (80)
     Stub0_4: array[1..16] of Byte;                  //292
@@ -400,7 +400,7 @@ type
     PrevPop_Poor: integer;
     PrevPop_Begger: integer;
 
-    AdvHouseCap: Word;                    //²â¹ıÊÇword
+    AdvHouseCap: Word;                    //æµ‹è¿‡æ˜¯word
     CommonHouseCap: Word;
     PoorHouseCap: Word;
     
@@ -417,7 +417,7 @@ type
     //above 1888
     Stub2_1_3: array[1..2] of Byte;
     //above 1890
-    FirstUnfinishedBuildingIndex: Word;             //Ö»°üÀ¨³ÇÕòµÄÉèÊ©£¿
+    FirstUnfinishedBuildingIndex: Word;             //åªåŒ…æ‹¬åŸé•‡çš„è®¾æ–½ï¼Ÿ
     FirstFinishedBuildingIndex: Word;
     Stub2_2: array[1..6] of Byte;
     //above 1900
@@ -439,20 +439,20 @@ type
     FirstBOIndex: Word;
     Stub2_5: array[1..3] of Byte;
     //above 1929
-    WellProv: Byte;       //Ë®¾®
+    WellProv: Byte;       //æ°´äº•
     Stub2_6: array[1..2] of Byte;
     //above 1932
-    Church_1_: Word; //½ÌÌÃµÈ¼¶£¿
-    Church_2_: Word; //½ÌÌÃµÈ¼¶£¿
+    Church_1_: Word; //æ•™å ‚ç­‰çº§ï¼Ÿ
+    Church_2_: Word; //æ•™å ‚ç­‰çº§ï¼Ÿ
     //above 1936
-    RoadComplete: Word;       //µÀÂ·Íê³É
-    RoadReq: Word;            //µÀÂ·ĞèÇó
+    RoadComplete: Word;       //é“è·¯å®Œæˆ
+    RoadReq: Word;            //é“è·¯éœ€æ±‚
     //above 1940
-    FitmentFunds: LongWord;   //×°ĞŞ¾­·Ñ
+    FitmentFunds: LongWord;   //è£…ä¿®ç»è´¹
     //above 1944
     ChapelUpgradeFunds: Longword;
     //above 1948
-    Church_UpgradeReq_: Word;         //½ÌÌÃÉı¼¶ĞèÇó£¿
+    Church_UpgradeReq_: Word;         //æ•™å ‚å‡çº§éœ€æ±‚ï¼Ÿ
     //above 1950
     Stub2_7: array[1..50] of Byte;
     //above 2000
@@ -466,12 +466,12 @@ type
     //above 2088
     Stub2_10: array[1..6] of Byte;
     //above 2094
-    FreeCaptain: Word;              //²»ÒªÖ±½ÓÊ¹ÓÃ£¬Çëµ÷ÓÃgetFreeCaptain()
+    FreeCaptain: Word;              //ä¸è¦ç›´æ¥ä½¿ç”¨ï¼Œè¯·è°ƒç”¨getFreeCaptain()
     Stub3: array[1..24] of Byte;               //2120
     //above 2120
-    OriginalProd: array[0..$13] of TCityOriginalProd;
-    //above 2440      
-    Stub3_1: array[1..16] of Byte;
+    // Native production indices include hemp at $14 (+$988).
+    // The former 16-byte Stub3_1 is that record, not additional padding.
+    OriginalProd: array[0..$14] of TCityOriginalProd;
     //above 2456
     Soldiers: array[SOLDIER_TYPE_0..SOLDIER_TYPE_3] of Byte;
     TrainingSoldiers: array[0..3] of Byte;
@@ -570,24 +570,24 @@ const
   CITY_BUILDING_OWNER__PUBLIC_LVL2_WALL = $FE;
   CITY_BUILDING_OWNER__PUBLIC_LVL3_WALL = $FD;
 
-  BUILDING__WEAPON_SHOP = $03;          //ÎäÆ÷µê
-  BUILDING__HUNTER_HOUSE = $04;         //ÁÔÎİ
-  BUILDING__PISCARY = $05;              //²¶Óã³¡
+  BUILDING__WEAPON_SHOP = $03;          //æ­¦å™¨åº—
+  BUILDING__HUNTER_HOUSE = $04;         //çŒå±‹
+  BUILDING__PISCARY = $05;              //æ•é±¼åœº
   BUILDING__BEER_FACTORY = $06;
   BUILDING__TOOLS_FACTORY = $07;
-  BUILDING__APIARY = $08;               //Ñø·ä³¡
+  BUILDING__APIARY = $08;               //å…»èœ‚åœº
   BUILDING__RICE_FIELD = $09;
   BUILDING__COW_FARM = $0A;
-  BUILDING__LOGGING_CAMP = $0B;         //·¥Ä¾³¡
-  BUILDING__TEXTILE_MILL = $0C;         //·ÄÖ¯³§
+  BUILDING__LOGGING_CAMP = $0B;         //ä¼æœ¨åœº
+  BUILDING__TEXTILE_MILL = $0C;         //çººç»‡å‚
   BUILDING__SALTERN = $0D;
   BUILDING__IRON_MILL = $0E;
   BUILDING__SHEEP_FARM = $0F;
   BUILDING__VINEYARD = $10;
-  BUILDING__CERAMIC_FACTORY = $11;      //ÌÕ´É³§
-  BUILDING__BRICKYARD = $12;            //×©³§
-  BUILDING__ASPHALT_FACTORY = $13;      //Á¤Çà³§
-  BUILDING__HEMP_FIELD = $14;           //ÂéÌï
+  BUILDING__CERAMIC_FACTORY = $11;      //é™¶ç“·å‚
+  BUILDING__BRICKYARD = $12;            //ç –å‚
+  BUILDING__ASPHALT_FACTORY = $13;      //æ²¥é’å‚
+  BUILDING__HEMP_FIELD = $14;           //éº»ç”°
   BUILDING__HOUSE_ADV_1 = $15;
   BUILDING__HOUSE_ADV_2 = $16;
   BUILDING__HOUSE_ADV_3 = $17;
@@ -624,7 +624,7 @@ const
   LAST_FACTORY_BUILDING = BUILDING__HEMP_FIELD;
 
   BUILDING_IMAGE_DIRECTION__NONE = $00;
-  BUILDING_IMAGE_DIRECTION__LEFT_TOP = $20;   //ÓÎÏ·ÊÓ½ÇÖĞÎª¶«±±-Î÷ÄÏÏò
+  BUILDING_IMAGE_DIRECTION__LEFT_TOP = $20;   //æ¸¸æˆè§†è§’ä¸­ä¸ºä¸œåŒ—-è¥¿å—å‘
   BUILDING_IMAGE_DIRECTION__BOTTOM_RIGHT = $E0;
 
 
@@ -652,7 +652,7 @@ type
     month: Byte;
     year: word;
     //above 4
-    Stub1: Longword;     //(Íæ¼Òid + stub1) div cityCount
+    Stub1: Longword;     //(ç©å®¶id + stub1) div cityCount
     //aboev 8
     BOCount: Word;
     TraderCount: Word; 
@@ -704,7 +704,7 @@ type
     FactoryProductions: array[1..MAX_GOODS] of integer;
     Stub3: array[1..16] of Byte;
     //above 292
-    ShipWeapons: array[1..6] of Integer; //Ğ¡Í¶¡¢Ğ¡åó¡¢´óÍ¶¡¢´óåó¡¢ÌúÅÚ¡¢¼ÓÅ©£¬Ğ¡ĞÍ³Ë1000£¬´óĞÍ³Ë2000
+    ShipWeapons: array[1..6] of Integer; //å°æŠ•ã€å°å¼©ã€å¤§æŠ•ã€å¤§å¼©ã€é“ç‚®ã€åŠ å†œï¼Œå°å‹ä¹˜1000ï¼Œå¤§å‹ä¹˜2000
     Stub4: array[1..384] of Byte;
     //above 700
     Sword: SmallInt;
@@ -721,12 +721,12 @@ type
     //above 716
     BOIndex: Word;           //BOIndex
     //above 718
-    FirstBusinessBuildingIndex: SmallInt;         //µÚÒ»ÉÌÒµ½¨ÖşË÷Òı£¿»ò²Ö¿âË÷Òı£¿
-    FirstHouseBuildingIndex: SmallInt;              //µÚÒ»×¡Õ¬Ë÷Òı
+    FirstBusinessBuildingIndex: SmallInt;         //ç¬¬ä¸€å•†ä¸šå»ºç­‘ç´¢å¼•ï¼Ÿæˆ–ä»“åº“ç´¢å¼•ï¼Ÿ
+    FirstHouseBuildingIndex: SmallInt;              //ç¬¬ä¸€ä½å®…ç´¢å¼•
     //above 722
 
-    BusinessBuildingCount: SmallInt;                        //ÉÌÒµ½¨ÖşÊıÁ¿£¿
-    HouseCount: SmallInt;                             //×¡Õ¬Àà½¨ÖşÊıÁ¿
+    BusinessBuildingCount: SmallInt;                        //å•†ä¸šå»ºç­‘æ•°é‡ï¼Ÿ
+    HouseCount: SmallInt;                             //ä½å®…ç±»å»ºç­‘æ•°é‡
     // above 726
     Stub5_3: array[1..2] of Byte;
     // above 728
@@ -736,31 +736,31 @@ type
     //above 740
     Stub7: array[1..8] of Byte;
     //above 748
-    StoreHouseMaxCap: Word; //µ±Ç°²Ö¿âÈİÁ¿£¬µ¥Î»°ü
+    StoreHouseMaxCap: Word; //å½“å‰ä»“åº“å®¹é‡ï¼Œå•ä½åŒ…
     //ABOVE 750
-    BuildingStoreHouseCap: Word;  //ÔÚ½¨²Ö¿âÈİÁ¿£¬µ¥Î»°ü
+    BuildingStoreHouseCap: Word;  //åœ¨å»ºä»“åº“å®¹é‡ï¼Œå•ä½åŒ…
     Stub8: array[1..2] of Byte;
     //above 754
-    ManagerID: Word;          //¹ÜÀíÔ±ID
+    ManagerID: Word;          //ç®¡ç†å‘˜ID
     
     //above 756
-    BusinessPrices: array[1..MAX_GOODS] of Integer; //¹ÈÎï¶¨¼Û£¬²ÉÓÃ´ø·ûºÅµÄ±íÊ¾·½·¨£¬ÕıÊıÂô³ö£¬¸ºÊıÂò½ø¡£
+    BusinessPrices: array[1..MAX_GOODS] of Integer; //è°·ç‰©å®šä»·ï¼Œé‡‡ç”¨å¸¦ç¬¦å·çš„è¡¨ç¤ºæ–¹æ³•ï¼Œæ­£æ•°å–å‡ºï¼Œè´Ÿæ•°ä¹°è¿›ã€‚
 
 
     Stub9: array[1..16] of Byte; //not used
 
     //above 852 
-    BusinessLimits: array[MIN_GOODS_ID..MAX_GOODS_ID] of LongWord; //¹ÈÎï¹ºÈë»òÏúÊÛµÄÏŞ¶î
+    BusinessLimits: array[MIN_GOODS_ID..MAX_GOODS_ID] of LongWord; //è°·ç‰©è´­å…¥æˆ–é”€å”®çš„é™é¢
 
     Stub9_2: array[1..16] of Byte; //not used
 
     //above 948
     
 
-    {20ÖÖÎïÆ··ÖÈıÀà£¬¸÷¸³ÒÔ16½øÖÆÖµ£¬ÈıÎ»×Ö½Ú·Ö±ğÏà¼ÓµÄ½á¹û×÷Îª¼ÍÂ¼¡£
-    ·´Ö®¿ÉÇóµ±Ç°ÊÂÎñËùÉèÖÃ×´¿ö,
+    {20ç§ç‰©å“åˆ†ä¸‰ç±»ï¼Œå„èµ‹ä»¥16è¿›åˆ¶å€¼ï¼Œä¸‰ä½å­—èŠ‚åˆ†åˆ«ç›¸åŠ çš„ç»“æœä½œä¸ºçºªå½•ã€‚
+    åä¹‹å¯æ±‚å½“å‰äº‹åŠ¡æ‰€è®¾ç½®çŠ¶å†µ,
     see also:
-      ..\mod-stuff\ÊÂÎñËù´¬Ö»×°ÔØÏŞÖÆÑ¡Ïî.jpg
+      ..\mod-stuff\äº‹åŠ¡æ‰€èˆ¹åªè£…è½½é™åˆ¶é€‰é¡¹.jpg
     }
     ShipLoadStrictFlags: TBOShipLoadingFlags;
 
@@ -770,19 +770,19 @@ type
     Stub11: array[1..5] of Byte;
 
     //1052
-    RentIncoming: LongWord;           //×â½ğÊÕÈë
+    RentIncoming: LongWord;           //ç§Ÿé‡‘æ”¶å…¥
     Stub12: array[1..12] of Byte;
-    Pay: Longword;                    //¹¤³§¹¤×Ê
+    Pay: Longword;                    //å·¥å‚å·¥èµ„
     Stub13: array[1..2] of Byte;
-    ThisWeekOfficeManagerPaid: Word;       //±¾ÖÜÖ§¸¶¹ÜÀíÔ±¹¤×Ê
+    ThisWeekOfficeManagerPaid: Word;       //æœ¬å‘¨æ”¯ä»˜ç®¡ç†å‘˜å·¥èµ„
 
     //1076
-    LastWeekOfficeManagerPaid: word;        //ÉÏÖÜÖ§¸¶¹ÜÀíÔ±¹¤×Ê
+    LastWeekOfficeManagerPaid: word;        //ä¸Šå‘¨æ”¯ä»˜ç®¡ç†å‘˜å·¥èµ„
     Stub14: array[1..6] of Byte;
-    Hidage: LongWord;                 //µØË°
+    Hidage: LongWord;                 //åœ°ç¨
     Stub15: array[1..8] of Byte;
-    CurrWorkers: Word;                //µ±Ç°¹¤ÈË×ÜÊı
-    MaxWorkers: Word;                 //×î´ó¹¤ÈËÊıÁ¿
+    CurrWorkers: Word;                //å½“å‰å·¥äººæ€»æ•°
+    MaxWorkers: Word;                 //æœ€å¤§å·¥äººæ•°é‡
   public
     function  getFactoryProd(goodsID: Integer): longword;
     function  getFactoryConsume(goodsID: Integer): longword;
@@ -794,7 +794,7 @@ type
     procedure setTradePrice(goodsID: integer; price: integer);
     procedure setTradeQty(goodsID: integer; qty: integer);  
 
-    //´¬Ö»×°ÔØÏŞÖÆ
+    //èˆ¹åªè£…è½½é™åˆ¶
     function  isTradeShipLoadRestricted(goodsID: integer): boolean;
     procedure setTradeShipLoadRestricted(goodsID: integer; restricted: Boolean);
 
@@ -850,19 +850,19 @@ type
   TFactoryGroup = packed record                           
     intensification: Byte;
     {
-      µÚ1×Ö½Ú±íÊ¾¸Ã×é¹¤³§µÄ¼¯Ô¼»¯³Ì¶È£¬
-        1~2¼ä£¬¸ßµÍ²ú¾ùÎª¡°00¡±£¬ÎŞ¼Ó³É£¬
-        3~5¼ä£¬¸ß²ú¡°1E¡±£¬µÍ²ú¡°17¡±£¬¼Ó³É3%
-        6~8¼ä£¬¸ß²ú¡°3D¡±£¬µÍ²ú¡°2E¡±£¬¼Ó³É6%
-        9¼äÒÔÉÏ£¬¸ß²ú¡°66¡±£¬µÍ²ú¡°4C¡±£¬¼Ó³É10%
-        ¸ßµÍÖ®¼äµÄ16½øÖÆÖµ·ûºÏ4£º3µÄ¹ØÏµ    
+      ç¬¬1å­—èŠ‚è¡¨ç¤ºè¯¥ç»„å·¥å‚çš„é›†çº¦åŒ–ç¨‹åº¦ï¼Œ
+        1~2é—´ï¼Œé«˜ä½äº§å‡ä¸ºâ€œ00â€ï¼Œæ— åŠ æˆï¼Œ
+        3~5é—´ï¼Œé«˜äº§â€œ1Eâ€ï¼Œä½äº§â€œ17â€ï¼ŒåŠ æˆ3%
+        6~8é—´ï¼Œé«˜äº§â€œ3Dâ€ï¼Œä½äº§â€œ2Eâ€ï¼ŒåŠ æˆ6%
+        9é—´ä»¥ä¸Šï¼Œé«˜äº§â€œ66â€ï¼Œä½äº§â€œ4Câ€ï¼ŒåŠ æˆ10%
+        é«˜ä½ä¹‹é—´çš„16è¿›åˆ¶å€¼ç¬¦åˆ4ï¼š3çš„å…³ç³»
     }
 
-    ProductionFactor: Byte; //±íÊ¾¸ßµÍ²ú£¬03=µÍ£¬04=¸ß
+    ProductionFactor: Byte; //è¡¨ç¤ºé«˜ä½äº§ï¼Œ03=ä½ï¼Œ04=é«˜
 
     Unknown: array[1..2] of Byte;
     CurrentWorkers: Word;
-    BuildType: Byte;          //½¨ÖşÀàĞÍ£¬Ñ²Ñó½¢ÈÏÎªÊÇÎï²ú´úÂë£¬Î´ÑéÖ¤
+    BuildType: Byte;          //å»ºç­‘ç±»å‹ï¼Œå·¡æ´‹èˆ°è®¤ä¸ºæ˜¯ç‰©äº§ä»£ç ï¼ŒæœªéªŒè¯
     CityCode: Byte;
     NextIndex: Word;
     MaxWorkers: Word;
@@ -986,9 +986,9 @@ type
 
 
 const
-  TRADE_ROUTE_FLAG__NO_STOP = $08;  //²»¿¿¸Û
+  TRADE_ROUTE_FLAG__NO_STOP = $08;  //ä¸é æ¸¯
   TRADE_ROUTE_FLAG__FIRST = $04;    
-  TRADE_ROUTE_FLAG__FIX = $01;      //Î¬ĞŞ
+  TRADE_ROUTE_FLAG__FIX = $01;      //ç»´ä¿®
 
 const
   SIZE_OF_BUSINESS_OFFICE = 1100;
@@ -1043,7 +1043,7 @@ const
   BOINFOLAST = BOINFO__IR__NEXT_INDEX;
 
 const
-  //±ÈÓÎÏ·Öµ¶à1
+  //æ¯”æ¸¸æˆå€¼å¤š1
   GOODSID__RICE = 1;
   GOODSID__MEAT = 2;
   GOODSID__FISH = 3;
@@ -1051,7 +1051,7 @@ const
 
   GOODSID__SALT = 5;
   GOODSID__HONEY = 6;
-  GOODSID__SPICE = 7;           //ÏãÁÏ
+  GOODSID__SPICE = 7;           //é¦™æ–™
   GOODSID__WINE = 8;
 
   GOODSID__CLOTH = 9;
@@ -1060,13 +1060,13 @@ const
   GOODSID__WOOD = 12;
 
   GOODSID__TOOLS = 13;
-  GOODSID__LEATHER = 14;        //Æ¤¸ï
+  GOODSID__LEATHER = 14;        //çš®é©
   GOODSID__WOOL = 15;
-  GOODSID__ASPHALT = 16;        //Á¤Çà
+  GOODSID__ASPHALT = 16;        //æ²¥é’
 
   GOODSID__IRON = 17;
   GOODSID__HEMP = 18;
-  GOODSID__POTTERY = 19;        //ÌÕÆ÷
+  GOODSID__POTTERY = 19;        //é™¶å™¨
   GOODSID__BRICK = 20;
 
 
@@ -1088,6 +1088,7 @@ function  isCityListAvailable(): Boolean;
 //function  getHomeCity(cityList: PCityList): Byte;
 function  reCalcCityPopTotal(city: PCityStruct): cardinal;
 function  GoodsIDToProdRateIndex(const aGoodsID: Integer): Integer;
+procedure EditCityLocalProduction(City: PCityStruct; GoodsID: Integer);
 function  GetCityOriginalProdRate(const aCity: PCityStruct; const aGoodsID: Integer): Word;
 //procedure setCityOriginalProdRate(const aCity: Pci);
 
@@ -1096,7 +1097,7 @@ const
   PROD_LVL__LOW_PROD = 1;
   PROD_LVL__HIGH_PROD = 2;
 
-//return 0 - ²»²ú£¬1 - µÍ²ú£¬2 - ¸ß²ú
+//return 0 - ä¸äº§ï¼Œ1 - ä½äº§ï¼Œ2 - é«˜äº§
 function  getCityOriginalProdLvl(city: PCityStruct; goodsID: Integer): integer;
 function  getProdAdv(aCity: PCityStruct; const aGoodsID: Integer): Currency;
 function  calcSoldierTotal(aCity: PCityStruct; const aExcludeTraining: Boolean): Integer;
@@ -1187,8 +1188,8 @@ function  getCityName2(const aCityCode: Byte): WideString;
 function  isGameActive(): Boolean;
 procedure getPlayerExtraInfo(
         const aPlayerID: Byte;
-        out aTotalAssets: Integer;      //×Ü×Ê²ú
-        out aTotalLoadingCap: Integer; //×ÜÔËÔØÄÜÁ¦
+        out aTotalAssets: Integer;      //æ€»èµ„äº§
+        out aTotalLoadingCap: Integer; //æ€»è¿è½½èƒ½åŠ›
         out a15, a1B: Byte);
 function  getPlayerTotalAssets(const aPlayerID: Byte): integer;
 function  getPlayerTotalLoadingCap(const aPlayerID: Byte): Integer;
@@ -1318,10 +1319,10 @@ function  intervalToStr(const days, hours: Integer): string;
 function  getGradeText(const grade: Byte): WideString;
 
 procedure AxExtractStringByDelimiter(
-        const aStr: string;         { ¸ø¶¨×Ö·û´® }
-        const aDelimiter: Char;     { ·Ö½ç·û }
-        const aAddEmptyField: Boolean; { ÊÇ·ñ°Ñ¿Õ×Ö·û´®Ò²Ìí¼Óµ½×Ö·û´®ÁĞ±íÖĞ }
-        aResultStrList: TStrings    { ·µ»ØµÄ×Ó×Ö·û´®ÁĞ±í }
+        const aStr: string;         { ç»™å®šå­—ç¬¦ä¸² }
+        const aDelimiter: Char;     { åˆ†ç•Œç¬¦ }
+        const aAddEmptyField: Boolean; { æ˜¯å¦æŠŠç©ºå­—ç¬¦ä¸²ä¹Ÿæ·»åŠ åˆ°å­—ç¬¦ä¸²åˆ—è¡¨ä¸­ }
+        aResultStrList: TStrings    { è¿”å›çš„å­å­—ç¬¦ä¸²åˆ—è¡¨ }
       );
 
 
@@ -1371,7 +1372,7 @@ function  indexOfTradeRoute(p: PTradeRoute): Integer;
 
 function  getGoodsQtyFactor(goodsID: Integer): Integer;
 
-//³ÇÊĞÊÛ¼Û
+//åŸå¸‚å”®ä»·
 function  getCitySalePrice(qty, city, goodsID: Integer): Integer;
 function  getCitySalePriceDef(city, goodsID: Integer): Integer;
 function  getCityPurchasePrice(qty, city, goodsID: Integer): Integer;
@@ -1395,7 +1396,7 @@ type
     Stub2: array[1..2] of longWord;
     //above 9
 
-    FirstShipIndex: Word; //ÒÉÎªLongwordÀàĞÍ
+    FirstShipIndex: Word; //ç–‘ä¸ºLongwordç±»å‹
     Stub3: Word;
     Stub4: array[1..10] of Longword;
   end;
@@ -1562,7 +1563,8 @@ var
 
 implementation
 
-uses AxGameHackToolBox, MyGameTools, JclWideStrings, p3insight_utils, Math;
+uses AxGameHackToolBox, MyGameTools, JclWideStrings, p3insight_utils, Math, GameText,
+  PIProductionEdit, P3ProductionRules;
 
 
 
@@ -1641,10 +1643,10 @@ begin
 end;
 
 procedure AxExtractStringByDelimiter(
-        const aStr: string;         { ¸ø¶¨×Ö·û´® }
-        const aDelimiter: Char;     { ·Ö½ç·û }
-        const aAddEmptyField: Boolean; { ÊÇ·ñ°Ñ¿Õ×Ö·û´®Ò²Ìí¼Óµ½×Ö·û´®ÁĞ±íÖĞ }
-        aResultStrList: TStrings    { ·µ»ØµÄ×Ó×Ö·û´®ÁĞ±í }
+        const aStr: string;         { ç»™å®šå­—ç¬¦ä¸² }
+        const aDelimiter: Char;     { åˆ†ç•Œç¬¦ }
+        const aAddEmptyField: Boolean; { æ˜¯å¦æŠŠç©ºå­—ç¬¦ä¸²ä¹Ÿæ·»åŠ åˆ°å­—ç¬¦ä¸²åˆ—è¡¨ä¸­ }
+        aResultStrList: TStrings    { è¿”å›çš„å­å­—ç¬¦ä¸²åˆ—è¡¨ }
       );
 var
   P, I, L: Integer;
@@ -1777,12 +1779,12 @@ end;
 function  getCityShipWeaponName(idx: integer): WideString;
 begin
   case idx of
-    SHIP_WEAPON_1: Result := 'Ğ¡Í¶';
-    SHIP_WEAPON_2: Result := 'Ğ¡åó';
-    SHIP_WEAPON_3: Result := '´óÍ¶';
-    SHIP_WEAPON_4: Result := '´óåó';
-    SHIP_WEAPON_5: Result := 'ÌúÅÚ';
-    SHIP_WEAPON_6: Result := '¼ÓÅ©';
+    SHIP_WEAPON_1: Result := 'å°æŠ•';
+    SHIP_WEAPON_2: Result := 'å°å¼©';
+    SHIP_WEAPON_3: Result := 'å¤§æŠ•';
+    SHIP_WEAPON_4: Result := 'å¤§å¼©';
+    SHIP_WEAPON_5: Result := 'é“ç‚®';
+    SHIP_WEAPON_6: Result := 'åŠ å†œ';
   else
     Result := '?';
   end;
@@ -1894,10 +1896,10 @@ end;
 function  getShipTypeText(const typ: Byte): WideString;
 begin
   case typ of
-    SHIP_TYPE__SHINAIKE: Result := 'Ê·ÄÎ¿¨';
-    SHIP_TYPE__KELEIER: Result := '¿ËÀ×¶û';
-    SHIP_TYPE__KEGE: Result := '¿Ë¸ñ';
-    SHIP_TYPE__HUOERKE: Result := '»ô¶û¿Ë';
+    SHIP_TYPE__SHINAIKE: Result := 'å²å¥ˆå¡';
+    SHIP_TYPE__KELEIER: Result := 'å…‹é›·å°”';
+    SHIP_TYPE__KEGE: Result := 'å…‹æ ¼';
+    SHIP_TYPE__HUOERKE: Result := 'éœå°”å…‹';
   else
     Result := '?';
   end;
@@ -2143,12 +2145,12 @@ end;
 //    
 //    if pkg then
 //    begin
-//      u := '°ü';
+//      u := 'åŒ…';
 //      q := q div 2000;
 //    end
 //    else
 //    begin
-//      u := 'Í°';
+//      u := 'æ¡¶';
 //      q := q div 200;
 //    end;
 //    
@@ -2198,38 +2200,38 @@ end;
 //  hw('captain=', ship^.Captain);
 //
 //  idx := 1;
-//  goods('¹È×Ó', true);
-//  goods('ÈâÀà', true);
-//  goods('ÓãÀà', true);
-//  goods('Æ¡¾Æ');
-//  goods('ÑÎ°Í');
+//  goods('è°·å­', true);
+//  goods('è‚‰ç±»', true);
+//  goods('é±¼ç±»', true);
+//  goods('å•¤é…’');
+//  goods('ç›å·´');
 //
-//  goods('·äÃÛ');
-//  goods('ÏãÁÏ');
-//  goods('ºì¾Æ');
-//  goods('²¼ÁÏ');
-//  goods('ÊŞÆ¤');
+//  goods('èœ‚èœœ');
+//  goods('é¦™æ–™');
+//  goods('çº¢é…’');
+//  goods('å¸ƒæ–™');
+//  goods('å…½çš®');
 //
-//  goods('¾¨ÓÍ');
-//  goods('Ä¾ÁÏ', true);
-//  goods('ÌúÆ÷');
-//  goods('Æ¤¸ï');
-//  goods('ÑòÃ«', true);
+//  goods('é²¸æ²¹');
+//  goods('æœ¨æ–™', true);
+//  goods('é“å™¨');
+//  goods('çš®é©');
+//  goods('ç¾Šæ¯›', true);
 //
-//  goods('Á¤Çà');
-//  goods('ÉúÌú', true);
-//  goods('ÂéÀà', true);
-//  goods('´ÉÆ÷');
-//  goods('×©Í·', true);
+//  goods('æ²¥é’');
+//  goods('ç”Ÿé“', true);
+//  goods('éº»ç±»', true);
+//  goods('ç“·å™¨');
+//  goods('ç –å¤´', true);
 //
 //
-//  i('±¦½£', ship^.CityWeapons[1]);
-//  i('¹­', ship^.CityWeapons[2]);
-//  i('Ê®×Ö¹­', ship^.CityWeapons[3]);
-//  i('¿¨±öÇ¹', ship^.CityWeapons[4]);
+//  i('å®å‰‘', ship^.CityWeapons[1]);
+//  i('å¼“', ship^.CityWeapons[2]);
+//  i('åå­—å¼“', ship^.CityWeapons[3]);
+//  i('å¡å®¾æª', ship^.CityWeapons[4]);
 //
 //  b('State=', ship^.State);
-//  i('´¬Ö»ÎäÆ÷', ship^.ShipWeapon);
+//  i('èˆ¹åªæ­¦å™¨', ship^.ShipWeapon);
 //
 //  cannons();
 //end;
@@ -2249,29 +2251,29 @@ end;
 function  getGoodsName(const aGoodsID: Integer): WideString;
 begin
   case aGoodsID of
-    1: Result := 'µ¾¹È';
-    2: Result := 'ÈâÀà';
-    3: Result := 'ÓãÀà';
-    4: Result := 'Æ¡¾Æ';
-    5: Result := 'ÑÎ°Í';
+    1: Result := 'ç¨»è°·';
+    2: Result := 'è‚‰ç±»';
+    3: Result := 'é±¼ç±»';
+    4: Result := 'å•¤é…’';
+    5: Result := 'ç›å·´';
 
-    6: Result := '·äÃÛ';
-    7: Result := 'ÏãÁÏ';
-    8: Result := 'ºì¾Æ';
-    9: Result := '²¼ÁÏ';
-    10: Result := 'ÊŞÆ¤';
+    6: Result := 'èœ‚èœœ';
+    7: Result := 'é¦™æ–™';
+    8: Result := 'çº¢é…’';
+    9: Result := 'å¸ƒæ–™';
+    10: Result := 'å…½çš®';
 
-    11: Result := '¾¨ÓÍ';
-    12: Result := 'Ä¾ÁÏ';
-    13: Result := 'ÌúÆ÷';
-    14: Result := 'Æ¤¸ï';
-    15: Result := 'ÑòÃ«';
+    11: Result := 'é²¸æ²¹';
+    12: Result := 'æœ¨æ–™';
+    13: Result := 'é“å™¨';
+    14: Result := 'çš®é©';
+    15: Result := 'ç¾Šæ¯›';
 
-    16: Result := 'Á¤Çà';
-    17: Result := 'ÉúÌú';
-    18: Result := 'ÂéÀà';
-    19: Result := '´ÉÆ÷';
-    20: Result := '×©Í·';
+    16: Result := 'æ²¥é’';
+    17: Result := 'ç”Ÿé“';
+    18: Result := 'éº»ç±»';
+    19: Result := 'ç“·å™¨';
+    20: Result := 'ç –å¤´';
   else
     Result := '?';
   end;
@@ -2312,31 +2314,37 @@ end;
 function  getGoodsUnit(const aGoodsID: Integer): WideString;
 begin
   if isGoodsMeasuredInPkg(aGoodsID) then
-    Result := '°ü'
+    Result := 'åŒ…'
   else
-    Result := 'Í°';
+    Result := 'æ¡¶';
 end;
 
 function  getShipName_R2(ship: PP3R2Ship): string;
 var
   l: Integer;
+  Bytes: TGameString;
 begin
-  l := StrLen(@ship^.ShipName[1]);
-  SetLength(Result, l);
-  Move(ship^.ShipName[1], Result[1], l);
+  l := 0;
+  while (l < MAX_SHIP_NAME_LENGTH) and (ship^.ShipName[l+1] <> #0) do Inc(l);
+  SetString(Bytes, PAnsiChar(@ship^.ShipName[1]), l);
+  Result := string(Bytes);
 end;
 
 function  setShipName(ship: PP3R2Ship; const shipName: string): Boolean;
 var
   l: integer;
+  Bytes: TGameString;
 begin
   Result := False;
 
   if not isValidShipName(shipName) then
     exit;
 
-  l := Length(shipName);
-  Move(shipName[1], ship^.shipName[1], l+1); //include null char
+  Bytes := EncodeGameText(shipName);
+  l := Length(Bytes);
+  if (l > MAX_SHIP_NAME_LENGTH) or (string(Bytes) <> shipName) then Exit;
+  if l > 0 then Move(Bytes[1], ship^.shipName[1], l);
+  ship^.ShipName[l+1] := #0;
   Result := True;
 end;
 
@@ -2824,16 +2832,20 @@ end;
 procedure p3setShipName_R2(ship: PP3R2Ship; const aName: string);
 var
   l: Integer;
+  Bytes: TGameString;
 begin
 //  OutputDebugString(pchar('newshipname=' + aName));
-  l := Length(aName);
+  Bytes := EncodeGameText(aName);
+  l := Length(Bytes);
   if l = 0 then
     Exit;
 
   if l > MAX_SHIP_NAME_LENGTH then
     l := MAX_SHIP_NAME_LENGTH;
 
-  Move(aName[1], ship^.ShipName[1], l);
+  // Do not leave half a multibyte character at the fixed game buffer boundary.
+  if (l > 0) and (ByteType(Bytes, l) = mbLeadByte) then Dec(l);
+  Move(Bytes[1], ship^.ShipName[1], l);
   ship^.ShipName[l+1] := #0;
 //  OutputDebugString(pchar('changed-shipname=' + getShipName(ship)));
 end;
@@ -2841,17 +2853,17 @@ end;
 function  getCityName2(const aCityCode: Byte): WideString;
 var
   pp: PPointer;
-  pc: Pchar;
+  pc: PAnsiChar;
   s: string;
 begin
 //  try
   if aCityCode = $FF then
-    s := 'º£ÉÏ'
+    s := 'æµ·ä¸Š'
   else if isValidCity(aCityCode) then
   begin
     pp := Pointer($6e0080 + aCityCode * 4);
     pc := pp^;
-    s := pc;
+    s := ReadGameText(pc);
   end
   else
     s := '$' + IntToHex(aCityCode, 2);
@@ -2871,7 +2883,7 @@ end;
 //  if isValidCity(aCityCode) then
 //  begin
 //    if aCityCode = $FF then
-//      Result := 'º£ÉÏ'
+//      Result := 'æµ·ä¸Š'
 //    else
 //    begin
 //
@@ -3080,6 +3092,15 @@ begin
   Result := idx;
 end;
 
+procedure EditCityLocalProduction(City: PCityStruct; GoodsID: Integer);
+var Tables: TProductionTables;
+begin
+  if (GoodsID<1) or (GoodsID>MAX_GOODS) then Exit;
+  if GoodsID=GOODSID__SPICE then Exit;
+  ReadNativeProductionTables(P3ModuleHandle,Tables);
+  EditLocalProduction(City,GoodsID-1,Tables);
+end;
+
 function  GetCityOriginalProdRate(const aCity: PCityStruct; const aGoodsID: Integer): Word;
 var
   idx: Integer;
@@ -3100,25 +3121,23 @@ begin
   Result := aCity^.OriginalProd[idx].Rate;
 end;
 
-//return 0 - ²»²ú£¬1 - µÍ²ú£¬2 - ¸ß²ú
+//return 0 - ä¸äº§ï¼Œ1 - ä½äº§ï¼Œ2 - é«˜äº§
 function  getCityOriginalProdLvl(city: PCityStruct; goodsID: Integer): integer;
 var
-  cmp: integer;
+  rate: integer;
 begin
-  Result := GetCityOriginalProdRate(city, goodsID);
-  if Result = 0 then
-    Result := PROD_LVL__NO_PROD
+  rate := GetCityOriginalProdRate(city, goodsID);
+  Result := PROD_LVL__NO_PROD;
+  // Match the native statue's two lists, including their boundary gaps.
+  if goodsID = GOODSID__WHALE_OIL then
+  begin
+    if rate > 1000 then Result := PROD_LVL__HIGH_PROD
+    else if rate > 0 then Result := PROD_LVL__LOW_PROD;
+  end
   else
   begin
-    if goodsID = GOODSID__WHALE_OIL then
-      cmp := $3E8
-    else
-      cmp := $384;
-
-    if Result >= cmp then
-      Result := PROD_LVL__HIGH_PROD
-    else
-      Result := PROD_LVL__LOW_PROD;
+    if rate > 900 then Result := PROD_LVL__HIGH_PROD
+    else if (rate > 200) and (rate < 900) then Result := PROD_LVL__LOW_PROD;
   end;
 end;
 
@@ -3138,10 +3157,10 @@ end;
 function  getSoldierTypeName(const aSoldierIndex: Integer): WideString;
 begin
   case aSoldierIndex of
-    SOLDIER_TYPE_0: Result := '¼à²ì';
-    SOLDIER_TYPE_1: Result := '¹­±ø';
-    SOLDIER_TYPE_2: Result := 'åó±ø';
-    SOLDIER_TYPE_3: Result := '²½±ø';
+    SOLDIER_TYPE_0: Result := 'ç›‘å¯Ÿ';
+    SOLDIER_TYPE_1: Result := 'å¼“å…µ';
+    SOLDIER_TYPE_2: Result := 'å¼©å…µ';
+    SOLDIER_TYPE_3: Result := 'æ­¥å…µ';
   else
     Result := '?';
   end;
@@ -4016,46 +4035,46 @@ end;
 //  begin
 //    idx := 0;
 //
-//    p('°®¶¡±¤');
-//    p('Å¦¿¨Ë¹¶û');
-//    p('Ë¹¿¨²®ÀÕ');
-//    p('²¨Ê¿¶Ù');
-//    p('Â×¶Ø');
-//    p('²¼Â³ÈÕ');
-//    p('¹şÀÕÄ¸');
-//    p('¹şÁé¸ù');
-//    p('¸ñÂŞÄş¸ù');
-//    p('¿ÆÂ¡');
-//    p('²»À³Ã·');
-//    p('ÀïÅí');
-//    p('ºº±¤');
-//    p('¸¥Â×Ë¹±¤');
-//    p('ÂÀ±´¿Ë');
-//    p('ÂŞË¹ÍĞ¿Ë');
-//    p('±°¶û¸ù');
-//    p('Ë¹ËşÍò¸ñ');
-//    p('Í¼Ê²±¤');
-//    p('°ÂË¹±¤');
-//    p('°Â¶û±¤');
-//    p('¸çµÃ±¤');
-//    p('ÄÎË¹ÌØÎ¤×È');
-//    p('Âí¶ûÄ¦');
-//    p('°ÂºúË¹');
-//    p('Ë¹µÂ¸ç¶ûÄ¦');
-//    p('Î¬Ë¹±È');
-//    p('ºÕ¶ûĞÁ»ù');
-//    p('Ë¹µÂ¶¡');
-//    p('ÂŞ¸ùÎÖµÂ');
-//    p('¸ñµ«Ë¹¿Ë');
-//    p('ÍĞÂ×');
-//    p('¸ñÄáË¹±¤');
-//    p('Ã·Ã·¶û');
-//    p('ÎÄµº');
-//    p('Àï¼Ó');
-//    p('ÅÁ¶ûÅ¬');
-//    p('ÈğÍş¶û');
-//    p('À­¶à¼Ó');
-//    p('Åµ·ò¸çÂŞµÂ');
+//    p('çˆ±ä¸å ¡');
+//    p('çº½å¡æ–¯å°”');
+//    p('æ–¯å¡ä¼¯å‹’');
+//    p('æ³¢å£«é¡¿');
+//    p('ä¼¦æ•¦');
+//    p('å¸ƒé²æ—¥');
+//    p('å“ˆå‹’æ¯');
+//    p('å“ˆçµæ ¹');
+//    p('æ ¼ç½—å®æ ¹');
+//    p('ç§‘éš†');
+//    p('ä¸è±æ¢…');
+//    p('é‡Œå½­');
+//    p('æ±‰å ¡');
+//    p('å¼—ä¼¦æ–¯å ¡');
+//    p('å•è´å…‹');
+//    p('ç½—æ–¯æ‰˜å…‹');
+//    p('å‘å°”æ ¹');
+//    p('æ–¯å¡”ä¸‡æ ¼');
+//    p('å›¾ä»€å ¡');
+//    p('å¥¥æ–¯å ¡');
+//    p('å¥¥å°”å ¡');
+//    p('å“¥å¾—å ¡');
+//    p('å¥ˆæ–¯ç‰¹éŸ¦å…¹');
+//    p('é©¬å°”æ‘©');
+//    p('å¥¥èƒ¡æ–¯');
+//    p('æ–¯å¾·å“¥å°”æ‘©');
+//    p('ç»´æ–¯æ¯”');
+//    p('èµ«å°”è¾›åŸº');
+//    p('æ–¯å¾·ä¸');
+//    p('ç½—æ ¹æ²ƒå¾·');
+//    p('æ ¼ä½†æ–¯å…‹');
+//    p('æ‰˜ä¼¦');
+//    p('æ ¼å°¼æ–¯å ¡');
+//    p('æ¢…æ¢…å°”');
+//    p('æ–‡å²›');
+//    p('é‡ŒåŠ ');
+//    p('å¸•å°”åŠª');
+//    p('ç‘å¨å°”');
+//    p('æ‹‰å¤šåŠ ');
+//    p('è¯ºå¤«å“¥ç½—å¾·');
 //  end;
 //
 //begin
@@ -4128,7 +4147,7 @@ end;
 function  getPlayerName(const aPlayerID: Byte): WideString;
 var
   pb: PByte;
-  pc: PChar;
+  pc: PAnsiChar;
   pp: PPointer;
   s1, s2: string;
 begin
@@ -4146,14 +4165,14 @@ begin
   pp := Pointer(pb);
 
   pc := pp^;
-  s1 := pc;
+  s1 := ReadGameText(pc);
 
   Inc(pp);
 //  dbgPrintPtr('player-ptr+$e8', pp);
 
 //  pp := Pointer(pb);
   pc := pp^;
-  s2 := pc;
+  s2 := ReadGameText(pc);
 
   Result := s2 + ' ' + s1;
 end;
@@ -4165,8 +4184,8 @@ end;
 
 procedure getPlayerExtraInfo(
         const aPlayerID: Byte;
-        out aTotalAssets: Integer;      //×Ü×Ê²ú
-        out aTotalLoadingCap: Integer; //×ÜÔËÔØÄÜÁ¦
+        out aTotalAssets: Integer;      //æ€»èµ„äº§
+        out aTotalLoadingCap: Integer; //æ€»è¿è½½èƒ½åŠ›
         out a15, a1B: Byte);
 var
   pb, player: PByte;
@@ -4248,7 +4267,7 @@ var
 
   {b19, b1a, b39c, }esp24: Byte;
   eax, ecx, edx: LongWord;
-  pc: Pchar;
+  pc: PAnsiChar;
   s: string;
 begin
   ptr := getPlayerPtr(aPlayerID);
@@ -4279,7 +4298,7 @@ begin
   pc := ppointer(edx)^;
 
 //  dbgPrintPtr('Class', pc);
-  s := pc;
+  s := ReadGameText(pc);
   Result := s;
 end;
 
@@ -4343,10 +4362,10 @@ function  tradeRoute_getOpTypeName(opType: TTradeRouteOpType): WideString;
 begin
   case opType of
     RT__UNSPECIFIED:  Result := '';
-    RT__SELL:         Result := 'Âô³ö';
-    RT__BUY:          Result := 'ÂòÈë';
-    RT__PUT_INTO:     Result := 'Èë²Ö';
-    RT__GET_OUT:      Result := '³ö²Ö';
+    RT__SELL:         Result := 'å–å‡º';
+    RT__BUY:          Result := 'ä¹°å…¥';
+    RT__PUT_INTO:     Result := 'å…¥ä»“';
+    RT__GET_OUT:      Result := 'å‡ºä»“';
   else
     Result := '';
   end;
@@ -4993,9 +5012,9 @@ end;
 function  intervalToStr(const days, hours: Integer): string;
 begin
   if days > 0 then
-    Result := IntToStr(days) + 'Ìì' + IntToStr(hours) + 'Ğ¡Ê±'
+    Result := IntToStr(days) + 'å¤©' + IntToStr(hours) + 'å°æ—¶'
   else
-    Result := IntToStr(hours) + 'Ğ¡Ê±';
+    Result := IntToStr(hours) + 'å°æ—¶';
 end;
 
 //function  hasShipsInCity(const aPlayer: Byte; const city: Byte): Boolean;
@@ -5128,9 +5147,9 @@ end;
 function  getGradeText(const grade: Byte): WideString;
 begin
   case grade of
-    GRADE__RICH: Result := '¸»ºÀ';
-    GRADE__COMMON: Result := '¸»ÈË';
-    GRADE__POOR: Result := 'ÇîÈË';
+    GRADE__RICH: Result := 'å¯Œè±ª';
+    GRADE__COMMON: Result := 'å¯Œäºº';
+    GRADE__POOR: Result := 'ç©·äºº';
   else
     Result := '?';
   end;
@@ -5818,10 +5837,10 @@ end;
 function  getHouseName(grade: Byte): WideString;
 begin
   case grade of
-    GRADE__RICH: Result := 'ÉÌÈË·¿Îİ';
-    GRADE__COMMON: Result := 'Ê¯Æö·¿Îİ';
+    GRADE__RICH: Result := 'å•†äººæˆ¿å±‹';
+    GRADE__COMMON: Result := 'çŸ³ç Œæˆ¿å±‹';
   else
-    Result := 'Ä¾ÖÆ·¿Îİ';
+    Result := 'æœ¨åˆ¶æˆ¿å±‹';
   end;
 end;
 
@@ -6670,10 +6689,10 @@ end;
 function  getCityWeaponName(idx: integer): WideString;
 begin
   case idx of
-    CITY_WEAPON_1: Result := 'µ¶';
-    CITY_WEAPON_2: Result := '¹­';
-    CITY_WEAPON_3: Result := 'Ç¿¹­';
-    CITY_WEAPON_4: Result := 'Ç¹';
+    CITY_WEAPON_1: Result := 'åˆ€';
+    CITY_WEAPON_2: Result := 'å¼“';
+    CITY_WEAPON_3: Result := 'å¼ºå¼“';
+    CITY_WEAPON_4: Result := 'æª';
   else
     Result := '?';
   end;
@@ -6688,7 +6707,7 @@ end;
 
 function  getSwordName(): WideString;
 begin
-  Result := '½£';
+  Result := 'å‰‘';
 end;
 
 
@@ -7006,24 +7025,24 @@ end;
 function  getBuildingTypeName(bt: byte): WideString;
 begin
   case bt of
-    BUILDING__WEAPON_SHOP: Result := 'ÎäÆ÷µê';
-    BUILDING__HUNTER_HOUSE: Result := 'ÁÔÎİ';
-    BUILDING__PISCARY: Result := '²¶Óã³¡';
-    BUILDING__BEER_FACTORY: Result := 'Æ¡¾Æ³§';
-    BUILDING__TOOLS_FACTORY: Result := '¹¤³§';
-    BUILDING__APIARY: Result := 'Ñø·ä³¡';
-    BUILDING__RICE_FIELD: Result := 'µ¾Ìï';
-    BUILDING__COW_FARM: Result := 'ÑøÅ£³¡';
-    BUILDING__LOGGING_CAMP: Result := '·¥Ä¾³¡';
-    BUILDING__TEXTILE_MILL: Result := '·ÄÖ¯³§';
-    BUILDING__SALTERN: Result := 'ÖÆÑÎ³§';
-    BUILDING__IRON_MILL: Result := 'ÉúÌú³§';
-    BUILDING__SHEEP_FARM: Result := 'ÄÁÑò³¡';
-    BUILDING__VINEYARD: Result := 'ÆÏÌÑÔ°';
-    BUILDING__CERAMIC_FACTORY: Result := 'ÌÕ´É³§';
-    BUILDING__BRICKYARD: Result := '×©³§';
-    BUILDING__ASPHALT_FACTORY: Result := 'Á¤Çà³§';
-    BUILDING__HEMP_FIELD: Result := 'ÂéÌï';
+    BUILDING__WEAPON_SHOP: Result := 'æ­¦å™¨åº—';
+    BUILDING__HUNTER_HOUSE: Result := 'çŒå±‹';
+    BUILDING__PISCARY: Result := 'æ•é±¼åœº';
+    BUILDING__BEER_FACTORY: Result := 'å•¤é…’å‚';
+    BUILDING__TOOLS_FACTORY: Result := 'å·¥å‚';
+    BUILDING__APIARY: Result := 'å…»èœ‚åœº';
+    BUILDING__RICE_FIELD: Result := 'ç¨»ç”°';
+    BUILDING__COW_FARM: Result := 'å…»ç‰›åœº';
+    BUILDING__LOGGING_CAMP: Result := 'ä¼æœ¨åœº';
+    BUILDING__TEXTILE_MILL: Result := 'çººç»‡å‚';
+    BUILDING__SALTERN: Result := 'åˆ¶ç›å‚';
+    BUILDING__IRON_MILL: Result := 'ç”Ÿé“å‚';
+    BUILDING__SHEEP_FARM: Result := 'ç‰§ç¾Šåœº';
+    BUILDING__VINEYARD: Result := 'è‘¡è„å›­';
+    BUILDING__CERAMIC_FACTORY: Result := 'é™¶ç“·å‚';
+    BUILDING__BRICKYARD: Result := 'ç –å‚';
+    BUILDING__ASPHALT_FACTORY: Result := 'æ²¥é’å‚';
+    BUILDING__HEMP_FIELD: Result := 'éº»ç”°';
     BUILDING__HOUSE_ADV_1: Result := getHouseName(GRADE__RICH) + '1';
     BUILDING__HOUSE_ADV_2: Result := getHouseName(GRADE__RICH) + '2';
     BUILDING__HOUSE_ADV_3: Result := getHouseName(GRADE__RICH) + '3';
@@ -7033,28 +7052,28 @@ begin
     BUILDING__HOUSE_SIM_1: Result := getHouseName(GRADE__POOR) + '1';
     BUILDING__HOUSE_SIM_2: Result := getHouseName(GRADE__POOR) + '2';
     BUILDING__HOUSE_SIM_3: Result := getHouseName(GRADE__POOR) + '3';
-    BUILDING__STORE_HOUSE: Result := '²Ö¿â';
-    BUILDING__CHURCH: Result := '½ÌÌÃ';
-    BUILDING__CITY_HALL: Result := 'ÊĞÕò´óÌü';
-    BUILDING__BARRACKS: Result := '±øÓª';
-    BUILDING__CHAMBER_OF_COMMERCE: Result := '¹«»á';
-    BUILDING__MARKET: Result := 'ÊĞ³¡';
-    BUILDING__BAR: Result := '¾Æ¹İ';
-    BUILDING__BANK: Result := '½è´ûËù';
-    BUILDING__BATH_HOUSE: Result := 'ÔèÌÃ';
-    BUILDING__WELL: Result := 'Ë®¾®';
-    BUILDING__HOSPITAL: Result := 'Ò½Ôº';
-    BUILDING__MINTAGE: Result := 'Öı±Ò³§';
-    BUILDING__SCHOOL: Result := 'Ñ§Ğ£';
-    BUILDING__CHAPEL: Result := 'Àñ°İÌÃ';
-    BUILDING__STATUE: Result := 'µñÏñ';
-    BUILDING__COAL_MINE: Result := 'Ãº¿ó';
-    BUILDING__SEACOAST_ARTILLERY: Result := 'º£°¶ÅÚ';
-    BUILDING__SEACOAST_ARTILLERY_ADV: Result := '¸ß¼¶º£°¶ÅÚ';
-    BUILDING__CITY_GATE_ARTILLERY: Result := '³ÇÃÅÅÚ';
-    BUILDING__CITY_GATE_ARTILLERY_ADV: Result := '¸ß¼¶³ÇÃÅÅÚ';
-    BUILDING__PAO_SHE: Result := 'Å×Éä';
-    BUILDING__CITY_WALL: Result := '³ÇÇ½';
+    BUILDING__STORE_HOUSE: Result := 'ä»“åº“';
+    BUILDING__CHURCH: Result := 'æ•™å ‚';
+    BUILDING__CITY_HALL: Result := 'å¸‚é•‡å¤§å…';
+    BUILDING__BARRACKS: Result := 'å…µè¥';
+    BUILDING__CHAMBER_OF_COMMERCE: Result := 'å…¬ä¼š';
+    BUILDING__MARKET: Result := 'å¸‚åœº';
+    BUILDING__BAR: Result := 'é…’é¦†';
+    BUILDING__BANK: Result := 'å€Ÿè´·æ‰€';
+    BUILDING__BATH_HOUSE: Result := 'æ¾¡å ‚';
+    BUILDING__WELL: Result := 'æ°´äº•';
+    BUILDING__HOSPITAL: Result := 'åŒ»é™¢';
+    BUILDING__MINTAGE: Result := 'é“¸å¸å‚';
+    BUILDING__SCHOOL: Result := 'å­¦æ ¡';
+    BUILDING__CHAPEL: Result := 'ç¤¼æ‹œå ‚';
+    BUILDING__STATUE: Result := 'é›•åƒ';
+    BUILDING__COAL_MINE: Result := 'ç…¤çŸ¿';
+    BUILDING__SEACOAST_ARTILLERY: Result := 'æµ·å²¸ç‚®';
+    BUILDING__SEACOAST_ARTILLERY_ADV: Result := 'é«˜çº§æµ·å²¸ç‚®';
+    BUILDING__CITY_GATE_ARTILLERY: Result := 'åŸé—¨ç‚®';
+    BUILDING__CITY_GATE_ARTILLERY_ADV: Result := 'é«˜çº§åŸé—¨ç‚®';
+    BUILDING__PAO_SHE: Result := 'æŠ›å°„';
+    BUILDING__CITY_WALL: Result := 'åŸå¢™';
   else
     Result := byteToHexStr(bt);
   end;
@@ -7143,4 +7162,3 @@ initialization
 
 
 end.
-

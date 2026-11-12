@@ -1,0 +1,192 @@
+{
+  "gr/Source/GR32_Compiler.inc": {
+    "input_sha256": "7d17fe0af31a4f9514bad508807bd0cb176b32da34be94c5b8f8c3d5cfc2ee9d",
+    "output_sha256": "a4c1d12d1bbdd1d1d10f172791dc9e53eaca5f6024aab086f31a6c133d53d0d5",
+    "edits": [
+      {
+        "old": "  {$DEFINE COMPILERXE3}\r\n{$ENDIF}",
+        "new": "  {$DEFINE COMPILERXE3}\r\n{$ENDIF}\n"
+      },
+      {
+        "old": "{$IFDEF COMPILERXE3}\r\n",
+        "new": "// PI recovery: newer Delphi retains the XE3 feature baseline.\n{$IF CompilerVersion >= 25.0}\n  {$DEFINE COMPILERXE3}\n{$IFEND}\n\n{$IFDEF COMPILERXE3}\n"
+      }
+    ]
+  },
+  "jcl/source/include/jcld37win32.inc": {
+    "copy_from": "jcl/source/include/jcl.template.inc",
+    "output_sha256": "e44f3cbc19fe3fa5a42add19764e866044238ae8f8c3b819901ffb3a72f066d9",
+    "reason": "JCL Delphi 13 Win32 configuration from upstream default template."
+  },
+  "lines/GR32_Lines.pas": {
+    "input_sha256": "f6cfad123588ee8341d6c21f3664b600168f21c5109d0ec2c3bf3ef4c6d95831",
+    "output_sha256": "a8fb52764e5ede23b78a159852cd6964b6d58044e0c21bc121bbd3fc37e152a8",
+    "edits": [
+      {
+        "old": "  offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n",
+        "new": "  GR32.offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n"
+      },
+      {
+        "old": "  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n",
+        "new": "  GR32.offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n"
+      },
+      {
+        "old": "  inflateRect(rec2,1,1);\r\n",
+        "new": "  GR32.inflateRect(rec2,1,1);\r\n"
+      },
+      {
+        "old": "    SinCos(lineAngle, sinAng, cosAng);\r\n",
+        "new": "    GR32_Math.SinCos(lineAngle, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "  sincos(radians, sinAng, cosAng);\r\n",
+        "new": "  GR32_Math.sincos(radians, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "    //R --> 0 as angle --> -180º and as angle --> 180º.\r\n",
+        "new": "    //R --> 0 as angle --> -180ï¿½ and as angle --> 180ï¿½.\r\n"
+      },
+      {
+        "old": "        //point find the point that's perpendicular ½ linewidth (dist).\r\n",
+        "new": "        //point find the point that's perpendicular ï¿½ linewidth (dist).\r\n"
+      },
+      {
+        "old": "    //R --> 0 as angle --> -180º or as angle --> 180º.\r\n",
+        "new": "    //R --> 0 as angle --> -180ï¿½ or as angle --> 180ï¿½.\r\n"
+      },
+      {
+        "old": "    //used here to find if an angle is greater than or less than 180º.\r\n",
+        "new": "    //used here to find if an angle is greater than or less than 180ï¿½.\r\n"
+      },
+      {
+        "old": "    d := Hypot(dx, dy);\r\n",
+        "new": "    d := GR32_Math.Hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "    SinCos(a, r, dy, dx);\r\n",
+        "new": "    GR32_Math.SinCos(a, r, dy, dx);\r\n"
+      },
+      {
+        "old": "    destructor Destroy; override;\r\n\r\n    procedure Clear;\r\n",
+        "new": "    destructor Destroy; override;\r\n\r\n    procedure Clear; virtual; // PI TTradeRouteLine extends reset state.\n"
+      }
+    ]
+  },
+  "lines/GR32_Misc.pas": {
+    "input_sha256": "af31f5db3fdbb1d067ddeea0575fd7da85dc82db5308cd8e0fc5ea4570cfecc8",
+    "output_sha256": "75fb49987fc80cd1d0c70c899012fefd4a7e873b8192497f0506fff81bae2e16",
+    "edits": [
+      {
+        "old": "      for j := rec.Left to rec.Right do\r\n      begin\r\n        dy := p.Y - i;\r\n        dx := p.X - j;\r\n        dist := hypot(dx, dy);\r\n",
+        "new": "      for j := rec.Left to rec.Right do\r\n      begin\r\n        dy := p.Y - i;\r\n        dx := p.X - j;\r\n        dist := GR32_Math.hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "      for j := rec.Left to (rec.Left + rec.Right) div 2 do\r\n      begin\r\n        dy := p.Y - i;\r\n        dx := p.X - j;\r\n        dist := hypot(dx, dy);\r\n",
+        "new": "      for j := rec.Left to (rec.Left + rec.Right) div 2 do\r\n      begin\r\n        dy := p.Y - i;\r\n        dx := p.X - j;\r\n        dist := GR32_Math.hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "  rec2 := GetBoundsRect(rotatedPts);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n  offsetPoint(rotPoint, -rec2.Left, -rec2.Top);\r\n  offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n",
+        "new": "  rec2 := GetBoundsRect(rotatedPts);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n  offsetPoint(rotPoint, -rec2.Left, -rec2.Top);\r\n  GR32.offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n"
+      },
+      {
+        "old": "  rec2 := GetBoundsRect(rotatedPts);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n",
+        "new": "  rec2 := GetBoundsRect(rotatedPts);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  GR32.offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n"
+      },
+      {
+        "old": "  inflateRect(rec2,1,1);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n  offsetPoint(rotPoint, -rec2.Left, -rec2.Top);\r\n  offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n",
+        "new": "  inflateRect(rec2,1,1);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n  offsetPoint(rotPoint, -rec2.Left, -rec2.Top);\r\n  GR32.offsetRect(rec2, -rec2.Left, -rec2.Top);\r\n"
+      },
+      {
+        "old": "  inflateRect(rec2,1,1);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n",
+        "new": "  inflateRect(rec2,1,1);\r\n  rec3 := rec2;\r\n  if rec3.Left > rec.Left then rec3.Left := rec.Left;\r\n  if rec3.Top > rec.Top then rec3.Top := rec.Top;\r\n  if rec3.Right < rec.Right then rec3.Right := rec.Right;\r\n  if rec3.Bottom < rec.Bottom then rec3.Bottom := rec.Bottom;\r\n\r\n  rec3_offset := Point(rec3.Left, rec3.Top);\r\n  rec3_diff := Point(rec2.Left - rec3.Left, rec2.Top - rec3.Top);\r\n  GR32.offsetRect(rec3, -rec3.Left, -rec3.Top);\r\n"
+      },
+      {
+        "old": "  inflateRect(rec2,1,1);\r\n",
+        "new": "  GR32.inflateRect(rec2,1,1);\r\n"
+      },
+      {
+        "old": "  dy := (pt2.Y - pt1.Y);\r\n\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / Hypot(dx, dy);\r\n",
+        "new": "  dy := (pt2.Y - pt1.Y);\r\n\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / GR32_Math.Hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "  dy := (pt2.Y - pt1.Y)*FixedToFloat;\r\n\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / Hypot(dx, dy);\r\n",
+        "new": "  dy := (pt2.Y - pt1.Y)*FixedToFloat;\r\n\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / GR32_Math.Hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "  dy := (pt2.Y - pt1.Y)*FixedToFloat;\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / Hypot(dx, dy);\r\n",
+        "new": "  dy := (pt2.Y - pt1.Y)*FixedToFloat;\r\n  if (dx = 0) and (dy = 0) then\r\n  begin\r\n    result := FloatPoint(0,0);\r\n  end else\r\n  begin\r\n    f := 1 / GR32_Math.Hypot(dx, dy);\r\n"
+      },
+      {
+        "old": "    d := Hypot(dx*FixedToFloat, dy*FixedToFloat);\r\n",
+        "new": "    d := GR32_Math.Hypot(dx*FixedToFloat, dy*FixedToFloat);\r\n"
+      },
+      {
+        "old": "    SinCos(angle_delta *i, sinA, cosA);\r\n",
+        "new": "    GR32_Math.SinCos(angle_delta *i, sinA, cosA);\r\n"
+      },
+      {
+        "old": "    SinCos(eccentric_angle_radians, SinAng, CosAng);\r\n",
+        "new": "    GR32_Math.SinCos(eccentric_angle_radians, SinAng, CosAng);\r\n"
+      },
+      {
+        "old": "  if radians = 0 then exit;\r\n  sincos(radians, sinAng, cosAng);\r\n",
+        "new": "  if radians = 0 then exit;\r\n  GR32_Math.sincos(radians, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "  i: integer;\r\n  cosAng, sinAng: single;\r\nbegin\r\n  setlength(result,length(pts));\r\n  if radians = 0 then\r\n  begin\r\n    for i := 0 to high(pts) do result[i] := pts[i];\r\n    exit;\r\n  end;\r\n  sincos(radians, sinAng, cosAng);\r\n",
+        "new": "  i: integer;\r\n  cosAng, sinAng: single;\r\nbegin\r\n  setlength(result,length(pts));\r\n  if radians = 0 then\r\n  begin\r\n    for i := 0 to high(pts) do result[i] := pts[i];\r\n    exit;\r\n  end;\r\n  GR32_Math.sincos(radians, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "  tmp: TFixedPoint;\r\n  cosAng, sinAng: single;\r\nbegin\r\n  setlength(result,length(pts));\r\n  if radians = 0 then\r\n  begin\r\n    for i := 0 to high(pts) do result[i] := pts[i];\r\n    exit;\r\n  end;\r\n  sincos(radians, sinAng, cosAng);\r\n",
+        "new": "  tmp: TFixedPoint;\r\n  cosAng, sinAng: single;\r\nbegin\r\n  setlength(result,length(pts));\r\n  if radians = 0 then\r\n  begin\r\n    for i := 0 to high(pts) do result[i] := pts[i];\r\n    exit;\r\n  end;\r\n  GR32_Math.sincos(radians, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "  //rotates in an anticlockwise direction if radians > 0;\r\n  sincos(radians, sinAng, cosAng);\r\n",
+        "new": "  //rotates in an anticlockwise direction if radians > 0;\r\n  GR32_Math.sincos(radians, sinAng, cosAng);\r\n"
+      },
+      {
+        "old": "  result := hypot(pt.X - cpol.X, pt.Y- cpol.Y);\r\n",
+        "new": "  result := GR32_Math.hypot(pt.X - cpol.X, pt.Y- cpol.Y);\r\n"
+      },
+      {
+        "old": "  Result := hypot((pt2.X - pt1.X),(pt2.Y - pt1.Y));\r\n",
+        "new": "  Result := GR32_Math.hypot((pt2.X - pt1.X),(pt2.Y - pt1.Y));\r\n"
+      },
+      {
+        "old": "  Result := hypot((pt2.X - pt1.X)*FixedToFloat,(pt2.Y - pt1.Y)*FixedToFloat);\r\n",
+        "new": "  Result := GR32_Math.hypot((pt2.X - pt1.X)*FixedToFloat,(pt2.Y - pt1.Y)*FixedToFloat);\r\n"
+      },
+      {
+        "old": "  SinCos(radians, sinAng, cosAng);\r\n",
+        "new": "  GR32_Math.SinCos(radians, sinAng, cosAng);\r\n"
+      }
+    ]
+  },
+  "vt/Source/VirtualTrees.pas": {
+    "input_sha256": "e5a999e6f3651a2e2155ff13fe93699b85a23665996c6449687bbc422e1e043d",
+    "output_sha256": "d15e17713c0656396b042bad6a8dff1e9865906f75501532fe4b0ef6ff579580",
+    "transform": "cp1252-to-utf8-bom-expand-lf",
+    "edits": [
+      {
+        "old": "  TextOutFlags: Integer;\r\r\n\r\r\nbegin\r\r\n  // Set a new OnChange event for the canvas' font so we know if the application changes it in the callbacks.\r\r\n",
+        "new": "  TextOutFlags: Integer;\r\n  DefaultDraw: Boolean;\r\r\n\r\r\nbegin\n  // PI compatibility extension: preserve the original per-cell paint callback.\n  DefaultDraw := True;\n  if Assigned(FOnPiPaintCell) then\n    FOnPiPaintCell(Self, PaintInfo, DefaultDraw);\n  if not DefaultDraw then Exit;\n  // Set a new OnChange event for the canvas' font so we know if the application changes it in the callbacks.\n"
+      },
+      {
+        "old": "    property OnDrawText: TVTDrawTextEvent read FOnDrawText write FOnDrawText;\r\r\n  public\r\r\n",
+        "new": "    property OnDrawText: TVTDrawTextEvent read FOnDrawText write FOnDrawText;\r\r\n  public\r\n    property OnPaintCell: TVTPiPaintCellEvent read FOnPiPaintCell write FOnPiPaintCell;\r\r\n"
+      },
+      {
+        "old": "  TCustomVirtualStringTree = class(TBaseVirtualTree)\r\r\n  private\r\r\n",
+        "new": "  TCustomVirtualStringTree = class(TBaseVirtualTree)\r\r\n  private\r\n    FOnPiPaintCell: TVTPiPaintCellEvent;\r\r\n"
+      },
+      {
+        "old": "    ImageInfo: array[TVTImageInfoIndex] of TVTImageInfo; // info about each possible node image\r\r\n  end;\r\r\n\r\r\n",
+        "new": "    ImageInfo: array[TVTImageInfoIndex] of TVTImageInfo; // info about each possible node image\r\r\n  end;\r\r\n\r\r\n  TVTPiPaintCellEvent = procedure(Sender: TBaseVirtualTree; PaintInfo: TVTPaintInfo; var DefaultDraw: Boolean) of object;\r\n\r\n"
+      },
+      {
+        "old": "    hsPlates          // flat TToolButton look and feel (raise on hover etc.)\r\r\n",
+        "new": "    hsPlates,         // flat TToolButton look and feel (raise on hover etc.)\n    hsXPStyle         // PI historical DFM token; existing themed paint path handles this style.\n"
+      }
+    ]
+  }
+}

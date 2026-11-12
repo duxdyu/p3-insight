@@ -1,0 +1,74 @@
+{
+  "toolchain": "Delphi 13 / RAD Studio 37.0 CE, Win32; Python 3.11",
+  "private_desktop": true,
+  "runtime_retested": false,
+  "bit_identical_to_release": false,
+  "layout": "PI.groupproj builds products only; tests/Tests.groupproj builds verification tools.",
+  "groups": {
+    "PI": {
+      "start": "2026-11-12T23:14:26.552847",
+      "end": "2026-11-12T23:14:37.828771",
+      "success": true,
+      "outputs": [
+        {
+          "path": "build/P3Insight/p3insight.dll",
+          "bytes": 4733440,
+          "sha256": "db6762cfc56ac0736e092d6f595e33dbfa2ada736c817aed6cfc510cb67287fc"
+        },
+        {
+          "path": "build/P3Insight/PIProductionLauncher.exe",
+          "bytes": 2356736,
+          "sha256": "965ee8a5af750937a86af860a05ecd12111836da65f5b91e7e363fa518f9679c"
+        }
+      ],
+      "tests": []
+    },
+    "Tests": {
+      "start": "2026-11-12T23:14:38.108273",
+      "end": "2026-11-12T23:14:48.906414",
+      "success": true,
+      "outputs": [
+        {
+          "path": "build/tests/XMLHelperTests.exe",
+          "bytes": 1168384,
+          "sha256": "f72dbc4ca3f2b18d09f1640ecb593cc40d3d9b14703c3c3d2f5a4f63503d5a39"
+        },
+        {
+          "path": "build/tests/ABILayoutTests.exe",
+          "bytes": 4116992,
+          "sha256": "2264de97bfd6c6fec59cacda73014f3e8c7c2d8543aba486c444612463f6ef8e"
+        },
+        {
+          "path": "build/tests/ReadinessTests.exe",
+          "bytes": 1009152,
+          "sha256": "c2718ab9ace6955fa68a1f137eb701d6cf35c0c13973aab301f20b98b9264381"
+        },
+        {
+          "path": "build/tests/ProfileProbe.exe",
+          "bytes": 1081344,
+          "sha256": "2bf9e1af62cbc3d315bc98efa16223ed418390403e4b31302975bf3e7c80d0b2"
+        }
+      ],
+      "tests": [
+        {
+          "test": "XMLHelperTests.exe",
+          "exit": 0,
+          "stdout": "PASS: XML required/default/empty, sibling, boolean, integer/byte, UTF-8 round trip\r\n",
+          "stderr": ""
+        },
+        {
+          "test": "ABILayoutTests.exe",
+          "exit": 0,
+          "stdout": "PASS: ship stride=384 name offset=352 storage=18 captain=16; bounded name, raw patch bytes, custom tree painting callback\r\nPASS: owned hidden ANSI window subclass, text-message forwarding and restoration\r\nPASS: PI local-only edits for 20 goods, unrelated bytes, activation and closed fish/whale cycles\r\nPASS: 20 production mappings, hemp slot bounds, city layout and 220 native statue boundary cases\r\nPASS: historical route/city/BO layouts, route flags/orders, 20 production costs, resident/week/day and winter math, selection policy\r\nPASS: PI client alignment, move/resize geometry, game enabled, owned popup, no permanent topmost\r\nPASS: PI defaults, legacy target, PI.ini priority, Unicode/absolute/relative paths, invalid config, resource containment, PID/title window lookup\r\nPASS: full PI DFM streamed into hidden fixture; 324 objects, no game handlers executed\r\n",
+          "stderr": ""
+        },
+        {
+          "test": "ReadinessTests.exe",
+          "exit": 0,
+          "stdout": "PASS 142 production readiness checks; no game/no injection\r\n",
+          "stderr": ""
+        }
+      ]
+    }
+  }
+}
