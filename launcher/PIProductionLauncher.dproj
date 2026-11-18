@@ -4,7 +4,7 @@
     <MainSource>PIProductionLauncher.dpr</MainSource><ProjectVersion>20.3</ProjectVersion>
     <Base>True</Base><Platform>Win32</Platform><AppType>Application</AppType>
     <Config Condition="'$(Config)'==''">Release</Config>
-    <DCC_ExeOutput>../build/P3Insight</DCC_ExeOutput><DCC_DcuOutput>../build/dcu/PIProductionLauncher</DCC_DcuOutput>
+    <DCC_ExeOutput>../build/compiled/p3-insight</DCC_ExeOutput><DCC_DcuOutput>../build/dcu/PIProductionLauncher</DCC_DcuOutput>
     <DCC_UnitSearchPath>..;$(BDS)/lib/win32/release</DCC_UnitSearchPath>
     <DCC_CodePage>65001</DCC_CodePage><DCC_MapFile>3</DCC_MapFile>
   </PropertyGroup>

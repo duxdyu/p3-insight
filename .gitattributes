@@ -1,0 +1,10 @@
+# Runtime manifest hashes cover exact bytes, including original XML/INI newlines.
+/runtime/data/** -text
+/runtime/InjLib.dll -text
+/examples/PI.ini -text
+/maps/map.png -text
+/maps/blue-button.png -text
+/maps/red-blue-button.png -text
+/maps/red-button.png -text
+/imgs/mod-star-10x10.bmp -text
+/sound/SYKOFONE.wav -text

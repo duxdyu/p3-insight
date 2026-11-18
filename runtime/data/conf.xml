@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<p3insight>
+	<!-- 自动重设船长年龄 -->
+	<general
+		ship-name-seperator="-"
+		warning-sound="SYKOFONE.wav"
+		
+		store-hosue-cap="200"
+		
+		auto-reset-captain-birthday="true"
+		allow-modify="true"
+	/>	
+	
+	
+	<city-list-viewer>
+		<!-- 主要生活物资 
+			稻谷
+			啤酒
+			鱼
+			盐
+			羊毛
+			肉			
+			皮革
+			陶器
+			灯油
+			木材
+		-->
+		<basic-goods id-list="00;03;02;04;0E;01;0D;12;0A;0B"/>
+	</city-list-viewer>
+	
+</p3insight>

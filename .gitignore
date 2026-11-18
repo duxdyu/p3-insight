@@ -29,6 +29,7 @@
 # Delphi compiler-generated binaries (safe to delete)
 *.exe
 *.dll
+!/runtime/InjLib.dll
 *.bpl
 *.bpi
 *.dcp

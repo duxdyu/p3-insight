@@ -1,5 +1,21 @@
 # 当前仓库重建验证
 
+## 2026-11-18：完整运行目录构建
+
+使用Delphi 13 CE / RAD Studio 37.0执行：
+
+```powershell
+python -B scripts/build.py app --bds 'C:\Program Files (x86)\Embarcadero\Studio\37.0'
+```
+
+主DLL和启动器编译成功，脚本自动生成`build/p3-insight/`。与用户指定的现代版2.1运行目录逐文件核对：除可省略的`使用说明.txt`外，18个文件的相对路径完全一致。16个非编译文件SHA-256完全一致；两个新编译二进制仅PE时间戳字段不同，归零这些字段后逐字节一致。未修改二进制来匹配参考哈希。
+
+资源审计确认6个配套文件在原仓库中已有相同内容，现通过清单映射复用；缺少的5个XML、3个城市图标及`InjLib.dll`已补入`runtime/`。构建不再读取外部游戏目录。资源清单为`runtime/manifest.json`，本机验证收据为`build/logs/PI-build-result.json`、`package-result.json`和`reference-comparison.json`。
+
+打包的4项自动测试通过，覆盖重复组装、缺失资源、编译产物变更和额外用户文件保护。本轮未启动游戏，未修改参考目录，也未重新执行下方历史游戏功能验证。
+
+## 2026-11-12：原构建与离线测试记录
+
 2026-11-12，使用Delphi 13 / RAD Studio 37.0 CE、Win32、Python 3.11，在当前仓库根目录运行：
 
 ```powershell

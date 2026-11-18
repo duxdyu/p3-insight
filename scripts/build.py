@@ -1,11 +1,11 @@
-"""Build current PI/launcher groups and run compiled offline tests on Windows."""
+"""Build and package PI to build/p3-insight; optionally run offline tests."""
 from pathlib import Path
 import argparse
 import json
 import os
 import runpy
-import shutil
 import subprocess
+from package_runtime import package, runtime_inputs
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -26,10 +26,17 @@ def main():
         raise SystemExit('PI dependencies missing; see dependencies/README.md.')
     driver = runpy.run_path(str(ROOT / 'scripts/build_ide.py'))
     groups = {'app': ['PI'], 'tests': ['Tests'], 'all': ['PI', 'Tests']}[args.target]
+    if 'PI' in groups:
+        runtime_inputs(ROOT)  # Check all packaged assets before launching the IDE.
+    temp = ROOT / 'build/temp'
+    temp.mkdir(parents=True, exist_ok=True)
+    os.environ['TEMP'] = os.environ['TMP'] = str(temp)
     for group in groups:
         code = driver['run'](group, timeout=240)
         if code:
             raise SystemExit(code)
+        if group == 'PI':
+            package(ROOT)
         names = {'PI': [], 'Tests': ['XMLHelperTests', 'ABILayoutTests', 'ReadinessTests']}[group]
         results = []
         for name in names:
@@ -47,10 +54,6 @@ def main():
                 json.dumps(results, ensure_ascii=False, indent=2), 'utf-8')
             if result.returncode:
                 raise RuntimeError('Test failed: ' + name)
-    if 'PI' in groups:
-        output = ROOT / 'build/P3Insight'
-        shutil.copy2(output / 'PIProductionLauncher.exe', output / 'PI模式启动游戏.exe')
-        shutil.copy2(ROOT / 'examples/PI.ini', output / 'PI.ini')
 
 
 if __name__ == '__main__':

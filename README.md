@@ -35,7 +35,7 @@ P3Insight/
   data/
 ```
 
-`InjLib.dll`和配套`data/`是运行依赖，不由本次源码构建生成；请使用与你的PI版本配套、已获准使用的资源。仓库根目录的历史图片与配置不等同于一套完整的新运行目录。
+构建脚本会生成完整的`build/p3-insight/`运行目录，共18个文件。`InjLib.dll`和配套`data/`由仓库内资源按[runtime/manifest.json](runtime/manifest.json)复制；其中6个资源复用`maps/`、`imgs/`和`sound/`已有文件，缺失资源已补入`runtime/`。资源来源与映射见[runtime/README.md](runtime/README.md)。
 
 1. 将`P3Insight`放在游戏目录内，或放在其他位置并设置目标路径。
 2. 编辑UTF-8的`PI.ini`，示例见[examples/PI.ini](examples/PI.ini)：
@@ -99,8 +99,8 @@ python scripts/prepare_dependencies.py --download
 1. 打开Delphi 13，选择 **File → Open Project**，选择仓库根目录的 **`PI.groupproj`**。
 2. 在Project Manager中确认有`p3insight`和`PIProductionLauncher`两个项目，平台为 **Win32**，配置为 **Release**。
 3. 在Project Manager对项目组选择 **Build All**，编译两个项目。不要对DLL工程按F9启动调试；编译不需要启动游戏。
-4. 在`build/P3Insight/`取得`p3insight.dll`和`PIProductionLauncher.exe`。
-5. 手动编译时，将`PIProductionLauncher.exe`复制或改名为`PI模式启动游戏.exe`，并复制`examples/PI.ini`到输出目录；补齐前述`InjLib.dll`和`data/`后才能运行。
+4. IDE原始编译产物位于`build/compiled/p3-insight/`，与运行目录分开保存，避免混入MAP及调试文件。
+5. 推荐使用下方`build.py app`一次完成编译和组装，最终输出`build/p3-insight/`，无需再从其他游戏目录补资源。`package_runtime.py`通过本次成功构建收据校验二进制，因此首次手动IDE编译后也应运行`build.py app`生成收据并完成打包。
 
 只编译PI DLL可单独打开根目录的`p3insight.dproj`；只编译启动器可打开`launcher/PIProductionLauncher.dproj`。根目录其他`.bdsproj`、`.bdsgroup`及附属工具工程属于原仓库历史内容，不是当前产品组入口。
 
@@ -111,12 +111,14 @@ python scripts/prepare_dependencies.py --download
 从仓库根目录运行：
 
 ```powershell
-python scripts/build.py app    # 编译PI DLL和启动器，不运行测试
+python -B scripts/build.py app # 编译并生成完整 build/p3-insight/ 运行目录
 python scripts/build.py tests  # 编译测试组并运行离线测试
 python scripts/build.py all    # 编译产品与测试，再运行离线测试（默认）
 ```
 
-脚本使用同一套Delphi组工程，在独立且不切换的桌面调用IDE。已打开的IDE确定空闲时，可显式加`--allow-existing-ide`；默认检测到已有编译器会停止。脚本会生成中文命名的启动器及`PI.ini`示例，详细构建日志和收据放在`build/logs/`。
+脚本使用同一套Delphi组工程，在独立且不切换的桌面调用IDE。已打开的IDE确定空闲时，可显式加`--allow-existing-ide`；默认检测到已有编译器会停止。构建后按清单复制全部资源、保留参考版`PI.ini`，并校验18个文件的SHA-256。最终目录只有运行文件，不含英文命名启动器副本、MAP、DCU及使用说明。详细构建日志、收据和文件哈希放在`build/logs/`。
+
+重复构建会覆盖输出目录中的清单内文件；个人运行配置请保留在部署目录。若输出目录出现清单外文件，脚本会报告并停止，不自动删除它们。资源或编译产物缺失、哈希不符时也会停止。成功构建后可用`python -B scripts/package_runtime.py`重新组装，使用已验证的本地编译产物。
 
 测试也可在IDE中单独打开 **`tests/Tests.groupproj`** 后Build All，输出到`build/tests/`。`XMLHelperTests.exe`、`ABILayoutTests.exe`、`ReadinessTests.exe`验证XML读写、数据布局、物产规则、窗口/配置和注入就绪判断，测试通过会输出`PASS`，不需要游戏进程。`ProfileProbe.exe`是另一个只读诊断工具，需要提供游戏EXE路径参数，不属于无参数自动测试。
 
@@ -139,14 +141,16 @@ python scripts/build.py all    # 编译产品与测试，再运行离线测试�
 | `dependencies/` | 第三方来源、版本、文件锁和准备说明，不是组件源码 |
 | `docs/` | 更新说明、来源记录与构建验证摘要 |
 | `examples/` | 可复制使用的`PI.ini`配置示例 |
+| `runtime/` | 补齐的运行资源、发布文件清单及来源映射 |
 | `vendor/`、`sdk-overlay/` | 本机依赖源码，由准备脚本生成，Git忽略 |
 | `build/` | 编译结果、测试输出和构建日志，Git忽略 |
 
 | Python脚本 | 用途 |
 |---|---|
 | `scripts/prepare_dependencies.py` | 从固定上游下载组件、自动应用兼容配方并校验文件锁，从本机Delphi SDK生成XP兼容单元；支持离线ZIP和已有组件目录 |
-| `scripts/build.py` | 可选的一键编译、离线测试及产物命名入口 |
+| `scripts/build.py` | 一键编译、完整运行目录组装及可选离线测试入口 |
 | `scripts/build_ide.py` | 供`build.py`调用的IDE驱动，处理本次自有IDE窗口及检查编译结果，不需要单独运行 |
+| `scripts/package_runtime.py` | 按资源清单和构建收据生成并校验`build/p3-insight/` |
 
 `imgs/`、`maps/`、`sound/`和历史附属工程是原仓库已有内容；`.idea/`、`.xcodemap/`属于本机工具配置。原有`p3insight_test.pas/.dfm`虽然名字含test，但它是主DLL明确引用的历史窗体单元，并非本次新增的离线测试，仍随产品源码保留。
 

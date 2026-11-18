@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<static-data-mod>
+	<!-- 
+	这里的常量数据段以及一个代码段的修改是根据cvr的帖子作出的，只收集部分我个人觉得比较实用的内容
+	
+		general.enabled为false时运行时不对game作出修改 
+	-->
+	<general enabled="false" />
+	
+	<!-- 
+	setTo的值使用16进制数时需加$前缀，如$1F
+	off的值总是被看成16进制数，不用加$前缀
+	bin的值用于指定16进制数的形式，如果bin属性不出现，则默认为"false"，如果bin为false时，数值采用自然形式，高位字节在前，否则低位在前
+	sz一般的为1,2,4，setTo可用十进制数，也可以使用16进制数，但要加$前缀，
+	如果sz为3，或者>4，则setTo必须使用16进制数，此时也要加$前缀，此时bin默认为true，数据的是内存排列形式，即最低有效字节在前
+	如果数据在代码页，value元素的code属性应设为"true"
+	-->
+	<mod name="house-cap" enabled="false">
+		<!-- 房屋最大容纳人数 -->
+		<!-- 商住，石屋，木屋 -->
+		<value name="house-cap-adv" off="288EE8" sz="2" setTo="800"/> <!-- original 80 -->
+		<value name="house-cap-common" off="288EEA" sz="2" setTo="1400"/> <!-- original 140 -->
+		<value name="house-cap-poor" off="288EEC" sz="2" setTo="2800"/> <!-- original 280 -->
+		
+		<!-- 各种房屋1，2，3高度所需要的人数，就是多少人住入时显示该种高度的图像 -->
+		
+		<!-- 商人房屋 -->
+		<value name="house-adv-1" off="288EF0" sz="2" setTo="200"/> <!-- original 20 -->
+		<value name="house-adv-2" off="288EF2" sz="2" setTo="500"/> <!-- original 50 -->
+		<value name="house-adv-3" off="288EF4" sz="2" setTo="800"/> <!-- original 80 -->
+		
+		<!-- 石屋 -->
+		<value name="house-common-1" off="288EF6" sz="2" setTo="350"/> <!-- original 35 -->
+		<value name="house-common-2" off="288EF8" sz="2" setTo="1000"/> <!-- original 100 -->
+		<value name="house-common-3" off="288EFA" sz="2" setTo="1400"/> <!-- original 1400 -->
+		
+		<!-- 木屋 -->
+		<value name="house-poor-1" off="288EFC" sz="2" setTo="700"/> <!-- original 70 -->
+		<value name="house-poor-2" off="288EFE" sz="2" setTo="2000"/> <!-- original 200 -->
+		<value name="house-poor-3" off="288F00" sz="2" setTo="2800"/> <!-- original 280 -->
+	</mod>		
+	
+	<mod name="ship" enabled="false">
+		<!-- 4种船只必要水手数 -->
+		<value name="min-seaman-1" off="28DF6C" sz="1" setTo="5" />
+		<value name="min-seaman-2" off="28DF6D" sz="1" setTo="8" />
+		<value name="min-seaman-3" off="28DF6E" sz="1" setTo="10" />
+		<value name="min-seaman-4" off="28DF6F" sz="1" setTo="12" />			
+		
+		<!-- 4种船只速度，标示值 -->
+		<value name="ship-speed-display-1" off="28DF74" sz="1" setTo="30" /> <!-- original 6 -->
+		<value name="ship-speed-display-2" off="28DF75" sz="1" setTo="30" /> <!-- original 6 -->
+		<value name="ship-speed-display-3" off="28DF76" sz="1" setTo="25" /> <!-- original 5 -->
+		<value name="ship-speed-display-4" off="28DF77" sz="1" setTo="25" /> <!-- original 5 -->
+		
+		<!-- 4种船只速度，实用值 -->
+		<value name="ship-speed-1" off="28DF78" sz="2" setTo="3175" /> <!-- original 635 -->
+		<value name="ship-speed-2" off="28DF7A" sz="2" setTo="3465" /> <!-- original 693 -->
+		<value name="ship-speed-3" off="28DF7C" sz="2" setTo="2600" /> <!-- original 520 -->
+		<value name="ship-speed-4" off="28DF7E" sz="2" setTo="2890" /> <!-- original 578 -->
+		
+		<!-- 各船种各级别的容量 -->
+		<!-- 小史容量，4个级别 -->
+		<value name="ship1-cap-l1" off="2926C0" sz="1" setTo="30" /> <!-- original 15 -->
+		<value name="ship1-cap-l2" off="2926C1" sz="1" setTo="38" /> <!-- original 19 -->
+		<value name="ship1-cap-l3" off="2926C2" sz="1" setTo="46" /> <!-- original 23 -->
+		<value name="ship1-cap-l4" off="2926C3" sz="1" setTo="50" /> <!-- original 25 -->
+		
+		<!-- 小克 -->
+		<value name="ship2-cap-l1" off="2926C4" sz="1" setTo="56" /> <!-- original 28 -->
+		<value name="ship2-cap-l2" off="2926C5" sz="1" setTo="62" /> <!-- original 31 -->
+		<value name="ship2-cap-l3" off="2926C6" sz="1" setTo="68" /> <!-- original 34 -->
+		<value name="ship2-cap-l4" off="2926C7" sz="1" setTo="70" /> <!-- original 35 -->
+		
+		<!-- 大克 -->
+		<value name="ship3-cap-l1" off="2926C8" sz="1" setTo="90" /> <!-- original 45 -->
+		<value name="ship3-cap-l2" off="2926C9" sz="1" setTo="96" /> <!-- original 48 -->
+		<value name="ship3-cap-l3" off="2926CA" sz="1" setTo="104" /> <!-- original 52 -->
+		<value name="ship3-cap-l4" off="2926CB" sz="1" setTo="110" /> <!-- original 55 -->
+		
+		<!-- 大霍 -->
+		<value name="ship4-cap-l1" off="2926CC" sz="1" setTo="110" /> <!-- original 55 -->
+		<value name="ship4-cap-l2" off="2926CD" sz="1" setTo="118" /> <!-- original 59 -->
+		<value name="ship4-cap-l3" off="2926CE" sz="1" setTo="130" /> <!-- original 65 -->
+		<value name="ship4-cap-l4" off="2926CF" sz="1" setTo="140" /> <!-- original 70 -->
+	</mod>
+	
+	<mod name="worker-req" enabled="false">
+		<!-- 各种工厂需要的工人数 -->
+		
+		<!-- 捕猎 -->
+		<value name="hunter-house" off="288EA4" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 捕鱼场 -->
+		<value name="piscary" off="288EA5" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 啤酒厂 -->
+		<value name="beer-factory" off="288EA6" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 工厂 -->
+		<value name="iron-goods-factory" off="288EA7" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 养蜂场 -->
+		<value name="apiary" off="288EA8" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 稻田 -->
+		<value name="grain-field" off="288EA9" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 养牛场 -->
+		<value name="cow-farm" off="288EAA" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 锯木厂 -->
+		<value name="logging-camp" off="288EAB" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 纺织厂 -->
+		<value name="textile-mill" off="288EAC" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 制盐厂 -->
+		<value name="saltern" off="288EAD" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 生铁厂 -->
+		<value name="iron-mill" off="288EAE" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 牧羊场 -->
+		<value name="sheep-farm" off="288EAF" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 葡萄园 -->
+		<value name="wineyard" off="288EB0" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 陶器厂 -->
+		<value name="ceramic-factory" off="288EB1" sz="1" setTo="30" /> <!-- original 30 -->
+		
+		<!-- 砖厂 -->
+		<value name="brickyard" off="288EB2" sz="1" setTo="15" /> <!-- original 15 -->
+		
+		<!-- 沥青厂 -->
+		<value name="asphalt-factory" off="288EB3" sz="1" setTo="15" /> <!-- original 15 -->
+		
+		<!-- 麻田 -->
+		<value name="hemp-field" off="288EB4" sz="1" setTo="30" /> <!-- original 30 -->
+	</mod>
+	
+	<mod enabeld="false">
+		<!-- 各种建筑需要的建造时间 -->
+		<value off="289084" sz="1" setTo="10" /> <!-- original 200 -->
+		<value off="289085" sz="1" setTo="15" /> <!-- original -->
+		<value off="289086" sz="1" setTo="20" /> 
+		<value off="289087" sz="1" setTo="25" />
+		<value off="289088" sz="1" setTo="30" />
+		<value off="289089" sz="1" setTo="35" />
+		<value off="289090" sz="1" setTo="40" />
+		<value off="289091" sz="1" setTo="45" />
+		<value off="289092" sz="1" setTo="50" />
+		<value off="289093" sz="1" setTo="55" />
+		
+	</mod>
+	
+	<mod name="resident-req" enabled="false">
+		<!-- 
+		市民需求 
+		单位：大件0.035箱 小件0.35桶
+		-->			
+		
+		<!-- 谷物需求 （富豪，富人，穷人）-->
+		<value name="rich-grain" off="288D30" sz="2" setTo="90" />
+		<value name="common-grain" off="288D32" sz="2" setTo="120" />
+		<value name="poor-grain" off="288D34" sz="2" setTo="150" />
+		
+		<!-- 肉 -->
+		<value name="rich-meat" off="288D38" sz="2" setTo="110" />
+		<value name="common-meat" off="288D3A" sz="2" setTo="87" />
+		<value name="poor-meat" off="288D3C" sz="2" setTo="12" />
+		
+		<!-- 鱼 -->
+		<value name="rich-fish" off="288D40" sz="2" setTo="40" />
+		<value name="common-fish" off="288D42" sz="2" setTo="80" />
+		<value name="poor-fish" off="288D44" sz="2" setTo="100" />
+		
+		<!-- 啤酒 -->
+		<value name="rich-beer" off="288D48" sz="2" setTo="65" />
+		<value name="common-beer" off="288D4A" sz="2" setTo="130" />
+		<value name="poor-beer" off="288D4C" sz="2" setTo="65" />
+		
+		<!-- 盐 -->
+		<value name="rich-salt" off="288D50" sz="2" setTo="1" />
+		<value name="common-salt" off="288D52" sz="2" setTo="1" />
+		<value name="poor-salt" off="288D54" sz="2" setTo="1" />
+		
+		<!-- 蜂蜜 -->
+		<value name="rich-honey" off="288D58" sz="2" setTo="50" />
+		<value name="common-honey" off="288D5A" sz="2" setTo="25" />
+		<value name="poor-honey" off="288D5C" sz="2" setTo="5" />
+		
+		<!-- 香料 -->
+		<value name="rich-spice" off="288D60" sz="2" setTo="4" />
+		<value name="common-spice" off="288D62" sz="2" setTo="2" />
+		<value name="poor-honey" off="288D64" sz="2" setTo="2" />
+		
+		<!-- 葡萄酒 -->
+		<value name="rich-wine" off="288D68" sz="2" setTo="150" />
+		<value name="common-wine" off="288D6A" sz="2" setTo="38" />
+		<value name="poor-wine" off="288D6C" sz="2" setTo="0" />
+		
+		<!-- 布 -->
+		<value name="rich-cloth" off="288D70" sz="2" setTo="50" />
+		<value name="common-cloth" off="288D72" sz="2" setTo="35" />
+		<value name="poor-cloth" off="288D74" sz="2" setTo="15" />
+		
+		<!-- 兽皮 -->
+		<value name="rich-animal-skin" off="288D78" sz="2" setTo="60" />
+		<value name="common-animal-skin" off="288D7A" sz="2" setTo="30" />
+		<value name="poor-animal-skin" off="288D7C" sz="2" setTo="0" />
+		
+		<!-- 鲸油 -->
+		<value name="rich-whale-oil" off="288D80" sz="2" setTo="50" />
+		<value name="common-whale-oil" off="288D82" sz="2" setTo="35" />
+		<value name="poor-whale-oil" off="288D84" sz="2" setTo="10" />
+		
+		<!-- 木材 -->
+		<value name="rich-wood" off="288D88" sz="2" setTo="80" />
+		<value name="common-wood" off="288D8A" sz="2" setTo="80" />
+		<value name="poor-wood" off="288D8C" sz="2" setTo="40" />
+		
+		<!-- 铁制品 -->
+		<value name="rich-iron-goods" off="288D90" sz="2" setTo="100" />
+		<value name="common-iron-goods" off="288D92" sz="2" setTo="75" />
+		<value name="poor-iron-goods" off="288D94" sz="2" setTo="25" />
+		
+		<!-- 皮革 -->
+		<value name="rich-leather" off="288D98" sz="2" setTo="44" />
+		<value name="common-leather" off="288D9A" sz="2" setTo="35" />
+		<value name="poor-leather" off="288D9C" sz="2" setTo="5" />
+		
+		<!-- 羊毛 -->
+		<value name="rich-wool" off="288DA0" sz="2" setTo="10" />
+		<value name="common-wool" off="288DA2" sz="2" setTo="40" />
+		<value name="poor-wool" off="288DA4" sz="2" setTo="20" />
+		
+		<!-- 沥青 -->
+		<value name="rich-asphalt" off="288DA8" sz="2" setTo="0" />
+		<value name="common-asphalt" off="288DAA" sz="2" setTo="0" />
+		<value name="poor-asphalt" off="288DAC" sz="2" setTo="0" />
+		
+		<!-- 生铁 -->
+		<value name="rich-iron" off="288DB0" sz="2" setTo="0" />
+		<value name="common-iron" off="288DB2" sz="2" setTo="0" />
+		<value name="poor-iron" off="288DB4" sz="2" setTo="0" />
+		
+		<!-- 麻 -->
+		<value name="rich-hemp" off="288DB8" sz="2" setTo="5" />
+		<value name="common-hemp" off="288DBA" sz="2" setTo="3" />
+		<value name="poor-hemp" off="288DBC" sz="2" setTo="2" />
+		
+		<!-- 陶器 -->
+		<value name="rich-pottery" off="288DC0" sz="2" setTo="30" />
+		<value name="common-pottery" off="288DC2" sz="2" setTo="18" />
+		<value name="poor-pottery" off="288DC4" sz="2" setTo="12" />
+		
+		<!-- 砖 -->
+		<value name="rich-brick" off="288DC8" sz="2" setTo="1" />
+		<value name="common-brick" off="288DCA" sz="2" setTo="1" />
+		<value name="poor-brick" off="288DCC" sz="2" setTo="0" />
+	</mod>
+	
+	<mod name="money-upper-limit" enabled="false">
+		<!-- 金钱上限 -->
+		<value code="true" off="228E1E" sz="4" setTo="2000000000" /> <!-- original 999999999 -->
+	</mod>
+	
+	<mod name="store-house-cap" enabled="false" bo-count="7" sh-count="9">
+		<!-- 
+		容积
+		单位包
+		最大为 65400 包
+		修改初始容积没什么用，修改代码部分即可。
+		
+		注意：修改了仓库的容积后，请同时修改 conf.xml文档中的 general元素的 store-house-cap属性的值
+		-->
+		
+		<!-- 初始事务所容积 -->		
+		<!-- <value off="22AD34" sz="1" setTo="200" /> original 50 -->
+		
+		<!-- 初始仓库容积 -->
+		<!-- <value off="22AD35" sz="1" setTo="200" /> original 200 -->
+		
+		
+		
+		<!-- 代码部分 -->
+		
+		<!-- 事务所 -->
+		<value name="bo-1" code="true" off="CCFE9" sz="2" setTo="2000" verify="50" /> <!-- original 50 -->
+		<value name="bo-2" code="true" off="CCFF4" sz="2" setTo="2000" verify="50" /> <!-- original 50 -->
+		
+		<!--
+			B9 D007 0000			mov ecx, 0x07D0
+			90				nop
+		-->
+		
+		<value name="bo-3" code="true" off="49493" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D34AD6800" /> 
+		<value name="bo-4" code="true" off="64FA3" sz="6" 	setTo="$B9D007000090" 	verify="$8A1534AD6800" /> 
+		<value name="bo-5" code="true" off="6CEAC" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D34AD6800" /> 
+		<value name="bo-6" code="true" off="D39A5" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D34AD6800" /> 
+		<value name="bo-7" code="true" off="1B75F8" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D34AD6800" /> 
+		
+		
+		
+		<!-- 仓库 -->
+		<value name="sh-1" code="true" off="CD012" sz="2" setTo="2000" verify="200"/> <!-- original 200 -->
+		
+		<!--
+			B9 D007 0000			mov ecx, 0x07D0
+			90				nop
+		-->
+		
+		<value name="sh-2" code="true" off="4949F" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-3" code="true" off="64FB1" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-4" code="true" off="6CEB8" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-5" code="true" off="D39AF" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		
+		<value name="sh-6" code="true" off="1B70FE" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-7" code="true" off="1B718E" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-8" code="true" off="1B7602" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 
+		<value name="sh-9" code="true" off="1B7628" sz="6" 	setTo="$B9D007000090" 	verify="$8A0D35AD6800" /> 		
+	</mod>
+	
+	<mod name="others" enabled="false">
+		<!-- 不减耐久 -->
+			<!-- 日常减耐久代码 -->
+			<value name="wear-1" code="true" off="1574D6" sz="3" setTo="$909090" verify="$FF4E18" />
+			
+			<!-- 海战减耐久代码 -->
+			<value name="wear-2" bin="true" code="true" off="192944" sz="2" setTo="$9090" verify="$8901" />
+			
+			<!-- 雷击 -->
+			<value name="wear-3" bin="true" code="true" off="F7C7F" sz="3" setTo="$909090" verify="$895F18" />
+			
+			<!-- 暴风雨 -->
+			<value name="wear-4" bin="true" code="true" off="F7F13" sz="3" setTo="$909090" verify="$895718" />
+			
+		<!-- 不减士气-->
+			<!-- 日常减士气代码 -->
+			<value name="morale-1" bin="true" code="true" off="F9350" sz="4" setTo="$90909090" verify="$66FF4E3E" />
+			
+			<!-- 醉酒事件 -->
+			<value name="morale-2" bin="true" code="true" off="75926" sz="3" setTo="$909090" verify="$88503F" />
+			
+		<!-- 不减水手 -->
+			<!-- 肉搏 -->
+			<value name="seaman-1" bin="true" code="true" off="1924C0" sz="5" setTo="$9090909090" verify="$66297C1140" />
+			
+			<!-- 炮击 -->
+			<value name="seaman-2" bin="true" code="true" off="192D54" sz="3" setTo="$909090" verify="$66890A" />
+			
+			<!-- 俘虏敌船后分水手 -->
+			<value name="seaman-3" bin="true" code="true" off="11076" sz="4" setTo="$90909090" verify="$66894D40" />			
+	</mod>
+	
+</static-data-mod>

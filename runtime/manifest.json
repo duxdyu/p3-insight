@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "source": "runtime/data/area-defs.xml",
+      "target": "data/area-defs.xml",
+      "sha256": "c7c91b47372be29925dab1b8ccd2679d838e330e7d80c1f0b8912f4bbe576b44"
+    },
+    {
+      "source": "runtime/data/conf.xml",
+      "target": "data/conf.xml",
+      "sha256": "7ed0d11aeca6b073fc81f4333fae4bddac515197d7ad21c4fb78433f73076ff0"
+    },
+    {
+      "source": "runtime/data/images/city-icon-blue.png",
+      "target": "data/images/city-icon-blue.png",
+      "sha256": "96aa563e963eabbf0607d3238a4bcc63a3f3a1f52693ccb303fabcac700a6ab7"
+    },
+    {
+      "source": "runtime/data/images/city-icon-red-blue.png",
+      "target": "data/images/city-icon-red-blue.png",
+      "sha256": "c84e8052092d5f975f2918600aeee54319ceb0af7c78ac6c4cd67cdc85d21e77"
+    },
+    {
+      "source": "runtime/data/images/city-icon-red.png",
+      "target": "data/images/city-icon-red.png",
+      "sha256": "aaead9e0d72ea45c8378a29f29b476c0ca2a23ab7d1819a6266f894a3af0b128"
+    },
+    {
+      "source": "maps/map.png",
+      "target": "data/images/map.png",
+      "sha256": "f2c819e50cd7166ed99d9622747db2ded2707b5acf88dedf6acf2e30db07b513"
+    },
+    {
+      "source": "maps/blue-button.png",
+      "target": "data/images/s-city-icon-blue.png",
+      "sha256": "60ba256bf886e3ad9ffc26cdd4348cfcf44fdf46db61ecd1e521f80ec89b5448"
+    },
+    {
+      "source": "maps/red-blue-button.png",
+      "target": "data/images/s-city-icon-red-blue.png",
+      "sha256": "00b811765d63c90e2f21a90dd9470b59f6da60fc600ebe6d082ac18b70be7acf"
+    },
+    {
+      "source": "maps/red-button.png",
+      "target": "data/images/s-city-icon-red.png",
+      "sha256": "88a90223f34bb68ba927b642d74c4eb5ca70beb8a7138fcbc1129e0fe37bc3fe"
+    },
+    {
+      "source": "imgs/mod-star-10x10.bmp",
+      "target": "data/images/star-10x10.bmp",
+      "sha256": "960daaac235ad1fe291c62aaefb1819bb02b9d9e0d6211726c5c1c21e9950c99"
+    },
+    {
+      "source": "runtime/data/price-defs.xml",
+      "target": "data/price-defs.xml",
+      "sha256": "a2cdbccca5f92aa11446f50ce617432ade7024673e3c16c8383dbd6841fe6118"
+    },
+    {
+      "source": "sound/SYKOFONE.wav",
+      "target": "data/sounds/SYKOFONE.wav",
+      "sha256": "d5dd5b2b465e81afbcc94bbe7fbe4fb72ba79959cce074a5ca4becfa8ac2db60"
+    },
+    {
+      "source": "runtime/data/static-data-mod.xml",
+      "target": "data/static-data-mod.xml",
+      "sha256": "956a501e5038db7d785bcf43624d7081ce386937a6a9fc8d8cfbd139f98053e6"
+    },
+    {
+      "source": "runtime/data/trade-routes.xml",
+      "target": "data/trade-routes.xml",
+      "sha256": "29516760e24d06b86dc787114adc43df586ad79ccc9a6f727e94fce920184d12"
+    },
+    {
+      "source": "runtime/InjLib.dll",
+      "target": "InjLib.dll",
+      "sha256": "9b1896cbe0c07038c73eb49bff8ef5250b7d15923eaae16e990e5e6a0f4f68ac"
+    },
+    {
+      "source": "examples/PI.ini",
+      "target": "PI.ini",
+      "sha256": "1942f80c90aefa0069cd9ead963d8077c0b2cc1d9a8227cdb928682e9af266e9"
+    }
+  ]
+}

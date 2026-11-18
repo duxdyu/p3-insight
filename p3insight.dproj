@@ -5,7 +5,7 @@
     <Base>True</Base><Config Condition="'$(Config)'==''">Release</Config>
     <Platform Condition="'$(Platform)'==''">Win32</Platform>
     <AppType>Library</AppType><FrameworkType>VCL</FrameworkType>
-    <DCC_ExeOutput>build/P3Insight</DCC_ExeOutput><DCC_DcuOutput>build/dcu/p3insight</DCC_DcuOutput>
+    <DCC_ExeOutput>build/compiled/p3-insight</DCC_ExeOutput><DCC_DcuOutput>build/dcu/p3insight</DCC_DcuOutput>
   </PropertyGroup>
   <Import Project="PI.Build.props" />
   <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>

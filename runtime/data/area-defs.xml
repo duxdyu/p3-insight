@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<area-defs>
+  <active id="default" />
+  <area-def id="default" name="默认">
+    <area id="a" name="A区" comment="" ship-name-prefix="A" />
+    <area id="b" name="B区" comment="" ship-name-prefix="B" />
+    <area id="c" name="C区" comment="" ship-name-prefix="C" />
+    <area id="d" name="D区" comment="" ship-name-prefix="D" />
+    <city internal-code="$00" area-id="" />
+    <city internal-code="$01" area-id="" />
+    <city internal-code="$02" area-id="" />
+    <city internal-code="$03" area-id="" />
+    <city internal-code="$04" area-id="" />
+    <city internal-code="$05" area-id="" />
+    <city internal-code="$06" area-id="" />
+    <city internal-code="$07" area-id="" />
+    <city internal-code="$08" area-id="" />
+    <city internal-code="$09" area-id="" />
+    <city internal-code="$0A" area-id="" />
+    <city internal-code="$0B" area-id="" />
+    <city internal-code="$0C" area-id="" />
+    <city internal-code="$0D" area-id="" />
+    <city internal-code="$0E" area-id="" />
+    <city internal-code="$0F" area-id="" />
+    <city internal-code="$10" area-id="" />
+    <city internal-code="$11" area-id="" />
+    <city internal-code="$12" area-id="" />
+    <city internal-code="$13" area-id="" />
+    <city internal-code="$14" area-id="" />
+    <city internal-code="$15" area-id="" />
+    <city internal-code="$16" area-id="" />
+    <city internal-code="$17" area-id="" />
+    <city internal-code="$18" area-id="" />
+    <city internal-code="$19" area-id="" />
+    <city internal-code="$1A" area-id="" />
+    <city internal-code="$1B" area-id="" />
+    <city internal-code="$1C" area-id="" />
+    <city internal-code="$1D" area-id="" />
+    <city internal-code="$1E" area-id="" />
+    <city internal-code="$1F" area-id="" />
+    <city internal-code="$20" area-id="" />
+    <city internal-code="$21" area-id="" />
+    <city internal-code="$22" area-id="" />
+    <city internal-code="$23" area-id="" />
+    <city internal-code="$24" area-id="" />
+    <city internal-code="$25" area-id="" />
+    <city internal-code="$26" area-id="" />
+    <city internal-code="$27" area-id="" />
+  </area-def>
+</area-defs>
